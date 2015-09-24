@@ -34,7 +34,7 @@ gulp.task('serve', function() {
 gulp.task('deploy', function(callback) {
   runSequence(
               'build-clean',
-              ['build-js', 'build-styles'],
+              ['build-lib', 'build-js', 'build-styles'],
               'build-phonegap',
               callback);
 });
@@ -44,7 +44,7 @@ gulp.task('deploy', function(callback) {
 //*** SUB TASKS
 //Delete computed files in prod
 gulp.task('build-clean', function(callback) {
-    return del([prodDir+'js/**/*.js', prodDir+'!js/index.js', prodDir+'css/*.css'], callback);
+    return del([prodDir+'js/**/*.js', prodDir+'!js/index.js', prodDir+'css/*.css', prodDir+'bower_components'], callback);
 });
 //Scss to css
 gulp.task('sass', ['css-clean'], function() {
@@ -79,4 +79,9 @@ gulp.task('build-phonegap', function(cb){
     console.log(stderr);
     cb(err);
   });
+});
+// Copie toutes les libraires dans le dossier de prod
+gulp.task('build-lib',function(cb){
+  return gulp.src(['bower_components'], {cwd: workDir})
+    .pipe(gulp.dest(prodDir));
 });

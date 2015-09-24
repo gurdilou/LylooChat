@@ -1,0 +1,21 @@
+{
+  "name": "LyloochatApp",
+  "version": "0.0.0",
+  "homepage": "https://github.com/gurdilou/LylooChat",
+  "authors": [
+    "gurdilou <thomas.luce7342@gmail.com>"
+  ],
+  "description": "Help software for Lyloo",
+  "main": "www/index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pure": "~0.6.0"
+  }
+}

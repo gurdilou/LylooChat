@@ -1,5 +1,5 @@
 
-var app = {
+var phonegapHandler = {
     // Application Constructor
     initialize: function() {
         console.log("callback a");
