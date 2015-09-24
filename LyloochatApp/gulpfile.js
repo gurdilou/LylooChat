@@ -47,17 +47,14 @@ gulp.task('build-clean', function(callback) {
     return del([prodDir+'js/**/*.js', prodDir+'!js/index.js', prodDir+'css/*.css', prodDir+'bower_components'], callback);
 });
 //Scss to css
-gulp.task('sass', ['css-clean'], function() {
+gulp.task('sass', function() {
   return gulp.src('./scss/**/*.scss', {cwd: workDir})
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest('css', {cwd: workDir}))
     .pipe(reload({ stream:true }));
 });
-// Delete working css files
-gulp.task('css-clean', function(cb){
-  return del([workDir+'css/**/*.css'], cb);
-});
+
 //JS uglify
 gulp.task('build-js', function () {
    return gulp.src(['js/**/*.js', '!js/index.js'], {cwd: workDir})
