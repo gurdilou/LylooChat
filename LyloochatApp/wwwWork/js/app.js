@@ -1,10 +1,18 @@
 var app = {
   // Application Constructor
   initialisation: function() {
-      console.log("initialisation");
+    console.log("initialisation");
 
-      document.body.innerHTML =
-        "<div class='pure-g'> <div class='cell pure-u-1 pure-u-md-1-3'> AAA </div> <div class='cell pure-u-1 pure-u-md-1-3'> ZZZ </div> <div class='cell pure-u-1 pure-u-md-1-3'> EEE </div> </div> ";
+
+    var source   = document.getElementById("grid-cards");
+
+
+    for(i = 0; i < 16; i++){
+      var context = {title: "Card number "+i};
+      source.innerHTML += Lyloochat.templates.widget_card_text(context);
+    }
+
+
   },
 
 };

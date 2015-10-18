@@ -15,21 +15,28 @@ var del = require('del');
 var exec = require('child_process').exec;
 var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
+var handlebars = require('gulp-handlebars');
+var wrap = require('gulp-wrap');
+var declare = require('gulp-declare');
+var cache = require('gulp-cached');
 
 
 //*** MAIN TASKS
 // I - Default task
 gulp.task('default', ['serve']);
+
 // II - Local html server during desktop developement
-gulp.task('serve', function() {
+gulp.task('serve', ['sass'], function() {
   browserSync({
     server: {
       baseDir: workDir
     }
   });
-  gulp.watch(['*.html', 'js/**/*.js'], {cwd: workDir}, reload);
+  gulp.watch(['*.html', 'js/**/*.js', 'css/**/*.css'], {cwd: workDir}, reload);
   gulp.watch('scss/**/*.scss', {cwd: workDir}, ['sass']);
+  gulp.watch('templates/**/*.hbs', {cwd: workDir}, ['handlebars']);
 });
+
 // III - Deploy and start phonegap deploy
 gulp.task('deploy', function(callback) {
   runSequence(
@@ -51,8 +58,25 @@ gulp.task('sass', function() {
   return gulp.src('./scss/**/*.scss', {cwd: workDir})
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
-    .pipe(gulp.dest('css', {cwd: workDir}))
-    .pipe(reload({ stream:true }));
+    .pipe(gulp.dest('css', {cwd: workDir}));
+});
+//generate view templates for client
+gulp.task('handlebars', function() {
+  return gulp.src(workDir+'templates/**/*.hbs')
+    .pipe(cache('handlebars')) //cache files, doesn't recompile unchanged templates ;)
+    .pipe(handlebars({
+      handlebars: require('handlebars') // in order to user last version of handlebarsjs
+    }))
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'Lyloochat.templates',
+      noRedeclare: true, // Avoid duplicate declarations
+      // processName: function(filePath) {
+      //         return declare.processNameByPath(filePath.replace(workDir+'templates/', ''));
+      // },
+    }))
+    .pipe(concat('templates.js'))
+    .pipe(gulp.dest(workDir+'js/'));
 });
 
 //JS uglify
