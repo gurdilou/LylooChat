@@ -63,7 +63,8 @@ gulp.task('sass', function() {
 //generate view templates for client
 gulp.task('handlebars', function() {
   return gulp.src(workDir+'templates/**/*.hbs')
-    .pipe(cache('handlebars')) //cache files, doesn't recompile unchanged templates ;)
+    //ecrase le fichier template js
+    //.pipe(cache('handlebars')) //cache files, doesn't recompile unchanged templates ;)
     .pipe(handlebars({
       handlebars: require('handlebars') // in order to user last version of handlebarsjs
     }))

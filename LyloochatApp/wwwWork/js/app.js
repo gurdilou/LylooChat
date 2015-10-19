@@ -3,13 +3,21 @@ var app = {
   initialisation: function() {
     console.log("initialisation");
 
+    //Création des menus
+    var menuSource = document.getElementById("appmenus");
+    var menuContext = {name: "Lyloochat", icon: "app",
+        links: [
+          {longCode: "Afficher un texte", code:"Texte", icon: "keyboard"},
+          {longCode: "Jouer un son", code:"Son", icon: "play"},
+          {longCode: "Dessiner quelquechose", code:"Dessin", icon: "pen"},
+        ]};
+    menuSource.innerHTML = Lyloochat.templates.widget_menus(menuContext);
 
-    var source   = document.getElementById("grid-cards");
-
-
+    //Création grille
+    var gridSource   = document.getElementById("grid-cards");
     for(i = 0; i < 16; i++){
       var context = {title: "Card number "+i};
-      source.innerHTML += Lyloochat.templates.widget_card_text(context);
+      gridSource.innerHTML += Lyloochat.templates.widget_card_text(context);
     }
 
 

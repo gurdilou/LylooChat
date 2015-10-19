@@ -1,0 +1,20 @@
+
+
+
+<div class="app-menu horizontal pure-menu pure-menu-horizontal">
+    <a class="pure-menu-heading" href="#"><i class="ic icon-{{icon}}"></i>{{name}}</a>
+    <ul class="pure-menu-list">
+      {{#each links}}
+        <li class="pure-menu-item"><a href="#" class="pure-menu-link">{{code}}<i class="ic ic-lg icon-{{icon}}"></i></a></li>
+      {{/each}}
+    </ul>
+</div>
+
+<div class="app-menu vertical pure-menu">
+    <a class="pure-menu-heading" href="#"><i class="ic ic-xl icon-{{icon}}"></i>{{name}}</a>
+    <ul class="pure-menu-list">
+      {{#each links}}
+        <li class="pure-menu-item"><a href="#" class="pure-menu-link"><i class="ic ic-lg icon-{{icon}}"></i>{{longCode}}</a></li>
+      {{/each}}
+    </ul>
+</div>

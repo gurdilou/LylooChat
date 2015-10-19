@@ -1,0 +1,27 @@
+//Css for menu
+.app-menu.vertical {
+  display: none;
+}
+
+.app-menu.horizontal {
+  display: visible;
+
+  .pure-menu-list {
+    float: right;
+  }
+}
+
+@media (min-width: 64em) {
+  .app-menu.vertical {
+    display: inline-block;
+  }
+
+  .app-menu.horizontal {
+    display: none;
+  }
+}
+@media (max-width: 35.5em) {
+  .app-menu.horizontal .pure-menu-heading {
+    display: none;
+  }
+}
