@@ -1,0 +1,110 @@
+// default
+.app-menu {
+  background: $primary-color;
+  color: $primary-color-text;
+  display: flex;
+  height: 45px;
+  top: 0px;
+
+  .app-logo {
+    font-size: 2em;
+    line-height: 1.3em;
+    vertical-align: -18%;
+
+  }
+
+  .app-name-ctn {
+    display: flex;
+    flex: 1 1 auto;
+    padding-bottom: .2em;
+
+
+    .app-name {
+      font-family: $primary-font;
+      font-size: 2em;
+      padding-left: .2em;
+    }
+  }
+
+  .app-menu-ctn {
+    color: $primary-color-text;
+    display: flex;
+    height: 100%;
+    padding: .1em 1em;
+    text-decoration: none;
+    white-space: nowrap;
+
+    .menu-icon {
+      margin: auto;
+      margin-left: .2em;
+      margin-right: .2em;
+      order: 1;
+    }
+
+    .menu-code {
+      font-family: $secondary-font;
+      font-size: 1em;
+      margin: auto;
+      order: 0;
+    }
+  }
+
+  .app-menu-ctn:hover {
+    background: $primary-color-light;
+    color: $secondary-text-color;
+  }
+
+  .app-menu-ctn:focus {
+    background: $primary-color-light;
+    color: $secondary-text-color;
+  }
+}
+
+
+
+// small screen
+@media (max-width: 35.5em) {
+  .app-menu .app-name-ctn {
+
+    .app-name {
+      display: none;
+    }
+
+    .app-logo {
+      font-size: 2.333em;
+    }
+  }
+}
+// large screen
+@media (min-width: 64em) {
+  .app-menu {
+    flex-direction: column;
+    height: inherit;
+    padding-bottom: 1em;
+    padding-right: 1em;
+
+
+    .app-name-ctn {
+      flex: 0 0 auto;
+      margin-bottom: 0.4em;
+    }
+
+    .app-menu-ctn {
+      height: auto;
+      margin: 0;
+      padding: .2em;
+      padding-bottom: .4em;
+      padding-top: .4em;
+      width: 100%;
+
+      .menu-icon {
+        order: 1;
+      }
+
+      .menu-code {
+        align-self: flex-end;
+        order: 0;
+      }
+    }
+  }
+}

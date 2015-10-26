@@ -1,0 +1,32 @@
+.app-content {
+  width: 100%;
+  overflow: scroll;
+}
+
+// .main-grid > div {
+// box-sizing: border-box;
+// }
+
+.card-text {
+  padding: 1em;
+
+  .container {
+    background: $primary-color-text;
+    border: 3px $accent-color solid;
+    box-shadow: 3px 3px;
+    font-family: $secondary-font;
+    height: 100%;
+  }
+}
+
+
+@media (min-width: 64em) {
+  .main-grid {
+    height: 100%;
+    position: fixed;
+
+    .card-text {
+      height: 25%;
+    }
+  }
+}
