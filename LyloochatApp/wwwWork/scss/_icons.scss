@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src: url('fonts/icomoon.eot?qlmgxn');
-  src: url('fonts/icomoon.eot?qlmgxn#iefix') format('embedded-opentype'),
-		url('fonts/icomoon.ttf?qlmgxn') format('truetype'),
-		url('fonts/icomoon.woff?qlmgxn') format('woff'),
-		url('fonts/icomoon.svg?qlmgxn#icomoon') format('svg');
+  src: url('fonts/icomoon/icomoon.eot?qlmgxn');
+  src: url('fonts/icomoon/icomoon.eot?qlmgxn#iefix') format('embedded-opentype'),
+		url('fonts/icomoon/icomoon.ttf?qlmgxn') format('truetype'),
+		url('fonts/icomoon/icomoon.woff?qlmgxn') format('woff'),
+		url('fonts/icomoon/icomoon.svg?qlmgxn#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -21,20 +21,20 @@
   line-height: 1;
   speak: none;
   text-transform: none;
+  display: block;
 }
 
 //larger icons
 .ic-lg {
   font-size: 1.3333333333333333em;
   line-height: .75em;
-  vertical-align: -15%;
-
+  vertical-align: -18%;
 }
 //largerest icons
 .ic-xl {
   font-size: 1.666666666666666em;
-  line-height: .5em;
-  vertical-align: -30%;
+  // line-height: .5em;
+  // vertical-align: -30%;
 }
 
 .icon-play:before {

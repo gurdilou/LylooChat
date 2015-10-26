@@ -4,8 +4,8 @@ var app = {
     console.log("initialisation");
 
     //Création des menus
-    var menuSource = document.getElementById("appmenus");
-    var menuContext = {name: "Lyloochat", icon: "app",
+    var menuSource = document.getElementById("appmenu");
+    var menuContext = {name: "Lyloochat", icon: "play",
         links: [
           {longCode: "Afficher un texte", code:"Texte", icon: "keyboard"},
           {longCode: "Jouer un son", code:"Son", icon: "play"},
