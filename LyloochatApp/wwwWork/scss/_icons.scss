@@ -15,13 +15,13 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 
+  display: block;
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
   line-height: 1;
   speak: none;
   text-transform: none;
-  display: block;
 }
 
 //larger icons
@@ -32,9 +32,13 @@
 }
 //largerest icons
 .ic-xl {
-  font-size: 1.666666666666666em;
+  font-size: 1.666666666666666em; 
   // line-height: .5em;
   // vertical-align: -30%;
+}
+
+.icon-settings:before {
+  content: '\e2cb';
 }
 
 .icon-play:before {

@@ -1,6 +1,11 @@
+// scss-lint:disable SelectorDepth, PropertySortOrder
+
+
 .app-content {
-  width: 100%;
   overflow: scroll;
+  position: relative;
+  width: 100%;
+  margin-top: 45px;
 }
 
 // .main-grid > div {
@@ -20,10 +25,11 @@
 }
 
 
-@media (min-width: 64em) {
+@media (min-width: $screen-large) {
   .main-grid {
     height: 100%;
-    position: fixed;
+    margin-top: 0;
+    flex-grow: 1;
 
     .card-text {
       height: 25%;

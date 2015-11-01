@@ -10,6 +10,7 @@ var app = {
           {longCode: "Afficher un texte", code:"Texte", icon: "keyboard"},
           {longCode: "Jouer un son", code:"Son", icon: "play"},
           {longCode: "Dessiner quelquechose", code:"Dessin", icon: "pen"},
+          {longCode: "Changer les options", code:"Options", icon: "settings"},
         ]};
     menuSource.innerHTML = Lyloochat.templates.widget_menus(menuContext);
 
