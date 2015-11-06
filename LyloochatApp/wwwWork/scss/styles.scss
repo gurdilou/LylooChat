@@ -11,12 +11,15 @@ $secondary-text-color: #727272;
 $divider-color: #b6b6b6;
 $primary-color-content: #e3e3e3;
 
+
+
+
 $screen-small: 35.5em;
 $screen-medium: 48em;
 $screen-large: 64em;
 $screnn-xlarge: 80em;
 
-
+@import 'mixins';
 @import 'fonts';
 $primary-font: 'Lobster', Helvetica, sans-serif;
 $secondary-font: 'DroidSans', Tahoma, Verdana, Segoe, serif;
@@ -25,3 +28,4 @@ $secondary-font: 'DroidSans', Tahoma, Verdana, Segoe, serif;
 @import 'icons';
 @import 'menus';
 @import 'grid';
+@import 'ripple';

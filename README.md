@@ -9,3 +9,4 @@ Technologies validated and used :
   * PureCss - for the responsive grid - http://purecss.io/
   * Flexbox - for the global layout
   * handlebars - to do some templating on client side - http://handlebarsjs.com/
+  * jQuery - for manipulating dom

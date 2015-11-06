@@ -1,71 +1,76 @@
 // scss-lint:disable SelectorDepth, PropertySortOrder
 
 // default
-.layout .app-menu {
-  background: $primary-color;
-  color: $primary-color-text;
-  display: flex;
-  flex-direction: row;
-  height: 45px;
-  position: fixed;
-  flex-grow: 1;
-  width: 100%;
-  z-index: 101;
-
-  .app-logo {
-    font-size: 2em;
-    line-height: 1.3em;
-    vertical-align: -18%;
-    margin: auto;
-    margin-left: 3px;
-    margin-right: 3px;
-  }
-
-  .app-name-ctn {
-    display: flex;
-    flex: 1 1 auto;
-    flex-wrap: nowrap;
-    padding-bottom: .2em;
-
-    .app-name {
-      font-family: $primary-font;
-      font-size: 2em;
-      padding-left: .2em;
-    }
-  }
-
-  .app-menu-ctn {
+.layout {
+  .app-menu {
+    background: $primary-color;
     color: $primary-color-text;
     display: flex;
-    height: 100%;
-    padding: .1em .4em;
-    text-decoration: none;
-    white-space: nowrap;
+    flex-direction: row;
+    height: 45px;
+    position: fixed;
+    flex-grow: 1;
+    width: 100%;
+    z-index: 101;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, .4);
 
-    .menu-icon {
+    .app-logo {
+      font-size: 2em;
+      line-height: 1.3em;
+      vertical-align: -18%;
       margin: auto;
-      margin-left: .2em;
-      margin-right: .2em;
-      order: 1;
+      margin-left: 3px;
+      margin-right: 3px;
     }
 
-    .menu-code {
-      font-family: $secondary-font;
-      font-size: 1em;
-      margin: auto;
-      order: 0;
-      display: none;
+
+    .app-name-ctn {
+      display: flex;
+      flex: 1 1 auto;
+      flex-wrap: nowrap;
+      padding-bottom: .2em;
+
+
+      .app-name {
+        font-family: $primary-font;
+        font-size: 2em;
+        padding-left: .2em;
+      }
     }
-  }
 
-  .app-menu-ctn:hover {
-    background: $primary-color-light;
-    color: $secondary-text-color;
-  }
+    .app-menu-ctn {
+      color: $primary-color-text;
+      display: flex;
+      height: 100%;
+      padding: .1em .4em;
+      text-decoration: none;
+      white-space: nowrap;
 
-  .app-menu-ctn:focus {
-    background: $primary-color-light;
-    color: $secondary-text-color;
+      .menu-icon {
+        margin: auto;
+        margin-left: .2em;
+        margin-right: .2em;
+        order: 1;
+      }
+
+      .menu-code {
+        font-family: $secondary-font;
+        font-size: 1em;
+        margin: auto;
+        order: 0;
+        display: none;
+      }
+    }
+
+    .app-menu-ctn:hover {
+      background: $primary-color-light;
+      color: $secondary-text-color;
+    }
+
+    .app-menu-ctn:focus {
+      background: $primary-color-light;
+      color: $secondary-text-color;
+    }
   }
 }
 
@@ -75,11 +80,12 @@
 @media (min-width: $screen-small) {
   .layout .app-menu {
     .app-name-ctn .app-logo {
-        font-size: 1.666666666666666em;
+      font-size: 1.666666666666666em;
     }
-    .app-menu-ctn{
+
+    .app-menu-ctn {
       padding: .1em 1em;
-      
+
       .menu-code {
         display: inherit;
       }

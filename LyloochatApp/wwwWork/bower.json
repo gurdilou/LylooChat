@@ -19,6 +19,7 @@
     "pure": "~0.6.0"
   },
   "devDependencies": {
-    "handlebars": "~4.0.3"
+    "handlebars": "~4.0.3",
+    "jquery": "~2.1.4"
   }
 }
