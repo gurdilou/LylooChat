@@ -1,4 +1,5 @@
 .sass-cache/
+*.log
 
 # Mac
 .DS_Store

@@ -1,4 +1,4 @@
-// scss-lint:disable SelectorDepth, PropertySortOrder
+// scss-lint:disable SelectorDepth, PropertySortOrder, NestingDepth
 
 // default
 .layout {
@@ -118,12 +118,15 @@
       width: 100%;
 
       .menu-icon {
-        order: 1;
+        order: 0;
+        padding-left: 12px;
+        padding-right: 16px;
       }
 
       .menu-code {
-        align-self: flex-end;
-        order: 0;
+        align-self: flex-start;
+        flex-grow: 1;
+        order: 1;
       }
     }
   }

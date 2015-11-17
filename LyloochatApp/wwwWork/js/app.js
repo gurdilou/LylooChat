@@ -1,27 +1,32 @@
-var app = {
-  // Application Constructor
-  initialisation: function() {
-    console.log("initialisation");
+function App(deviceHandler){
+  // ========================================== VARIABLES =================================
+  this.loaded = false;
+  this.views = {};
+  this.model = {};
+  this.deviceHandler = deviceHandler;
 
-    //Création des menus
-    var menuSource = document.getElementById("appmenu");
-    var menuContext = {name: "Lyloochat", icon: "play",
-        links: [
-          {longCode: "Afficher un texte", code:"Texte", icon: "keyboard"},
-          {longCode: "Jouer un son", code:"Son", icon: "play"},
-          {longCode: "Dessiner quelquechose", code:"Dessin", icon: "pen"},
-          {longCode: "Changer les options", code:"Options", icon: "settings"},
-        ]};
-    menuSource.innerHTML = Lyloochat.templates.widget_menus(menuContext);
 
-    //Création grille
-    var gridSource   = document.getElementById("grid-cards");
-    for(i = 0; i < 16; i++){
-      var context = {title: "Card number "+i};
-      gridSource.innerHTML += Lyloochat.templates.widget_card_text(context);
+  // ========================================== PRIVATE ===================================
+  // _loadCards charge les cartes depuis l'appareil
+  function _loadCards(){
+    this.model.listCards = new ListCards();
+    for (i = 0; i < 16; i++) {
+      var card = deviceHandler.loadCard(i);
+      this.model.listCards.addCard(card);
     }
+  }
 
+  // ========================================== PRIVILEGED ================================
+  //initialisation : Charge l'application
+  this.initialisation = function() {
+    console.log("initialisation");
+    //Chargement du modèle
+    _loadCards.call(this);
 
-  },
+    //Création des vues
+    this.views.menu = new AppMenu(this);
+    this.views.grid = new AppGrid(this);
+    this.loaded=true;
+  };
 
-};
+}
