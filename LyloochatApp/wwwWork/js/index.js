@@ -15,7 +15,7 @@ function PhonegapHandler(){
   };
   //loadCard : Charge une carte depuis la mémoire de l'appareil
   this.loadCard = function(index){
-    var cardLoaded = new Card(index, "Card number "+index);
+    var cardLoaded = new Card_Text(index, "Card number "+index, "Card number "+index);
     return cardLoaded;
   };
 

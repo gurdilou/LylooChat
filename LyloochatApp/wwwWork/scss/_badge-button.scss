@@ -1,0 +1,42 @@
+// scss-lint:disable SelectorDepth, PropertySortOrder, NestingDepth
+
+.badge-button {
+
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 1;
+  flex-wrap: wrap;
+
+  padding: .6em;
+
+
+
+  .icon {
+    @include paper-shadow(50%);
+    background: $accent-color;
+    padding: 12px;
+    color: $primary-color-text;
+    font-weight: bold;
+
+    flex-shrink: 1;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+  .code {
+    color: $accent-color;
+    flex-shrink: 0;
+    font-family: $secondary-font;
+    padding-left: 12px;
+    font-size: 1.1em;
+    margin: auto;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}

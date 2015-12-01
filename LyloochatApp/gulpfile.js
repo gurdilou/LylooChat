@@ -32,7 +32,7 @@ gulp.task('serve', ['sass'], function() {
       baseDir: workDir
     }
   });
-  gulp.watch(['*.html', 'js/**/*.js', 'css/**/*.css'], {cwd: workDir}, reload);
+  gulp.watch(['*.html', 'js/**/*.js'], {cwd: workDir}, reload);
   gulp.watch('scss/**/*.scss', {cwd: workDir}, ['sass']);
   gulp.watch('templates/**/*.hbs', {cwd: workDir}, ['handlebars']);
 });
@@ -58,7 +58,8 @@ gulp.task('sass', function() {
   return gulp.src('./scss/**/*.scss', {cwd: workDir})
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
-    .pipe(gulp.dest('css', {cwd: workDir}));
+    .pipe(gulp.dest('css', {cwd: workDir}))
+    .pipe(browserSync.stream());
 });
 //generate view templates for client
 gulp.task('handlebars', function() {

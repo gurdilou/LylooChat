@@ -10,33 +10,37 @@ function CardConfigurator(){
 
   // _exitConfig : Quitte l'écran
   function _exitConfig() {
-    console.log("exit");
     this.busy = false;
     this.elementSelect = undefined;
-    this._displayMaskPanel(false);
+    hideMaskPanel();
   }
 
   // _displayMenusVertical : Affiche le menu vertical
   function _displayMenusVertical() {
     //TODO : dev _displayMenusVertical
     var maskPanel = $(".mask");
+    maskPanel.html("<div class='cardConfigurator-button-ctn'></div>");
+    var buttonsPanel = maskPanel.find(".cardConfigurator-button-ctn");
 
     var buttContext = {
-      id: "butt-edit",
+      class: "butt-edit",
       title: "Editer l'item",
       icon: "edit",
       code: "Editer"
     };
-    maskPanel.html(Lyloochat.templates.widget_rounded_button(buttContext));
-    var buttEdit = $("#butt-edit").on("click", this._butt_editItem);
+    buttonsPanel.html(Lyloochat.templates.widget_badge_button(buttContext));
+    var buttEdit = $(".badge-button.butt-edit");
+    buttEdit.on("click", _on_editItem);
 
     buttContext = {
-      id: "butt-delete",
+      class: "butt-delete",
       title: "Supprimer l'item",
       icon: "delete",
       code: "Supprimer"
     };
-    maskPanel.append(Lyloochat.templates.widget_rounded_button(buttContext));
+    buttonsPanel.append(Lyloochat.templates.widget_badge_button(buttContext));
+    var buttDelete = $(".badge-button.butt-delete");
+    buttDelete.on("click", _on_deleteItem);
   }
   // _displayMenuRound : Affiche le menu en rond autour de la carte
   function _displayMenuRound(element, event) {
@@ -49,11 +53,15 @@ function CardConfigurator(){
   // _on_deleteItem : Lorsqu'on supprime un item
   function _on_deleteItem(event){
     // TODO : dev _on_deleteItem
+    console.log("_on_deleteItem");
+    event.stopPropagation();
   }
 
   // _on_editItem : Lorsqu'on édite un item
   function _on_editItem(event){
     // TODO : dev _on_editItem
+    console.log("_on_editItem");
+    event.stopPropagation();
   }
   // ========================================== PRIVILEGED ================================
   this.onClick = function(element, event) {
@@ -61,14 +69,14 @@ function CardConfigurator(){
       this.busy = true;
       this.elementSelect = element;
 
-      showMaskPanel.call(this, this._exitConfig);
+      showMaskPanel.call(this, _exitConfig);
       var screenWidth = $(window).width();
       // console.log("screen width : "+screenWidth+"px");
-      if (screenWidth <= 1024) {
+      // if (screenWidth <= 1024) {
         _displayMenusVertical.call(this);
-      }else{
-        _displayMenuRound.call(this, element, event);
-      }
+      // }else{
+      //   _displayMenuRound.call(this, element, event);
+      // }
     }
   };
 }

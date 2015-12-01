@@ -14,7 +14,7 @@ function AppGrid(app) {
 
       var context = {
         cardNumber: card.id,
-        title: "Card number " + card.code
+        title: card.code
       };
       gridSource.innerHTML += Lyloochat.templates.widget_card_text(context);
     }

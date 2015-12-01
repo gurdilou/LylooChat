@@ -1,7 +1,7 @@
 // scss-lint:disable SelectorDepth, PropertySortOrder, NestingDepth
 .mask {
   display: none;
-  background: transparentize($primary-text-color, .4);
+  background: transparentize($primary-color-content, .11);  
   height: 100vh;
   margin: 0;
   min-height: 100%;
@@ -11,8 +11,9 @@
   left: 0;
   width: 100%;
   z-index: 110; //max
+  flex-direction: column;
 
   &.visible{
-    display: block;
+    display: flex;
   }
 }

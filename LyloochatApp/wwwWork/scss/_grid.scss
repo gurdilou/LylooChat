@@ -18,7 +18,7 @@
   height: 100px;
 
   .container {
-    @include paper-shadow();
+    @include paper-shadow(20px);
     background: $primary-color-text;
     height: 100%;
     display: flex;
