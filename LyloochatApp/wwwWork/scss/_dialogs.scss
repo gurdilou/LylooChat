@@ -1,0 +1,79 @@
+// scss-lint:disable SelectorDepth, PropertySortOrder, NestingDepth
+// les différents dialogues de l'appli
+//Base pour tous les dialogues
+.dialog-ctn {
+  @include paper-shadow(0);
+  width: 100%;
+  padding-top: 2em;
+  padding-bottom:.6em;
+  margin: auto;
+  background: $primary-color;
+  display: flex;
+  flex-direction: column;
+
+  .dialog-header {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    color: $primary-color-text;
+    font-size: 3em;
+    font-family: $primary-font;
+
+    .dialog-header-img {
+      margin-right: .2em;
+    }
+  }
+
+
+  .dialog-msg {
+    align-self: center;
+    font-size: 1.6em;
+    font-family: $secondary-font;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    color: $primary-color-text;
+  }
+
+  .dialog-footer {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row-reverse;
+
+    .dialog-btn {
+      align-self: flex-end;
+      margin-right: 1em;
+      font-size: 1.3em;
+      margin-top: 2em;
+
+      .code {
+        color: $primary-color-text;
+        font-family: $secondary-font;
+      }
+    }
+  }
+}
+//Ecrans medium
+@media (min-width: $screen-medium) {
+  .dialog-ctn {
+    .dialog-footer {
+      .dialog-btn {
+        margin-right: 6em;
+      }
+    }
+  }
+}
+//Ecrans larges
+@media (min-width: $screen-large) {
+  .dialog-ctn {
+    .dialog-footer {
+      .dialog-btn {
+        margin-right: 10%;
+      }
+    }
+  }
+}
+//**** Dialogue d'erreur
+.dialog-ctn.error-ctn {
+  background: $error-color;
+
+}

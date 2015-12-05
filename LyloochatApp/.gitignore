@@ -1,6 +1,9 @@
 .sass-cache/
 *.log
 
+#WEB STORM
+.idea
+
 # Mac
 .DS_Store
 

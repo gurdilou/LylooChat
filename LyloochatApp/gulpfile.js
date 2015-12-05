@@ -63,19 +63,18 @@ gulp.task('sass', function() {
 });
 //generate view templates for client
 gulp.task('handlebars', function() {
+
   return gulp.src(workDir+'templates/**/*.hbs')
     //ecrase le fichier template js
     //.pipe(cache('handlebars')) //cache files, doesn't recompile unchanged templates ;)
     .pipe(handlebars({
-      handlebars: require('handlebars') // in order to user last version of handlebarsjs
+      handlebars: require('handlebars'),
+      knownHelpers: ['if_eq'],
     }))
     .pipe(wrap('Handlebars.template(<%= contents %>)'))
     .pipe(declare({
       namespace: 'Lyloochat.templates',
       noRedeclare: true, // Avoid duplicate declarations
-      // processName: function(filePath) {
-      //         return declare.processNameByPath(filePath.replace(workDir+'templates/', ''));
-      // },
     }))
     .pipe(concat('templates.js'))
     .pipe(gulp.dest(workDir+'js/'));

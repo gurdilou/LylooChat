@@ -1,8 +1,13 @@
-function Card(id, code){
+//Classe mère des cartes widgets
+//Classe virtuelle
+function Widget_Card(card){
   // ========================================== VARIABLES =================================
-  this.id = id;
-  this.code = code;
+  this.card = card;
   // ========================================== CONSTRUCTOR ===============================
   // ========================================== PRIVATE ===================================
   // ========================================== PRIVILEGED ================================
+  // Rend la carte dans un élément HTML
+  this.render = function(container){
+    showErrorPanel("Shouldn't be there you naughty boy !");
+  };
 }

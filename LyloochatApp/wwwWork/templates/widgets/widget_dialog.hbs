@@ -1,0 +1,18 @@
+<div class="dialog-ctn {{type}}-ctn">
+    <div class="dialog-header {{type}}-header"><i class="dialog-header-img ic ic-lg icon-{{header.icon}}"></i>{{header.message}}</div>
+    {{#each messages}}
+        <div class="dialog-msg {{../type}}-msg">{{this}}</div>
+    {{/each}}
+    <div class="dialog-footer">
+        {{#each footer.buttons}}
+            {{#if_eq this "ok"}}
+                {{>widget_text_button class="dialog-btn ok-btn" code="OK" withLine=true}}
+            {{/if_eq}}
+
+            {{#if_eq this "cancel"}}
+                {{>widget_text_button class="dialog-btn cancel-btn" code="Annuler"}}
+            {{/if_eq}}
+
+        {{/each}}
+    </div>
+</div>

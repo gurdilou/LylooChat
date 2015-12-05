@@ -5,6 +5,8 @@ function App(deviceHandler){
   this.model = {};
   this.deviceHandler = deviceHandler;
 
+  Handlebars.registerPartial('widget_badge_button', Lyloochat.templates.widget_badge_button);
+  Handlebars.registerPartial('widget_text_button', Lyloochat.templates.widget_text_button);
 
   // ========================================== PRIVATE ===================================
   // _loadCards charge les cartes depuis l'appareil
@@ -27,6 +29,12 @@ function App(deviceHandler){
     this.views.menu = new AppMenu(this);
     this.views.grid = new AppGrid(this);
     this.loaded=true;
+
+    window.onerror = function(msg, url, line, col, error) {
+      showErrorPanel(msg);
+    };
+
+
   };
 
 }

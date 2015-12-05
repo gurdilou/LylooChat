@@ -1,0 +1,35 @@
+// scss-lint:disable SelectorDepth, PropertySortOrder, NestingDepth
+
+.text-button {
+
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  flex-wrap: wrap;
+  padding: .6em;
+  overflow: hidden;
+
+
+
+  .code {
+    align-self: center;
+    color: $primary-color-text;
+    flex-shrink: 0;
+    font-family: $secondary-font;
+    font-size: 1.1em;
+    margin: auto;
+    font-weight: bold;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+  .withLine {
+    border: none;
+    height: 0.16em;
+    background: $primary-color-text;
+    margin: 0;
+    width: 100%;
+  }
+}
