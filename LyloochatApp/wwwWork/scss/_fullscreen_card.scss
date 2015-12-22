@@ -1,0 +1,65 @@
+.card-fullscreen {
+  position: absolute;
+  height: 100%;
+  height: 100vh;
+  margin: 0;
+  min-height: 100%;
+  padding: 0;
+  left:0;
+  top:0;
+  background: $primary-color-content;
+  display: flex;
+  width:100%;
+  z-index:102;
+  padding-left: 2em;
+  padding-right: 2em;
+
+  .container {
+    height: 100%;
+    height: 100vh;
+    margin: 0;
+    min-height: 100%;
+    padding: 0;
+    position: relative;
+    display: flex;
+    width:100%;
+    font-family: $secondary-font;
+
+  }
+
+  .container-floating {
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    bottom: 30px;
+    right: 30px;
+
+
+    .floating-button {
+      width: 55px;
+      height: 55px;
+
+      background: $primary-color-light;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      cursor: pointer;
+      @include paper-shadow(50%);
+
+      .icon {
+        color: $primary-color-text;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        line-height: 55px;
+        font-size: 38px;
+        font-weight: 300;
+      }
+    }
+  }
+}

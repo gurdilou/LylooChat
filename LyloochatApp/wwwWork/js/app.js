@@ -7,6 +7,7 @@ function App(deviceHandler){
 
   Handlebars.registerPartial('widget_badge_button', Lyloochat.templates.widget_badge_button);
   Handlebars.registerPartial('widget_text_button', Lyloochat.templates.widget_text_button);
+  Handlebars.registerPartial('widget_floating_button', Lyloochat.templates.widget_floating_button);
 
   // ========================================== PRIVATE ===================================
   // _loadCards charge les cartes depuis l'appareil

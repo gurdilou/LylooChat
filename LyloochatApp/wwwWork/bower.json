@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "handlebars": "~4.0.3",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "jquery.boxfit": "~1.2.4"
   }
 }

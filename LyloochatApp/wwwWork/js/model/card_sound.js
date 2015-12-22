@@ -1,4 +1,4 @@
-function Card_Song(id, code, filepath){
+function Card_Sound(id, code, filepath){
   // ========================================== VARIABLES =================================
   this.filepath = filepath;
   // ========================================== CONSTRUCTOR ===============================

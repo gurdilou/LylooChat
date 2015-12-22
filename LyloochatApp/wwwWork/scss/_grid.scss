@@ -7,32 +7,28 @@
   width: 100%;
   margin-top: 45px;
   overflow-x: hidden;
-}
 
-// .main-grid > div {
-// box-sizing: border-box;
-// }
+  .card-text {
+    padding: .7em;
+    height: 100px;
 
-.card-text {
-  padding: .7em;
-  height: 100px;
+    .container {
+      @include paper-shadow(20px);
+      background: $primary-color-text;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      position: relative;
 
-  .container {
-    @include paper-shadow(20px);
-    background: $primary-color-text;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    position: relative;
-
-    .card-title {
-      padding-left: 16px;
-      margin: auto;
-      font-family: $secondary-font;
-      font-size: 1.1em;
-      font-weight: bold;
-      color: $primary-text-color;
+      .card-title {
+        padding-left: 16px;
+        margin: auto;
+        font-family: $secondary-font;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: $primary-text-color;
+      }
     }
   }
 }
