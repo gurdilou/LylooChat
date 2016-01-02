@@ -12,7 +12,7 @@ function AppGrid(app) {
         for(i = 0; i < app.model.listCards.length(); i++){
             var card = app.model.listCards.getCard(i);
 
-            var card_widget = undefined;
+            var card_widget;
             if(card instanceof  Card_Text){
                 card_widget = new Widget_Card_Text(card);
             }

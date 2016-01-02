@@ -41,8 +41,19 @@ gulp.task('serve', ['sass'], function() {
 gulp.task('deploy', function(callback) {
   runSequence(
               'build-clean',
-              ['build-lib', 'build-js', 'build-styles'],
+              'handlebars',
+              ['build-lib', 'build-js', 'build-styles', 'build-templates'],
               'build-phonegap',
+              'run-phonegap',
+              callback);
+});
+
+// IV - Deploy and start phonegap serve
+gulp.task('phone-serve', function(callback) {
+  runSequence(
+              'build-clean',
+              ['build-lib', 'build-js', 'build-styles', 'build-templates'],
+              'serve-phonegap',
               callback);
 });
 
@@ -51,7 +62,7 @@ gulp.task('deploy', function(callback) {
 //*** SUB TASKS
 //Delete computed files in prod
 gulp.task('build-clean', function(callback) {
-    return del([prodDir+'js/**/*.js', prodDir+'!js/index.js', prodDir+'css/*.css', prodDir+'bower_components'], callback);
+    return del([prodDir+'js/**/*.js', '!'+prodDir+'js/index.js', prodDir+'css/*.css', prodDir+'bower_components/**/*'], callback);
 });
 //Scss to css
 gulp.task('sass', function() {
@@ -82,28 +93,51 @@ gulp.task('handlebars', function() {
 
 //JS uglify
 gulp.task('build-js', function () {
-   return gulp.src(['js/**/*.js', '!js/index.js'], {cwd: workDir})
+   return gulp.src(['js/**/*.js', '!js/index.js', '!js/templates.js'], {cwd: workDir})
       .pipe(jshint())
       .pipe(jshint.reporter('default'))
       .pipe(concat('app.js'))
       .pipe(uglify())
       .pipe(gulp.dest(prodDir+'/js/'));
 });
+//Copie les templates
+gulp.task('build-templates', function () {
+   return gulp.src(['js/templates.js'], {cwd: workDir})
+      .pipe(gulp.dest(prodDir+'/js/'));
+});
+// Copie toutes les libraires dans le dossier de prod
+gulp.task('build-lib',function(cb){
+  return gulp.src(['bower_components/**/*'], {cwd: workDir})
+    .pipe(gulp.dest(prodDir+'/css/bower_components/'));
+});
+
 //Compute CSS and deploy
 gulp.task('build-styles', ['sass'], function(){
-  return gulp.src(['css/**/*.css'], {cwd: workDir})
+  return gulp.src(['css/**/*.css', 'css/**/*.woff', 'css/**/*.woff2', 'css/**/*.ttf'], {cwd: workDir})
     .pipe(gulp.dest(prodDir+'/css'));
 });
 // Lance le déploiement du android
 gulp.task('build-phonegap', function(cb){
-  exec('phonegap run android --device', function (err, stdout, stderr) {
+  exec('phonegap build android', function (err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     cb(err);
   });
 });
-// Copie toutes les libraires dans le dossier de prod
-gulp.task('build-lib',function(cb){
-  return gulp.src(['bower_components'], {cwd: workDir})
-    .pipe(gulp.dest(prodDir));
+// Lance le déploiement du android
+gulp.task('run-phonegap', function(cb){
+    exec('phonegap run android', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
+});
+
+// Lance le déploiement du android
+gulp.task('serve-phonegap', function(cb){
+  exec('phonegap serve --port 4000', function (err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    cb(err);
+  });
 });

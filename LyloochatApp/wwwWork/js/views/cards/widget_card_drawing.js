@@ -17,6 +17,6 @@ function Widget_Card_Drawing(card){
     //Lors d'un clic simple sur la carte
     this.onCardThumbnailClick = function(){
         showErrorPanel("Click Widget_Card_Drawing");
-    }
+    };
     // ========================================== PRIVILEGED ================================
 }

@@ -32,7 +32,7 @@ function Screen_Card_Text(widget_card){
         innerButton.on('click', function(e){
             $(card_expanded_elem).remove();
         });
-    }
+    };
     // ========================================== PRIVILEGED ================================
 
 }

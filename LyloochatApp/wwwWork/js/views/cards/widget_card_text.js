@@ -22,7 +22,7 @@ function Widget_Card_Text(card){
     this.onCardThumbnailClick = function(){
         this.displayed_screen_card = new Screen_Card_Text(this);
         this.displayed_screen_card.display();
-    }
+    };
 
     // ========================================== PRIVILEGED ================================
 

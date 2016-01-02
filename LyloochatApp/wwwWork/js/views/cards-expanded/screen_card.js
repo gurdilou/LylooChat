@@ -9,7 +9,7 @@ function Screen_Card(widget_card){
     //Lors d'un clic simple sur la carte
     this.display = function(){
         showErrorPanel("Shouldn't be there you naughty boy !");
-    }
+    };
     // ========================================== PRIVILEGED ================================
 
 }

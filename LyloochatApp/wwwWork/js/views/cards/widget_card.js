@@ -18,7 +18,7 @@ function Widget_Card(card){
                 self.onCardThumbnailClick();
             }, (300));
         });
-    };
+    }
 
     // ========================================== ABSTRACT ===================================
     // Retourne le contenu texte de la miniature
@@ -29,7 +29,7 @@ function Widget_Card(card){
     //Lors d'un clic simple sur la carte
     this.onCardThumbnailClick = function(){
         showErrorPanel("Shouldn't be there you naughty boy !");
-    }
+    };
 
     // ========================================== PRIVILEGED ================================
     // Rend la carte dans un élément HTML

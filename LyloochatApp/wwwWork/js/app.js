@@ -32,10 +32,9 @@ function App(deviceHandler){
     this.loaded=true;
 
     window.onerror = function(msg, url, line, col, error) {
+      console.error(msg);
       showErrorPanel(msg);
     };
-
-
   };
 
 }

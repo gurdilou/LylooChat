@@ -24,23 +24,63 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-tap-highlight" content="no" />
+
+        <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline'; media-src *">
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' http://luce.eu.com ">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' luce.eu.com">
+
+
+
+
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+
+        <!-- PURE.CSS -->
+        <link rel="stylesheet" href="./css/bower_components/pure/pure-min.css">
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/purecss-grids-responsive-old-ie-min.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="css/purecss-grids-responsive-min.css">
+        <!--<![endif]-->
+
+        <!-- DEBUG -->
+        <!-- <script src="http://192.168.0.13:1337/vorlon.js"></script> -->
+
+
+        <!-- APP STYLES -->
+        <link rel="stylesheet" type="text/css" href="css/styles.css" />
+        <title>Lyloo chat dummy app</title>
     </head>
     <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+      <div class="layout">
+        <nav id="appmenu" class="app-menu">
+          <!-- dynamically loaded-->
+        </nav>
+
+        <main id="grid-cards" class="app-content main-grid pure-g">
+          <!-- dynamically loaded-->
+        </main>
+
+        <div class="mask">
+
         </div>
+      </div>
+
+      <!-- LIBS -->
+      <script type="text/javascript" src="./css/bower_components/jquery/dist/jquery.min.js"></script>
+      <script type="text/javascript" src="./css/bower_components/jquery-mobile/jquery.mobile.custom.min.js"></script>
+      <script type="text/javascript" src="./css/bower_components/handlebars/handlebars.runtime.min.js"></script>
+      <script type="text/javascript" src="./css/bower_components/jquery.boxfit/dist/jquery.boxfit.min.js"></script>
+
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/templates.js"></script>
         <script type="text/javascript">
-            app.initialize();
+            var phonegapHandler = new PhonegapHandler();
+            phonegapHandler.initialize();
         </script>
     </body>
 </html>
