@@ -14,6 +14,7 @@ npm-debug.log
 /node_modules2
 
 # iOS
+platforms/ios/
 platforms/ios/build/
 platforms/ios/www/
 platforms/ios/cordova/console.log
