@@ -20,3 +20,8 @@ css/bower_components/jquery.boxfit/*
 !css/bower_components/jquery.boxfit/dist/
 css/bower_components/jquery.boxfit/dist/*
 !css/bower_components/jquery.boxfit/dist/jquery.boxfit.min.js
+
+
+!css/bower_components/pure/
+css/bower_components/pure/*
+!css/bower_components/pure/pure-min.css
