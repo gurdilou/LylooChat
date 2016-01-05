@@ -1,7 +1,8 @@
 //Classe mère des cartes widgets
 //Classe virtuelle
-function Widget_Card(card){
+function Widget_Card(appGrid, card){
     // ========================================== VARIABLES =================================
+    this.appGrid = appGrid;
     this.card = card;
     this.elem_card = undefined;
     this.fullscreen_card = undefined;
@@ -14,9 +15,14 @@ function Widget_Card(card){
 
         var anchor = $(this.elem_card).find('.container');
         anchor.on('tap', function(){
+          if(!appGrid.busy) {
+            appGrid.busy = true;
             setTimeout(function() {
                 self.onCardThumbnailClick();
-            }, (300));
+                appGrid.busy = false;
+            }, (200));
+          }
+          
         });
     }
 

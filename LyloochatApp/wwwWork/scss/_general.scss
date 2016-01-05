@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+a {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
 // scss-lint:disable DuplicateProperty
 html {
   height: 100%;

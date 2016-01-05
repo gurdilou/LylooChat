@@ -38,13 +38,21 @@ gulp.task('serve', ['sass'], function() {
 });
 
 // III - Deploy and start phonegap deploy
-gulp.task('deploy', function(callback) {
+gulp.task('full-deploy', function(callback) {
   runSequence(
               'build-clean',
               'handlebars',
               ['build-lib', 'build-js', 'build-styles', 'build-templates'],
               'build-phonegap',
-              'run-phonegap',
+              'run',
+              callback);
+});
+// III - Deploy and start phonegap deploy
+gulp.task('quick-deploy', function(callback) {
+  runSequence(
+              'build-clean',
+              ['build-lib', 'build-js', 'build-styles', 'build-templates'],
+              'run',
               callback);
 });
 
@@ -125,7 +133,7 @@ gulp.task('build-phonegap', function(cb){
   });
 });
 // Lance le déploiement du android
-gulp.task('run-phonegap', function(cb){
+gulp.task('run', function(cb){
     exec('phonegap run android', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);

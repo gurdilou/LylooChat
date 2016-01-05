@@ -1,7 +1,7 @@
 //Une carte avec du dessin
-function Widget_Card_Drawing(card){
+function Widget_Card_Drawing(appGrid, card){
     // ========================================== VARIABLES =================================
-    Widget_Card.apply(this, [card]);
+    Widget_Card.apply(this, [appGrid, card]);
     // ========================================== CONSTRUCTOR ===============================
     // ========================================== PRIVATE ===================================
     // ========================================== OVERRIDE===================================

@@ -1,6 +1,7 @@
 function App(deviceHandler){
   // ========================================== VARIABLES =================================
   this.loaded = false;
+
   this.views = {};
   this.model = {};
   this.deviceHandler = deviceHandler;
@@ -23,6 +24,9 @@ function App(deviceHandler){
   //initialisation : Charge l'application
   this.initialisation = function() {
     console.log("initialisation");
+
+    $.event.special.tap.emitTapOnTaphold = false;
+
     //Chargement du modèle
     _loadCards.call(this);
 

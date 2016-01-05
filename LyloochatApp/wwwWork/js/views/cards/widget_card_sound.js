@@ -1,7 +1,7 @@
 //Une carte avec du son
-function Widget_Card_Sound(card){
+function Widget_Card_Sound(appGrid, card){
     // ========================================== VARIABLES =================================
-    Widget_Card.apply(this, [card]);
+    Widget_Card.apply(this, [appGrid, card]);
     // ========================================== CONSTRUCTOR ===============================
     // ========================================== PRIVATE ===================================
     // ========================================== OVERRIDE===================================
@@ -19,5 +19,4 @@ function Widget_Card_Sound(card){
         showErrorPanel("Click Widget_Card_Sound");
     };
     // ========================================== PRIVILEGED ================================
-
 }

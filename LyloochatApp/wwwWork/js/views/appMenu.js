@@ -3,7 +3,14 @@ function AppMenu(app) {
 
   // ========================================== CONSTRUCTOR ===============================
   this.app = app;
+
+  this.menu_text = undefined;
+  this.menu_sound = undefined;
+  this.menu_drawing = undefined;
+  this.menu_options = undefined;
+
   _fill();
+  _addEvents();
   // ========================================== PRIVATE ===================================
   // fill : Remplit le menu
   function _fill() {
@@ -32,5 +39,13 @@ function AppMenu(app) {
     };
     menuSource.innerHTML = Lyloochat.templates.widget_menus(menuContext);
   }
+
+  //_addEvents : Ajoute l'écouteur pour faire popper les différents menus
+  function _addEvents() {
+    $(".app-menu-type-keyboard").on('tap', function(event){
+
+    });
+  }
+
   // ========================================== PRIVILEGED ================================
 }

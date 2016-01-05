@@ -1,9 +1,9 @@
 //Une carte avec du texte
-function Widget_Card_Text(card){
+function Widget_Card_Text(appGrid, card){
     // ========================================== VARIABLES =================================
 
     // ========================================== CONSTRUCTOR ===============================
-    Widget_Card.apply(this, [card]);
+    Widget_Card.apply(this, [appGrid, card]);
 
 
     // ========================================== PRIVATE ===================================
