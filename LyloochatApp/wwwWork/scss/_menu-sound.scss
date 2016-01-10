@@ -1,0 +1,133 @@
+// scss-lint:disable SelectorDepth, PropertySortOrder, NestingDepth
+
+.app-menu-expanded.app-menu-sound {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: $primary-color-content;
+  letter-spacing: initial;
+  font-family: $secondary-font;
+  color: $accent-color;
+
+  .search-bar {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    margin: 20px auto;
+    border: 1px solid $accent-color;
+    border-radius: 16px;
+    padding: 3px;
+    background: $secondary-color-content;
+
+    .icon-search {
+      margin-top: 4px;
+      margin-left: 6px;
+    }
+
+    .search-input {
+      padding-left: 6px;
+      margin-right: 12px;
+      height: 22px;
+      width: 100%;
+      margin-top: 2px;
+      border: none;
+      background: $secondary-color-content;
+    }
+
+
+  }
+
+  .sound {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 1em;
+    padding: 4px; 
+    padding-right: 12px;
+
+    &.selected {
+      background: $primary-color-light;
+    }
+
+    &:hover{
+      cursor: pointer;
+      background: $primary-color-light;
+    }
+
+    .sound-icon {
+      color: darken($primary-color-light, 15);
+      font-size: 1.8em;
+      align-self: center;
+    }
+    
+    .name {
+      flex-grow : 1;
+      margin-left: 6px;
+      align-self: center;
+      user-select: none;
+    }
+
+    .duration {
+      color: lighten($accent-color, 20);
+      align-self: center;
+      font-size: .8em;
+      user-select: none;
+    }
+  }
+
+  $shadow-color-1: rgba(0, 0, 0, .1); 
+  .list{
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    min-height: 72px;
+    width: 90%;
+    background: $secondary-color-content;
+    border-radius: 4px;
+    box-shadow:  0 1px 10px 0 $shadow-color-1, 0 2px 4px -1px $shadow-color-1; 
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  .recents-list {
+    max-height: 200px;
+  }
+  .results-list {
+    max-height: 100%;
+  }
+
+  .title {
+    font-family: $primary-font;
+    font-size: 1.4em; 
+    color: darken($accent-color, 10);
+    margin: 0 auto;
+    padding-left: 22px;
+    width: 90%;
+  }
+
+  .results-title {
+    margin-top: 32px;
+  }
+
+  hr {
+    width: 90%;
+    color: $primary-color-light;
+    margin-top: 0;
+    border: 1px solid;
+  }
+}
+
+
+
+
+@media (min-width: $screen-small) {
+  .app-menu-expanded.app-menu-sound {
+    .search-bar {
+      width: 66%;
+    }
+  }
+}

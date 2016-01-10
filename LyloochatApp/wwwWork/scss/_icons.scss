@@ -40,23 +40,18 @@
 .icon-settings:before {
   content: '\e2cb';
 }
-
-.icon-play:before {
-  content: '\e01d';
+.icon-sound:before {
+  content: '\e3a1';
 }
-
 .icon-keyboard:before {
   content: '\e10e';
 }
-
 .icon-pen:before {
   content: '\e800';
 }
-
 .icon-edit:before {
   content: '\e0ee';
 }
-
 .icon-delete:before {
   content: '\e287';
 }
@@ -68,4 +63,13 @@
 }
 .icon-cancel:before {
   content: '\e5cd';
+}
+.icon-search:before {
+  content: '\e8b6';
+}
+.icon-pause:before {
+  content: '\e034';
+}
+.icon-play:before {
+  content: '\e037';
 }

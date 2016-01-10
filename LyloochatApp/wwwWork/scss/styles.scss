@@ -9,6 +9,7 @@ $secondary-text-color: #727272;
 
 $divider-color: #b6b6b6;
 $primary-color-content: #e3e3e3;
+$secondary-color-content: lighten($primary-color-content, 9);
 
 $error-color: #d22b25;
 $success-color: #41820b;
@@ -38,6 +39,7 @@ $secondary-font: 'DroidSans', Tahoma, Verdana, Segoe, serif;
 @import 'text-button';
 @import 'dialogs';
 @import 'fullscreen_card';
+@import 'menu-sound';
 
 //views
 @import 'cardConfigurator';

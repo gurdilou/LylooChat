@@ -1,6 +1,6 @@
 .sass-cache/
 *.log
-
+.sublime-gulp.cache
 
 #WEB STORM
 .idea

@@ -71,6 +71,11 @@
       background: $primary-color-light;
       color: $secondary-text-color;
     }
+
+    .app-menu-ctn.selected {
+      background: $primary-color-light;
+      color: $secondary-text-color;
+    }
   }
 }
 

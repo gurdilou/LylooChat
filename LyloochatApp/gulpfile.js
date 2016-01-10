@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var workDir='wwwWork/';
-var prodDir='www/';
+var prodDir='www/'; 
 
 
 //variables
@@ -26,7 +26,7 @@ var cache = require('gulp-cached');
 gulp.task('default', ['serve']);
 
 // II - Local html server during desktop developement
-gulp.task('serve', ['sass'], function() {
+gulp.task('serve', function() {
   browserSync({
     server: {
       baseDir: workDir
@@ -46,7 +46,7 @@ gulp.task('full-deploy', function(callback) {
               'build-phonegap',
               'run',
               callback);
-});
+}); 
 // III - Deploy and start phonegap deploy
 gulp.task('quick-deploy', function(callback) {
   runSequence(
@@ -74,8 +74,8 @@ gulp.task('build-clean', function(callback) {
 });
 //Scss to css
 gulp.task('sass', function() {
-  return gulp.src('./scss/**/*.scss', {cwd: workDir})
-    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+  gulp.src('./scss/**/*.scss', {cwd: workDir})
+    .pipe(sass.sync({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest('css', {cwd: workDir}))
     .pipe(browserSync.stream());

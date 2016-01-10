@@ -30,5 +30,11 @@ function PhonegapHandler(){
         var cardLoaded = new Card_Text(index, "Card number "+index, "Card number "+index);
         return cardLoaded;
     };
+  //initSoundLibrary : Initialise le plugin pour lire les sons
+  this.initSoundLibrary = function() {
+    var lib =  new SoundLibrary(this);
+    //TODO 
+    return lib;
+  }
 
 }

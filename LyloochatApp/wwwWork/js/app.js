@@ -19,6 +19,13 @@ function App(deviceHandler){
       this.model.listCards.addCard(card);
     }
   }
+  // _loadOptions charge les options de l'appli
+  function _loadOptions(){
+    this.model.options = {};
+
+    //TODO load options
+    this.model.options.prefix = "";
+  }
 
   // ========================================== PRIVILEGED ================================
   //initialisation : Charge l'application
@@ -29,6 +36,7 @@ function App(deviceHandler){
 
     //Chargement du modèle
     _loadCards.call(this);
+    _loadOptions.call(this);
 
     //Création des vues
     this.views.menu = new AppMenu(this);
@@ -41,4 +49,8 @@ function App(deviceHandler){
     };
   };
 
+  //initSoundLibrary : Initialise la bibliothèque de musique
+  this.initSoundLibrary = function() {
+    return deviceHandler.initSoundLibrary();
+  };
 }

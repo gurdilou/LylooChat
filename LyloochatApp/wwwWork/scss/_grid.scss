@@ -2,11 +2,15 @@
 
 
 .app-content {
-  overflow: scroll;
   position: relative;
   width: 100%;
   margin-top: 45px;
   overflow-x: hidden;
+  overflow-y: scroll;
+
+  &.freeze-scroll {
+    overflow-y: hidden;
+  }
 
   .card-text {
     padding: .7em;

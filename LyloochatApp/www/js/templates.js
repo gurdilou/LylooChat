@@ -1,5 +1,17 @@
 this["Lyloochat"] = this["Lyloochat"] || {};
 this["Lyloochat"]["templates"] = this["Lyloochat"]["templates"] || {};
+this["Lyloochat"]["templates"]["menu_sound"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"app-menu-expanded app-menu-sound\">\r\n  <div class=\"search-bar\">\r\n	<i class=\"icon ic ic-lg icon-search\"></i>\r\n    <input class=\"search-input\" contenteditable=\"true\" type=\"search\" autocomplete=\"on\" placeholder=\"Chercher un son...\"></input>\r\n  </div>\r\n  <div class=\"title recents-title\">Récents</div> \r\n  <hr/>\r\n  <div class=\"list recents-list\">\r\n\r\n  </div>\r\n  <div class=\"title results-title\">Résultats</div>\r\n  <hr/>\r\n  <div class=\"list results-list\"> \r\n\r\n  </div>\r\n</div>\r\n";
+},"useData":true});
+this["Lyloochat"]["templates"]["screen_display_card_text"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper;
+
+  return "<div class=\"card-fullscreen card-text\">\r\n    <div class=\"container\">\r\n        "
+    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"label","hash":{},"data":data}) : helper)))
+    + "\r\n\r\n\r\n    </div>\r\n    <div class=\"container-floating\">\r\n"
+    + ((stack1 = container.invokePartial(partials.widget_floating_button,depth0,{"name":"widget_floating_button","hash":{"icon":"check","title":"OK","class":"card-fs-butt-ok"},"data":data,"indent":"        ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "    </div>\r\n</div>";
+},"usePartial":true,"useData":true});
 this["Lyloochat"]["templates"]["widget_badge_button"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper;
 
@@ -94,7 +106,9 @@ this["Lyloochat"]["templates"]["widget_menus"] = Handlebars.template({"1":functi
 
   return "<a href=\"#\" title=\""
     + alias4(((helper = (helper = helpers.longCode || (depth0 != null ? depth0.longCode : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"longCode","hash":{},"data":data}) : helper)))
-    + "\" class=\"app-menu-ctn\">\r\n  <i class=\"menu-icon ic ic-lg icon-"
+    + "\" class=\"app-menu-ctn app-menu-type-"
+    + alias4(((helper = (helper = helpers.icon || (depth0 != null ? depth0.icon : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"icon","hash":{},"data":data}) : helper)))
+    + "\">\r\n  <i class=\"menu-icon ic ic-lg icon-"
     + alias4(((helper = (helper = helpers.icon || (depth0 != null ? depth0.icon : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"icon","hash":{},"data":data}) : helper)))
     + "\"></i>\r\n  <span class=\"menu-code\">"
     + alias4(((helper = (helper = helpers.code || (depth0 != null ? depth0.code : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"code","hash":{},"data":data}) : helper)))
@@ -108,6 +122,15 @@ this["Lyloochat"]["templates"]["widget_menus"] = Handlebars.template({"1":functi
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + "</span>\r\n</div>\r\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.links : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+},"useData":true});
+this["Lyloochat"]["templates"]["widget_sound"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<a class=\"sound\">\r\n	<i class=\"sound-icon ic ic-lg icon-play\"></i>\r\n	<div class=\"name\">"
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + "</div>\r\n	<div class=\"duration\">"
+    + alias4(((helper = (helper = helpers.durationStr || (depth0 != null ? depth0.durationStr : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"durationStr","hash":{},"data":data}) : helper)))
+    + "</div> \r\n</a>";
 },"useData":true});
 this["Lyloochat"]["templates"]["widget_text_button"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper;
@@ -129,12 +152,3 @@ this["Lyloochat"]["templates"]["widget_text_button"] = Handlebars.template({"1":
     + ((stack1 = (helpers.if_eq || (depth0 && depth0.if_eq) || alias2).call(alias1,(depth0 != null ? depth0.withLine : depth0),true,{"name":"if_eq","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "</a>\r\n";
 },"useData":true});
-this["Lyloochat"]["templates"]["screen_display_card_text"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper;
-
-  return "<div class=\"card-fullscreen card-text\">\r\n    <div class=\"container\">\r\n        "
-    + container.escapeExpression(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"label","hash":{},"data":data}) : helper)))
-    + "\r\n\r\n\r\n    </div>\r\n    <div class=\"container-floating\">\r\n"
-    + ((stack1 = container.invokePartial(partials.widget_floating_button,depth0,{"name":"widget_floating_button","hash":{"icon":"check","title":"OK","class":"card-fs-butt-ok"},"data":data,"indent":"        ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "    </div>\r\n</div>";
-},"usePartial":true,"useData":true});

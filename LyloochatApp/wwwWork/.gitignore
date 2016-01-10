@@ -1,2 +1,4 @@
-bower_components/
+bower_components/*
+!bower_components/jquery-mobile
+
 js/templates.js
