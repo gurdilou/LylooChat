@@ -70,7 +70,7 @@ gulp.task('phone-serve', function(callback) {
 //*** SUB TASKS
 //Delete computed files in prod
 gulp.task('build-clean', function(callback) {
-    return del([prodDir+'js/**/*.js', '!'+prodDir+'js/index.js', prodDir+'css/*.css', prodDir+'bower_components/**/*'], callback);
+    return del([prodDir+'js/**/*.js', '!'+prodDir+'js/index.js', '!'+prodDir+'js/sound_helper.js', prodDir+'css/*.css', prodDir+'bower_components/**/*'], callback);
 });
 //Scss to css
 gulp.task('sass', function() {
@@ -101,7 +101,7 @@ gulp.task('handlebars', function() {
 
 //JS uglify
 gulp.task('build-js', function () {
-   return gulp.src(['js/**/*.js', '!js/index.js', '!js/templates.js'], {cwd: workDir})
+   return gulp.src(['js/**/*.js', '!js/index.js', '!js/templates.js', '!js/lib/*'], {cwd: workDir})
       .pipe(jshint())
       .pipe(jshint.reporter('default'))
       .pipe(concat('app.js'))
@@ -115,6 +115,9 @@ gulp.task('build-templates', function () {
 });
 // Copie toutes les libraires dans le dossier de prod
 gulp.task('build-lib',function(cb){
+  gulp.src(['js/lib/*'], {cwd: workDir})
+    .pipe(gulp.dest(prodDir+'/js/lib/'))
+
   return gulp.src(['bower_components/**/*'], {cwd: workDir})
     .pipe(gulp.dest(prodDir+'/css/bower_components/'));
 });

@@ -1,7 +1,7 @@
 this["Lyloochat"] = this["Lyloochat"] || {};
 this["Lyloochat"]["templates"] = this["Lyloochat"]["templates"] || {};
 this["Lyloochat"]["templates"]["menu_sound"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"app-menu-expanded app-menu-sound\">\r\n  <div class=\"search-bar\">\r\n	<i class=\"icon ic ic-lg icon-search\"></i>\r\n    <input class=\"search-input\" contenteditable=\"true\" type=\"search\" autocomplete=\"on\" placeholder=\"Chercher un son...\"></input>\r\n  </div>\r\n  <div class=\"title recents-title\">Récents</div> \r\n  <hr/>\r\n  <div class=\"list recents-list\">\r\n\r\n  </div>\r\n  <div class=\"title results-title\">Résultats</div>\r\n  <hr/>\r\n  <div class=\"list results-list\"> \r\n\r\n  </div>\r\n</div>\r\n";
+    return "<div class=\"app-menu-expanded app-menu-sound\">\r\n  <div class=\"search-bar\">\r\n	<i class=\"icon ic ic-lg icon-search\"></i>\r\n    <input class=\"search-input\" contenteditable=\"true\" type=\"search\" autocomplete=\"on\" placeholder=\"Chercher un son...\"></input>\r\n  </div>\r\n  <div class=\"title recents-title\">Récents</div> \r\n  <hr class=\"rule recents-rule\"/>\r\n  <div class=\"list recents-list\">\r\n\r\n  </div>\r\n  <div class=\"title results-title hidden\">Résultats</div>\r\n  <hr class=\"rule results-rule hidden\"/>\r\n  <div class=\"list results-list hidden\"> \r\n\r\n  </div>\r\n</div>\r\n";
 },"useData":true});
 this["Lyloochat"]["templates"]["screen_display_card_text"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
@@ -45,7 +45,17 @@ this["Lyloochat"]["templates"]["widget_card_text"] = Handlebars.template({"compi
     + alias4(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper)))
     + "</div>\r\n  </a>\r\n</div>\r\n";
 },"useData":true});
-this["Lyloochat"]["templates"]["widget_dialog"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
+this["Lyloochat"]["templates"]["widget_dialog"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=container.escapeExpression, alias2=container.lambda;
+
+  return "    <div class=\"dialog-header "
+    + alias1(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"type","hash":{},"data":data}) : helper)))
+    + "-header\"><i class=\"dialog-header-img ic ic-lg icon-"
+    + alias1(alias2(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.icon : stack1), depth0))
+    + "\"></i>"
+    + alias1(alias2(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.message : stack1), depth0))
+    + "</div>\r\n";
+},"3":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 
   return "        <div class=\"dialog-msg "
@@ -53,37 +63,37 @@ this["Lyloochat"]["templates"]["widget_dialog"] = Handlebars.template({"1":funct
     + "-msg\">"
     + alias2(alias1(depth0, depth0))
     + "</div>\r\n";
-},"3":function(container,depth0,helpers,partials,data) {
+},"5":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "    <div class=\"dialog-footer\">\r\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},((stack1 = (depth0 != null ? depth0.footer : depth0)) != null ? stack1.buttons : stack1),{"name":"each","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    </div>\r\n";
+},"6":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing;
 
-  return ((stack1 = (helpers.if_eq || (depth0 && depth0.if_eq) || alias2).call(alias1,depth0,"ok",{"name":"if_eq","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+  return ((stack1 = (helpers.if_eq || (depth0 && depth0.if_eq) || alias2).call(alias1,depth0,"ok",{"name":"if_eq","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\r\n"
-    + ((stack1 = (helpers.if_eq || (depth0 && depth0.if_eq) || alias2).call(alias1,depth0,"cancel",{"name":"if_eq","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = (helpers.if_eq || (depth0 && depth0.if_eq) || alias2).call(alias1,depth0,"cancel",{"name":"if_eq","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\r\n";
-},"4":function(container,depth0,helpers,partials,data) {
+},"7":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = container.invokePartial(partials.widget_text_button,depth0,{"name":"widget_text_button","hash":{"code":"OK","class":"dialog-btn ok-btn"},"data":data,"indent":"                ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "");
-},"6":function(container,depth0,helpers,partials,data) {
+},"9":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return ((stack1 = container.invokePartial(partials.widget_text_button,depth0,{"name":"widget_text_button","hash":{"code":"Annuler","class":"dialog-btn cancel-btn"},"data":data,"indent":"                ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "");
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression, alias5=container.lambda;
+    var stack1, helper, alias1=depth0 != null ? depth0 : {};
 
   return "<div class=\"dialog-ctn "
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + "-ctn\">\r\n    <div class=\"dialog-header "
-    + alias4(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
-    + "-header\"><i class=\"dialog-header-img ic ic-lg icon-"
-    + alias4(alias5(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.icon : stack1), depth0))
-    + "\"></i>"
-    + alias4(alias5(((stack1 = (depth0 != null ? depth0.header : depth0)) != null ? stack1.message : stack1), depth0))
-    + "</div>\r\n"
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.messages : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    <div class=\"dialog-footer\">\r\n"
-    + ((stack1 = helpers.each.call(alias1,((stack1 = (depth0 != null ? depth0.footer : depth0)) != null ? stack1.buttons : stack1),{"name":"each","hash":{},"fn":container.program(3, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </div>\r\n</div>\r\n";
+    + container.escapeExpression(((helper = (helper = helpers.type || (depth0 != null ? depth0.type : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"type","hash":{},"data":data}) : helper)))
+    + "-ctn\">\r\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.header : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.messages : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.footer : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "</div>\r\n";
 },"usePartial":true,"useData":true,"useDepths":true});
 this["Lyloochat"]["templates"]["widget_floating_button"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper;

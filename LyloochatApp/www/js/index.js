@@ -8,7 +8,7 @@ function PhonegapHandler(){
 
     // ========================================== PRIVATE ===================================
     function _onDeviceReady() {
-        console.log("ready");
+        console.log("ready, plateforme : "+window.device.platform);
         this.app = new App(this)
 
         window.addEventListener('load', this.app.initialisation(), false);
@@ -25,16 +25,22 @@ function PhonegapHandler(){
             _onDeviceReady.call(self);
         }, false);
     };
-    //loadCard : Charge une carte depuis la mémoire de l'appareil
-    this.loadCard = function(index){
-        var cardLoaded = new Card_Text(index, "Card number "+index, "Card number "+index);
-        return cardLoaded;
-    };
-  //initSoundLibrary : Initialise le plugin pour lire les sons
-  this.initSoundLibrary = function() {
-    var lib =  new SoundLibrary(this);
-    //TODO 
-    return lib;
-  }
 
+    
+    // _loadCards charge les cartes depuis l'appareil
+    this.loadCards = function(listCards, cb){
+        // var helper = new CardLoaderHelper(cb);
+
+        for (i = 0; i < 16; i++) {
+          var cardLoaded = new Card_Text(i, "Card number "+i, "Card number "+i);
+          listCards.addCard(cardLoaded);
+        }
+        cb();
+    }
+
+    // loadSounds : Charge les sons depuis la mémoire de l appareil
+    this.loadSounds = function(lib, cb) {
+        var helper = new SoundHelper(lib, cb);
+        helper.loadSoundsFromDevice();
+    };
 }

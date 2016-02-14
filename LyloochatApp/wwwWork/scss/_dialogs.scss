@@ -74,5 +74,8 @@
 //**** Dialogue d'erreur
 .dialog-ctn.error-ctn {
   background: $error-color;
+}
+.dialog-ctn.loading-ctn {
+  background: $accent-color;
 
 }

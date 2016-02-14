@@ -5,20 +5,14 @@ function App(deviceHandler){
   this.views = {};
   this.model = {};
   this.deviceHandler = deviceHandler;
+  this.soundLibrary = undefined;
 
   Handlebars.registerPartial('widget_badge_button', Lyloochat.templates.widget_badge_button);
   Handlebars.registerPartial('widget_text_button', Lyloochat.templates.widget_text_button);
   Handlebars.registerPartial('widget_floating_button', Lyloochat.templates.widget_floating_button);
 
   // ========================================== PRIVATE ===================================
-  // _loadCards charge les cartes depuis l'appareil
-  function _loadCards(){
-    this.model.listCards = new ListCards();
-    for (i = 0; i < 16; i++) {
-      var card = deviceHandler.loadCard(i);
-      this.model.listCards.addCard(card);
-    }
-  }
+
   // _loadOptions charge les options de l'appli
   function _loadOptions(){
     this.model.options = {};
@@ -35,13 +29,19 @@ function App(deviceHandler){
     $.event.special.tap.emitTapOnTaphold = false;
 
     //Chargement du modèle
-    _loadCards.call(this);
-    _loadOptions.call(this);
+    var self = this;
+    showLoadingPanel("Chargement des cartes...");
+    this.model.listCards = new ListCards();
+    deviceHandler.loadCards(this.model.listCards, function(){
+      _loadOptions.call(self);
 
-    //Création des vues
-    this.views.menu = new AppMenu(this);
-    this.views.grid = new AppGrid(this);
-    this.loaded=true;
+      //Création des vues
+      self.views.menu = new AppMenu(self);
+      self.views.grid = new AppGrid(self);
+      self.loaded=true;
+      hideLoadingPanel();
+    });
+
 
     window.onerror = function(msg, url, line, col, error) {
       console.error(msg);
@@ -49,8 +49,19 @@ function App(deviceHandler){
     };
   };
 
-  //initSoundLibrary : Initialise la bibliothèque de musique
-  this.initSoundLibrary = function() {
-    return deviceHandler.initSoundLibrary();
+  // getSoundLibrary : Retourne ou charge la librairie de son
+  this.getSoundLibrary = function(cb){
+    if(soundLibrary !== undefined){
+      cb(soundLibrary);
+    }else{
+      var self = this;
+      var soundLibrary = new SoundLibrary(); 
+      showLoadingPanel("Chargement des sons...");
+      deviceHandler.loadSounds(soundLibrary, function() {
+        hideLoadingPanel();
+        self.soundLibrary = soundLibrary;
+        cb(self.soundLibrary);
+      });
+    }
   };
 }

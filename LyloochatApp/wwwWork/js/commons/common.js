@@ -1,31 +1,37 @@
 function showMaskPanel(onExit) {
-  $.inner_showMaskPanel(this, onExit);
+  $.inner_showMaskPanel(this, true, onExit);
 }
-
 function hideMaskPanel() {
   $.inner_hideMaskPanel(this);
 }
-
 function showErrorPanel(msg) {
   $.inner_showErrorPanel(this, msg, hideErrorPanel);
 }
 function hideErrorPanel() {
   $.inner_hideErrorPanel(this);
 }
+function showLoadingPanel(msg) {
+  $.inner_showLoadingPanel(this, msg, hideLoadingPanel);
+}
+function hideLoadingPanel() {
+  $.inner_hideLoadingPanel(this);
+}
 
 
 (function(window, $) {
 
   // showMaskPanel : Affiche un masque sur l'application
-  $.inner_showMaskPanel = function(caller, onExit) {
+  $.inner_showMaskPanel = function(caller, exitable, onExit) {
     var maskPanel = $(".mask");
     maskPanel.html("");
     maskPanel.addClass("visible");
 
 
-    maskPanel.on("click", function(e) {
-      onExit.call(caller);
-    });
+    if(exitable){
+      maskPanel.on("click", function(e) {
+        onExit.call(caller);
+      });
+    }
   };
   $.inner_hideMaskPanel = function(caller) {
     var maskPanel = $(".mask");
@@ -33,8 +39,9 @@ function hideErrorPanel() {
     maskPanel.removeClass("visible");
     maskPanel.off("click");
   };
+  
   $.inner_showErrorPanel = function(caller, msg) {
-    $.inner_showMaskPanel(this, hideErrorPanel);
+    $.inner_showMaskPanel(this, true, hideErrorPanel);
 
     var maskPanel = $(".mask");
     var context = {
@@ -55,4 +62,23 @@ function hideErrorPanel() {
   $.inner_hideErrorPanel = function(caller) {
     $.inner_hideMaskPanel(caller);
   };
+
+  // 
+  $.inner_showLoadingPanel = function(caller, msg) {
+    $.inner_showMaskPanel(this, false, hideLoadingPanel);
+
+    var maskPanel = $(".mask");
+    var context = {
+      type: "loading",
+      messages:[msg]
+    };
+    maskPanel.html(Lyloochat.templates.widget_dialog(context));
+  };
+
+
+  $.inner_hideLoadingPanel = function(caller) {
+    $.inner_hideMaskPanel(caller);
+  };
+
+
 })(window, jQuery);

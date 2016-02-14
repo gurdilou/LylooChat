@@ -9,6 +9,15 @@
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.phonegap.lyloochat"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.phonegap.lyloochat"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.phonegap.lyloochat"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "com.phonegap.lyloochat"
         }
     },
     "dependent_plugins": {}

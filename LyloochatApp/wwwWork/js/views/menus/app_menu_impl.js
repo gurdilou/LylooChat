@@ -2,6 +2,7 @@
 function AppMenu_Impl(appMenu){
     // ========================================== VARIABLES =================================
     this.appMenu = appMenu;
+    this.displayed = false;
 
 
     // ========================================== CONSTRUCTOR ===============================

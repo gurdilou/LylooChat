@@ -22,10 +22,12 @@
     border-radius: 16px;
     padding: 3px;
     background: $secondary-color-content;
+    height: 42px; 
 
     .icon-search {
-      margin-top: 4px;
+      margin-top: 4px; 
       margin-left: 6px;
+      align-self : center;
     }
 
     .search-input {
@@ -33,9 +35,10 @@
       margin-right: 12px;
       height: 22px;
       width: 100%;
-      margin-top: 2px;
       border: none;
       background: $secondary-color-content;
+      align-self: center;
+      position: relative;
     }
 
 
@@ -87,17 +90,17 @@
     margin-bottom: 0;
     min-height: 72px;
     width: 90%;
+    height: 100%;
     background: $secondary-color-content;
     border-radius: 4px;
     box-shadow:  0 1px 10px 0 $shadow-color-1, 0 2px 4px -1px $shadow-color-1; 
     overflow-x: hidden;
     overflow-y: scroll;
-  }
-  .recents-list {
-    max-height: 200px;
-  }
-  .results-list {
-    max-height: 100%;
+    margin-bottom: 16px;
+    
+    &.hidden {
+      display: none;
+    }
   }
 
   .title {
@@ -107,17 +110,21 @@
     margin: 0 auto;
     padding-left: 22px;
     width: 90%;
+
+    &.hidden {
+      display: none;
+    }
   }
 
-  .results-title {
-    margin-top: 32px;
-  }
-
-  hr {
+  .rule {
     width: 90%;
     color: $primary-color-light;
     margin-top: 0;
     border: 1px solid;
+    
+    &.hidden {
+      display: none;
+    }
   }
 }
 

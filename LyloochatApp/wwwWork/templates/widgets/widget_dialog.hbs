@@ -1,8 +1,11 @@
 <div class="dialog-ctn {{type}}-ctn">
+    {{#if header}}
     <div class="dialog-header {{type}}-header"><i class="dialog-header-img ic ic-lg icon-{{header.icon}}"></i>{{header.message}}</div>
+    {{/if}}
     {{#each messages}}
         <div class="dialog-msg {{../type}}-msg">{{this}}</div>
     {{/each}}
+    {{#if footer}}
     <div class="dialog-footer">
         {{#each footer.buttons}}
             {{#if_eq this "ok"}}
@@ -15,4 +18,5 @@
 
         {{/each}}
     </div>
+    {{/if}}
 </div>

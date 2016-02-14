@@ -1,15 +1,13 @@
-function SoundLibrary(deviceHandler){
+function SoundLibrary(){
   // ========================================== VARIABLES =================================
-  this.deviceHandler = deviceHandler;
-  this.recentsPlayed = new SoundList(this);
+  this.recents_played = new SoundList(this);
+  this.all_sounds = new SoundList(this);
+  this.ready = false;
 
-  _loadRecents();
   // ========================================== CONSTRUCTOR ===============================
 
   // ========================================== PRIVATE ===================================
-  function _loadRecents(){
-    //TODO
-  }
+
   // ========================================== PRIVILEGED ================================
   // searchSounds : Cherche une liste de sons commencant avec *prefix* et contenant *termSearched*
   this.searchSounds = function(prefix, termSearched) {
@@ -18,11 +16,16 @@ function SoundLibrary(deviceHandler){
   };
   //playSound : Démarre la lecture d'un son
   this.playSound = function(sound, cb_OnStop){
-    //TODO
-  }
+    this.ready = false;
+
+  };
   // stopSound : Arrête la lecture d'un son
   this.stopSound = function(sound, cb_OnStop){
     //TODO
     cb_OnStop();
-  }
+  };
+
+  this.onSoundsLoaded = function(){
+    this.ready = true;
+  };
 }
