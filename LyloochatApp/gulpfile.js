@@ -70,7 +70,7 @@ gulp.task('phone-serve', function(callback) {
 //*** SUB TASKS
 //Delete computed files in prod
 gulp.task('build-clean', function(callback) {
-    return del([prodDir+'js/**/*.js', '!'+prodDir+'js/index.js', '!'+prodDir+'js/sound_helper.js', prodDir+'css/*.css', prodDir+'bower_components/**/*'], callback);
+    return del([prodDir+'js/**/app.js', prodDir+'js/templates.js', prodDir+'css/*.css', prodDir+'bower_components/**/*'], callback);
 });
 //Scss to css
 gulp.task('sass', function() {

@@ -29,13 +29,8 @@ function PhonegapHandler(){
     
     // _loadCards charge les cartes depuis l'appareil
     this.loadCards = function(listCards, cb){
-        // var helper = new CardLoaderHelper(cb);
-
-        for (i = 0; i < 16; i++) {
-          var cardLoaded = new Card_Text(i, "Card number "+i, "Card number "+i);
-          listCards.addCard(cardLoaded);
-        }
-        cb();
+        var helper = new CardLoaderHelper(listCards, cb);
+        helper.loadCardsFromDevice();
     }
 
     // loadSounds : Charge les sons depuis la mémoire de l appareil

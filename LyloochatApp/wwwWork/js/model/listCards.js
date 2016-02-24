@@ -16,5 +16,9 @@ function ListCards(){
   this.getCard = function(index){
     return this.cards[index];
   };
+  // replaceCard : Remplace la carte à l'index donné
+  this.replaceCard = function(index, card) {
+    this.cards[index] = card;
+  };
 
 }
