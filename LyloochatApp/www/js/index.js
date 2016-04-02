@@ -9,7 +9,18 @@ function PhonegapHandler(){
     // ========================================== PRIVATE ===================================
     function _onDeviceReady() {
         console.log("ready, plateforme : "+window.device.platform);
-        this.app = new App(this)
+        this.app = new App(this);
+
+        if(window.device.platform === "Android"){
+            AndroidFullScreen.immersiveMode(function()
+                {
+                    console.info("It worked!");
+                },
+                function(error)
+                {
+                    console.error(error);
+                }); 
+        }
 
         window.addEventListener('load', this.app.initialisation(), false);
     }
@@ -38,4 +49,20 @@ function PhonegapHandler(){
         var helper = new SoundHelper(lib, cb);
         helper.loadSoundsFromDevice();
     };
+
+  //createSoundHandler : Créer un media object pour manipuler un son
+  this.createSoundHandler = function(sound, cb_onStop, cb_onCreated) {
+    var media = new Media(sound.filepath, function(){
+        console.log("media success");
+    }, 
+    function(err){
+        console.log("media err "+err);
+    },
+    function(status){
+        if( (status === Media.MEDIA_PAUSED) || (status === Media.MEDIA_STOPPED) ){
+            cb_onStop();
+        }
+    });
+    cb_onCreated(media);
+  }
 }

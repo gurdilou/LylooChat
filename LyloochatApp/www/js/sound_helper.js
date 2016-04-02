@@ -53,23 +53,22 @@ function SoundHelper(lib, cb){
             break;
         };
 
-       console.log(msg);
-
       console.log("Error // "+msg);
       showErrorPanel(msg);
   };
   //_loadSoundFromDirectory : Charge un son depuis l appareil
   function _loadSoundFromDirectory(dirLooked, entry, index, onAllSoundsLoaded){
-    //Lecture des tags
+    // Chargement du fichier
     var self = this;
     entry.file(function(file){         
-      // From local file
       var name = entry.name;
       try{
+        //Lecture de tous les tags
         jsmediatags.read(file, {
             onSuccess: function(tag) {
               var title = tag.tags.title;
               var author = tag.tags.author;
+              // Pour obtenir la durée du son, cf après
               var duration = _getSoundDuration.call(self, dirLooked+entry.fullPath, index, function(duration){
                 _onSoundLoaded.call(self, true, dirLooked+entry.fullPath, author, title, duration, onAllSoundsLoaded);
               });            
@@ -108,9 +107,10 @@ function SoundHelper(lib, cb){
     var vid = document.getElementById("dummyPlayer"+index);
 
     vid.addEventListener('loadedmetadata', function(){
-      var duration = dummy_player.duration;
-       
-      console.log("dummyPlayer"+index+" : "+vid.duration);
+      var duration = vid.duration;
+
+      // console.log("dummy_player.duration : "+vid.duration);
+
       $("#dummyPlayer"+index).remove();
 
       cb(duration);  
@@ -130,7 +130,6 @@ function SoundHelper(lib, cb){
     var self = this;
     var jsmediatags = window.jsmediatags;
     window.resolveLocalFileSystemURL (dirLooked, function(dirEntry) {
-      console.log('cwd : '+dirEntry.fullPath);
 
       dirEntry.getDirectory(dirMusicName, {create: true, exclusive: false}, function(dirMusic){
         var directoryReader = dirMusic.createReader();
@@ -140,6 +139,7 @@ function SoundHelper(lib, cb){
             for (i=0; i< entries.length; i++) {
               (function(i) {
                 var entry = entries[i];
+                console.log("entry name : "+entry.fullPath);
                 _loadSoundFromDirectory.call(self, dirLooked, entry, i, onAllSoundsLoaded);
               })(i);
             }

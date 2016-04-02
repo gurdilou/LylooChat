@@ -12,6 +12,8 @@ function AppMenu(app) {
   this.selected_menu = undefined;
   this.$selected_menu_elem = undefined;
 
+  this.old_scroll_position = 0;
+
   _fill.call(this);
   _addEvents.call(this);
   // ========================================== PRIVATE ===================================
@@ -124,12 +126,16 @@ function AppMenu(app) {
   function _freeGrid() {
     var $grid = $(".app-content");
     $grid.removeClass("freeze-scroll");
+    $grid.scrollTop(this.old_scroll_position);
   }
 
   //_freezeGrid : Bloque le scroll de la grille
   function _freezeGrid() {
     var $grid = $(".app-content");
+
+    this.old_scroll_position = $grid.scrollTop();
     $grid.addClass("freeze-scroll");
+    $grid.scrollTop(0);
   }
 
   // ========================================== PRIVILEGED ================================

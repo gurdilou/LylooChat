@@ -17,7 +17,6 @@ function CardConfigurator(){
 
   // _displayMenusVertical : Affiche le menu vertical
   function _displayMenusVertical() {
-    //TODO : dev _displayMenusVertical
     var maskPanel = $(".mask");
     maskPanel.html("<div class='cardConfigurator-button-ctn'></div>");
     var buttonsPanel = maskPanel.find(".cardConfigurator-button-ctn");
@@ -42,13 +41,6 @@ function CardConfigurator(){
     var buttDelete = $(".badge-button.butt-delete");
     buttDelete.on("click", _on_deleteItem);
   }
-  // _displayMenuRound : Affiche le menu en rond autour de la carte
-  function _displayMenuRound(element, event) {
-    //Calcul des positions des bulles
-    var x = event.pageX - element.offset().left - element.width() / 2;
-    var y = event.pageY - element.offset().top - element.height() / 2;
-    //TODO : dev _displayMenuRound
-  }
 
   // _on_deleteItem : Lorsqu'on supprime un item
   function _on_deleteItem(event){
@@ -70,13 +62,7 @@ function CardConfigurator(){
       this.elementSelect = element;
 
       showMaskPanel.call(this, _exitConfig);
-      var screenWidth = $(window).width();
-      // console.log("screen width : "+screenWidth+"px");
-      // if (screenWidth <= 1024) {
-        _displayMenusVertical.call(this);
-      // }else{
-      //   _displayMenuRound.call(this, element, event);
-      // }
+      _displayMenusVertical.call(this);
     }
   };
 }

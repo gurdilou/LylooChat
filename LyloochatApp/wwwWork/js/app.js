@@ -55,7 +55,7 @@ function App(deviceHandler){
       cb(soundLibrary);
     }else{
       var self = this;
-      var soundLibrary = new SoundLibrary(); 
+      var soundLibrary = new SoundLibrary(this); 
       showLoadingPanel("Chargement des sons...");
       deviceHandler.loadSounds(soundLibrary, function() {
         hideLoadingPanel();

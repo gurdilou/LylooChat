@@ -47,3 +47,6 @@ platforms/browser
 
 # res
 resources/signing
+
+# plugins
+plugins/*

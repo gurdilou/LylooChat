@@ -27,14 +27,6 @@ function Sound(name, author,  filepath, duration){
 
     return nbMinutes+":"+nbSeconds;
   };
-  //play : joue un son
-  this.play = function(cb_OnStop) {
-    this.library.playSound(this, cb_OnStop);
-  };
-  //stop : arrête la lecture d'un son
-  this.stop = function(cb_OnStop) {
-    this.library.stopSound(this, cb_OnStop);
-  };
 
 
 }

@@ -15,10 +15,6 @@ function AppMenu_Sound(appMenu){
   });
   this.playingWidgetSound = undefined; //le widget en cours de lecture
 
-  
-  
-
-
   // ========================================== CONSTRUCTOR ===============================
 
   // ========================================== PRIVATE ===================================
@@ -132,6 +128,7 @@ function AppMenu_Sound(appMenu){
       this.playingWidgetSound.stop();
     }
     this.playingWidgetSound = widget_sound;
+    this.playingWidgetSound.play();
   };
 
 

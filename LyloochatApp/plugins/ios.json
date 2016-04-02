@@ -18,6 +18,9 @@
         },
         "cordova-plugin-media": {
             "PACKAGE_NAME": "com.phonegap.lyloochat"
+        },
+        "cordova-plugin-fullscreen": {
+            "PACKAGE_NAME": "com.phonegap.lyloochat"
         }
     },
     "dependent_plugins": {}

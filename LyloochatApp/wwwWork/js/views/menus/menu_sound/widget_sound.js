@@ -24,6 +24,20 @@ function Widget_Sound(appMenuSound, $parentCtn, sound){
     }
 
     // ========================================== PRIVATE =================================== 
+    function _getMediaHandler(cb) {
+        var self = this;
+        if(this.soundHandler === undefined){
+            this.appMenuSound.appMenu.app.deviceHandler.createSoundHandler(this.sound, function(){
+                _onStop.call(self);
+            },
+            function(media){
+                self.soundHandler = media;
+                cb(self.soundHandler);
+            });   
+        }else{
+            cb(this.soundHandler);
+        }
+    }
     // ========================================== OVERRIDE===================================
     // ========================================== PRIVILEGED ================================
     // ========================================== OVERRIDE ==================================
@@ -45,7 +59,7 @@ function Widget_Sound(appMenuSound, $parentCtn, sound){
             if(self.playing){
                 self.stop();
             }else{
-                self.play();   
+                self.appMenuSound.onPlay(self);  
             }
             
         });
@@ -53,14 +67,14 @@ function Widget_Sound(appMenuSound, $parentCtn, sound){
 
     //play : joue un son et change l'affichage
     this.play = function(){
+        var self = this;
+        
         this.playing = true;
 
-        this.appMenuSound.onPlay(this);
-
-        var self = this;
-        this.sound.play(function(){
-            _onStop.call(self);
+        _getMediaHandler.call(self, function(mediaHandler){
+          mediaHandler.play();
         });
+
 
         this.$elem_sound.addClass("selected");
 
@@ -71,7 +85,9 @@ function Widget_Sound(appMenuSound, $parentCtn, sound){
     //stop : quand on veut arrêter la lecture d'une musique
     this.stop = function(){
         var self = this;
-        this.sound.stop(function(){
+        _getMediaHandler.call(self, function(mediaHandler){
+            mediaHandler.stop();
+            mediaHandler.release();
             _onStop.call(self);
         });
     };

@@ -25,6 +25,15 @@ function PhonegapHandler(){
 
     var fakeSound = new Sound("Pudding song", "Puddi",  "/media/storage/music/puddi.mp3", 186);
     recentsPlayed.add(fakeSound);
+    recentsPlayed.add(fakeSound);
+    recentsPlayed.add(fakeSound);
+    recentsPlayed.add(fakeSound);
+    recentsPlayed.add(fakeSound);
+    recentsPlayed.add(fakeSound);
+    recentsPlayed.add(fakeSound);
+    recentsPlayed.add(fakeSound);
+    recentsPlayed.add(fakeSound);
+    recentsPlayed.add(fakeSound);
 
     cb();
   }
@@ -58,6 +67,10 @@ function PhonegapHandler(){
     });
   }
 
-
+  //createSoundHandler : Créer un media object pour manipuler un son
+  this.createSoundHandler = function(sound, cb_onStop, cb_onCreated) {
+    //TODO web
+    cb_onCreated();
+  }
 
 }
