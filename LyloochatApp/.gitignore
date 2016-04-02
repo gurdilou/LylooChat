@@ -50,3 +50,4 @@ resources/signing
 
 # plugins
 plugins/*
+!plugins/*.json
