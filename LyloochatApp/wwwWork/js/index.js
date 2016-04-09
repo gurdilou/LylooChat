@@ -69,8 +69,14 @@ function PhonegapHandler(){
 
   //createSoundHandler : Créer un media object pour manipuler un son
   this.createSoundHandler = function(sound, cb_onStop, cb_onCreated) {
-    //TODO web
-    cb_onCreated();
+    var fake = new FakeMediaHandler();
+    cb_onCreated(fake);
   }
+  // saveRecentsSound : Sauvegarde les sons récemment joués
+  this.saveRecentsSound = function(soundList, cb) {
+    // TODO
+    cb();
+  }
+
 
 }

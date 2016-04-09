@@ -51,7 +51,7 @@ gulp.task('full-deploy', function(callback) {
 gulp.task('quick-deploy', function(callback) {
   runSequence(
               'build-clean',
-              ['build-lib', 'build-js', 'build-styles', 'build-templates'],
+              ['build-lib', 'build-js-clear', 'build-styles', 'build-templates'],
               'run',
               callback);
 });
@@ -108,6 +108,17 @@ gulp.task('build-js', function () {
       .pipe(uglify())
       .pipe(gulp.dest(prodDir+'/js/'));
 });
+//JS concat
+gulp.task('build-js-clear', function () {
+   return gulp.src(['js/**/*.js', '!js/index.js', '!js/templates.js', '!js/lib/*'], {cwd: workDir})
+      .pipe(jshint())
+      .pipe(jshint.reporter('default'))
+      .pipe(concat('app.js'))
+      .pipe(gulp.dest(prodDir+'/js/'));
+});
+
+
+
 //Copie les templates
 gulp.task('build-templates', function () {
    return gulp.src(['js/templates.js'], {cwd: workDir})

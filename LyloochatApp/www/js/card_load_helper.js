@@ -68,20 +68,21 @@ function CardLoaderHelper(listCards, cb){
 
         var reader = new FileReader();
         reader.onloadend = function(evt) {
-          if(evt.target.result.data !== undefined){
-            _loadCardFromData.call(self, evt.target.result.data, i);
+          if(evt.target.result !== undefined){
+            var cardJSON = JSON.parse(evt.target.result);
+            _loadCardFromData.call(self, cardJSON, i);
           }else{
             _initializeCard.call(self, i);
           }
         };
-        reader.readAsDataURL(file);
+        reader.readAsText(file);
 
       }, fail);
     }, fail);
   }
   // _loadCardFromData : Charge une carte en fonction du json 
   function _loadCardFromData(data, index) {
-    console.log("_loadCardFromData ...");
+    console.log("_loadCardFromData ... : "+JSON.stringify(cardJSON));
     // TODO
   }
 

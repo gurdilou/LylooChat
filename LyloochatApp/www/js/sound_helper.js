@@ -12,6 +12,7 @@ function SoundHelper(lib, cb){
   // ========================================== CONSTRUCTOR ===============================
 
   // ========================================== PRIVATE ===================================
+  //fail : gestion des erreurs fichiers IO
   function fail(error) {
       var msg = '';
       switch (error.code) { 
@@ -150,9 +151,8 @@ function SoundHelper(lib, cb){
 
   //_loadRecentSounds : Charge les sons récents et appelle le cb onRecentSoundsLoaded
   function _loadRecentSounds(onRecentSoundsLoaded){
-    // TODO 
-    
-    onRecentSoundsLoaded();
+    var helper = new RecentsSounds_IOHelper(this.lib.recents_played);
+    helper.load(onRecentSoundsLoaded);
   }
 
   // ========================================== PRIVILEGED ================================

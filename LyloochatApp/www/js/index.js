@@ -65,4 +65,10 @@ function PhonegapHandler(){
     });
     cb_onCreated(media);
   }
+  
+  // saveRecentsSound : Sauvegarde les sons récemment joués
+  this.saveRecentsSound = function(soundList, cb) {
+    var helper = new RecentsSounds_IOHelper(soundList);
+    helper.save(cb);
+  }
 }

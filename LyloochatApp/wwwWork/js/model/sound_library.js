@@ -1,9 +1,9 @@
-function SoundLibrary(deviceHandler){
+function SoundLibrary(app){
   // ========================================== VARIABLES =================================
   this.recents_played = new SoundList(this);
   this.all_sounds = new SoundList(this);
   this.ready = false;
-  this.deviceHandler = deviceHandler;
+  this.app = app;
 
   // ========================================== CONSTRUCTOR ===============================
 
@@ -40,7 +40,16 @@ function SoundLibrary(deviceHandler){
     return results;
   };
 
+  // Callback chargement des sons
   this.onSoundsLoaded = function(){
     this.ready = true;
+  };
+
+  // addRecent : Ajoute un son aux récents
+  this.addRecent = function(soundPlayed, cb) {
+    this.recents_played.insertAtBegin(soundPlayed);
+    this.recents_played.deleteDuplicates();
+    this.recents_played.keepFirst(10);
+    app.saveRecentsSound(this.recents_played, cb);
   };
 }

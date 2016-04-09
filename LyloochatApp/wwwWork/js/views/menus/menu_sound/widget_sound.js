@@ -1,5 +1,5 @@
 //Un widget représentant un os
-function Widget_Sound(appMenuSound, $parentCtn, sound){
+function Widget_Sound(appMenuSound, $parentCtn, sound, addToRecent){
     // ========================================== VARIABLES =================================
     this.$elem_parent = $parentCtn;
     this.$elem_sound = undefined;
@@ -7,6 +7,7 @@ function Widget_Sound(appMenuSound, $parentCtn, sound){
     this.sound = sound;
     this.appMenuSound = appMenuSound;
     this.playing = false;
+    this.addToRecent = addToRecent; // Si on doit l'ajouter aux sons récents
 
     
 
@@ -59,7 +60,7 @@ function Widget_Sound(appMenuSound, $parentCtn, sound){
             if(self.playing){
                 self.stop();
             }else{
-                self.appMenuSound.onPlay(self);  
+                self.appMenuSound.onPlay(self, self.addToRecent);  
             }
             
         });
@@ -72,15 +73,13 @@ function Widget_Sound(appMenuSound, $parentCtn, sound){
         this.playing = true;
 
         _getMediaHandler.call(self, function(mediaHandler){
-          mediaHandler.play();
+            mediaHandler.play();
+            self.$elem_sound.addClass("selected");
+
+            var $icon = self.$elem_sound.find(".sound-icon");
+            $icon.removeClass("icon-play");
+            $icon.addClass("icon-pause");
         });
-
-
-        this.$elem_sound.addClass("selected");
-
-        var $icon = this.$elem_sound.find(".sound-icon");
-        $icon.removeClass("icon-play");
-        $icon.addClass("icon-pause");
     };
     //stop : quand on veut arrêter la lecture d'une musique
     this.stop = function(){

@@ -19,13 +19,15 @@ function AppMenu_Sound(appMenu){
 
   // ========================================== PRIVATE ===================================
   //_addSound : Ajoute un son dans le menu
-  function _addSound($ctn, sound){
-    var widget_sound = new Widget_Sound(this, $ctn, sound);
+  function _addSound($ctn, sound, addToRecent){
+    var widget_sound = new Widget_Sound(this, $ctn, sound, addToRecent);
     widget_sound.insert();
   }
 
   //_search_sounds : Recherche des sons contenant le terme donné
   function _search_sounds(searchWord) {
+    _stopPlayingSound.call(this);
+
     var $content = $(".app-content");
     if(searchWord !== ""){
       var results = this.soundLibrary.searchSounds(this.appMenu.app.model.options.prefix, searchWord);
@@ -35,7 +37,7 @@ function AppMenu_Sound(appMenu){
       $elem_results.empty();
       for(i = 0; i < results.size(); i++){
         var resultSound = results.get(i);
-        _addSound.call(this, $elem_results, resultSound);
+        _addSound.call(this, $elem_results, resultSound, true);
       }
 
       //on switch l'affichage
@@ -73,16 +75,24 @@ function AppMenu_Sound(appMenu){
     }
   }
 
+  // _refreshRecents : Ajoute les sons récemment joués dans le menu
+  function _refreshRecents() {
+    var $content = $(".app-content");
+    var $recents = $content.find(".recents-list");
+    $recents.empty();
+
+    for(i = 0; i < this.soundLibrary.recents_played.size(); i++){
+      var recentSound = this.soundLibrary.recents_played.get(i);
+      _addSound.call(this, $recents, recentSound, false);
+    } 
+  }
+
   // _displaySounds : Ajoute les sons dans le widget
   function _displaySounds(){
     var $content = $(".app-content");
 
     //Ajout des lectures récentes
-    var $recents = $content.find(".recents-list");
-    for(i = 0; i < this.soundLibrary.recents_played.size(); i++){
-      var recentSound = this.soundLibrary.recents_played.get(i);
-      _addSound.call(this, $recents, recentSound);
-    }
+    _refreshRecents.call(this);
 
     //Ajout de l'écoute de la recherche
     var self = this;
@@ -96,6 +106,12 @@ function AppMenu_Sound(appMenu){
           $searchInput.blur();
       }
     });
+  }
+  // _stopPlayingSound : Arrête la lecture d'un son
+  function _stopPlayingSound() {
+    if((this.playingWidgetSound !== undefined) && (this.playingWidgetSound.playing) ){
+      this.playingWidgetSound.stop();
+    }
   }
   // ========================================== OVERRIDE===================================
   // ========================================== PRIVILEGED ================================
@@ -115,20 +131,29 @@ function AppMenu_Sound(appMenu){
     }
   };
 
-  // Affiche le menu
+  // Cahche le menu
   this.hide = function(){
+    _stopPlayingSound.call(this);
+
     var $menu = $(".app-content .app-menu-expanded");
     $menu.remove();
     this.displayed = false;
   };
 
   //Lorsqu'on joue une musique
-  this.onPlay = function(widget_sound){
-    if((this.playingWidgetSound !== undefined) && (this.playingWidgetSound.playing) ){
-      this.playingWidgetSound.stop();
-    }
+  this.onPlay = function(widget_sound, addToRecent){
+    var self = this;
+    
+    _stopPlayingSound.call(self);
+
     this.playingWidgetSound = widget_sound;
     this.playingWidgetSound.play();
+
+    if(addToRecent){
+      this.soundLibrary.addRecent(widget_sound.sound, function(){
+        _refreshRecents.call(self);      
+      });
+    }
   };
 
 

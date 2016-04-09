@@ -63,5 +63,10 @@ function App(deviceHandler){
         cb(self.soundLibrary);
       });
     }
+  };  
+  // saveRecentsSound : Sauvegarde les sons récemment joués
+  this.saveRecentsSound = function(soundList, cb) {
+    deviceHandler.saveRecentsSound(soundList, cb);
   };
+
 }
