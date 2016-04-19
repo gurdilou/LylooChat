@@ -9,22 +9,7 @@ function Widget_Card(appGrid, card){
     // ========================================== CONSTRUCTOR ===============================
     // ========================================== PRIVATE ===================================
 
-    // Ajoute l'écouteur d'évenment sur la miniature
-    function _addThumbnailEvents(){
-        var self = this;
 
-        var anchor = $(this.elem_card).find('.container');
-        anchor.on('tap', function(){
-          if(!appGrid.busy) {
-            appGrid.busy = true;
-            setTimeout(function() {
-                self.onCardThumbnailClick();
-                appGrid.busy = false;
-            }, (200));
-          }
-          
-        });
-    }
 
     // ========================================== ABSTRACT ===================================
     // Retourne le contenu texte de la miniature
@@ -44,7 +29,6 @@ function Widget_Card(appGrid, card){
 
         var lastChild = container.lastElementChild;
         this.elem_card = lastChild;
-        _addThumbnailEvents.call(this);
 
         return "";
     };

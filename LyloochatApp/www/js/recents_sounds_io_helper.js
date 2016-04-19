@@ -106,7 +106,7 @@ function RecentsSounds_IOHelper(listSounds){
 
             var reader = new FileReader();
             reader.onloadend = function(evt) {
-              if(evt.target.result !== undefined) {
+              if( (evt.target.result !== undefined) && (evt.target.result !== "") ){
                 var soundsJSON = JSON.parse(evt.target.result);
                 cb(soundsJSON);
               }else{

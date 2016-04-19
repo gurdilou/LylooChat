@@ -19,6 +19,19 @@
     animation: ripple 400ms linear;
   }
 }
+.ink-slow { 
+  display: block;
+  position: absolute;
+  background: transparentize($divider-color, .7);
+  border-radius: 100%; 
+  transform: scale(0);
+
+  //animation effect
+  &.animate {
+    animation: ripple 2s linear; 
+  }
+}
+
 
 
 

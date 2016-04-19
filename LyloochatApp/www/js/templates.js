@@ -37,11 +37,13 @@ this["Lyloochat"]["templates"]["widget_badge_button"] = Handlebars.template({"1"
     + "</span>\r\n</a>\r\n";
 },"useData":true});
 this["Lyloochat"]["templates"]["widget_card_text"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function";
+    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "<div class=\"card-text pure-u-1 pure-u-md-1-2 pure-u-sm-1-2 pure-u-lg-1-4 l-box\" cardNumber=\""
-    + container.escapeExpression(((helper = (helper = helpers.cardNumber || (depth0 != null ? depth0.cardNumber : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cardNumber","hash":{},"data":data}) : helper)))
-    + "\">\r\n  <a class=\"container ripple\" href=\"#\">\r\n    <div class=\"card-title\">"
+    + alias4(((helper = (helper = helpers.cardNumber || (depth0 != null ? depth0.cardNumber : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cardNumber","hash":{},"data":data}) : helper)))
+    + "\">\r\n  <a class=\"container ripple\" href=\"#\" cardNumber=\""
+    + alias4(((helper = (helper = helpers.cardNumber || (depth0 != null ? depth0.cardNumber : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cardNumber","hash":{},"data":data}) : helper)))
+    + "\">\r\n    <div class=\"card-title\">"
     + ((stack1 = ((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "</div>\r\n  </a>\r\n</div>\r\n";
 },"useData":true});

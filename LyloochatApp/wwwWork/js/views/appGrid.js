@@ -4,9 +4,14 @@ function AppGrid(app) {
     // ========================================== CONSTRUCTOR ===============================
     this.app = app;
     this.busy = false;
+    this.isTapHolding = false;
+    this.card_widgets = [];
+
+    const TAP_HOLD_DURATION = 75;
+    const CONFIG_HOLD_DURATION = 750;
 
     
-    _fill();
+    _fill.call(this);
     // ========================================== PRIVATE ===================================
     // fill : Remplit la grille
     function _fill() {
@@ -27,28 +32,66 @@ function AppGrid(app) {
             }
 
             if(typeof card_widget !== 'undefined'){
-                card_widget.render(gridSource);
+              this.card_widgets.push(card_widget);
+              card_widget.render(gridSource);
             }else{
                 throw "Type de carte non supporté encore.";
             }
 
         }
 
-        _addEvents_RippleEffects();
-        _addEvents_CardConfigurations();
+        _addEvents_RippleEffects.call(this);
+        _addEvents_CardConfigurations.call(this);
     }
     //_addEvents_RippleEffects : Colle un écouteur pour faire un petit effet su chaque carte
     function _addEvents_RippleEffects(){
+      var self = this;
+      
+      //gestion du tap
+      $(".ripple").on('click', function(e) {
+        console.log("click");
+        if(!self.isTapHolding){ //si on n'est pas pendant un appui long
+          //On récupère la div de la carte cliqué
+          var target = $( e.target );
+          while( !target.attr("cardNumber")  && target.parent()){
+            target = target.parent();
+          }
+          var index = target.attr("cardNumber");
+          
+          if(index) {
+            var widget = self.card_widgets[index];
+            if(!self.busy) {
+              self.busy = true;
+
+              _addAnimation.call(self, e, "ink"); 
+              setTimeout(function() {
+                  widget.onCardThumbnailClick();
+                  self.busy = false;
+              }, (TAP_HOLD_DURATION));
+            }
+          } 
+        }else{
+          console.log("tap canceled");
+        }
+      });
+    }
+
+    // _addAnimation : Ajoute un effet localisé à une tuile
+    function _addAnimation(e, code){
       var self, ink, d, x, y;
-      $(".ripple").on('tap', function(e) {
+
         var app = phonegapHandler.app;
         if (app.loaded) {
-          self = $(this);
-          //create .ink element if it doesn't exist
-          if (self.find(".ink").length === 0)
-            self.prepend("<span class='ink'></span>");
+          self = $(e.target);
+          while( !self.attr("cardNumber")  && self.parent()){
+            self = self.parent();
+          }
 
-          ink = self.find(".ink");
+          //create .ink element if it doesn't exist
+          if (self.find("."+code).length === 0)
+            self.prepend("<span class='"+code+"'></span>");
+
+          ink = self.find("."+code+"");
           //incase of quick double clicks stop the previous animation
           ink.removeClass("animate");
 
@@ -73,22 +116,58 @@ function AppGrid(app) {
             left: x + 'px'
           }).addClass("animate");
         }
-      });
     }
 
     //_addEvents_CardConfigurations : Ajoute un écouteur pour éditer les cartes
     function _addEvents_CardConfigurations(){
-      $(".card-text").on("taphold", function(event) {
+      var self = this;
+      var timerConfigRipple;
+      var timerFireConfig;
+      var event_start;
+
+      //gestion du touch hold
+      //Lors du début d'un appui long, on ajoute une onde
+      var _onStartTapHolding = function() {
+        console.log("_onStartTapHolding");
+        self.isTapHolding = true;
+        _addAnimation.call(this, event_start, "ink-slow");
+      };
+      //Lors d'un appui long on affiche la configuration d'une carte
+      var _onlongtouch = function() {
+        _clearTouchHoldRipple.call(this, timerConfigRipple, timerFireConfig);
         var app = phonegapHandler.app;
         if(app.loaded){
           if(app.views.cardConfigurator === undefined){
             app.views.cardConfigurator = new CardConfigurator();
           }
 
-          var self = $(this);
-          app.views.cardConfigurator.onClick(self, event);
+          var $self = $(self);
+          app.views.cardConfigurator.onClick($self, event_start);
         }
+        self.isTapHolding = false;
+      };
+
+
+      $(".ripple").on('mousedown', function(e) {
+        event_start = e;
+        timerConfigRipple = setTimeout(_onStartTapHolding, TAP_HOLD_DURATION); 
+        timerFireConfig = setTimeout(_onlongtouch, CONFIG_HOLD_DURATION); 
       });
+
+      $(".ripple").on('mouseup', function(e) {
+        _clearTouchHoldRipple.call(self, timerConfigRipple, timerFireConfig);
+      });
+    }
+    // _clearTouchHoldRipple : Supprime les effets de ripples longs
+    function _clearTouchHoldRipple(timerConfigRipple, timerFireConfig){
+        if (timerConfigRipple) {
+          clearTimeout(timerConfigRipple);
+        }        
+        if (timerFireConfig) {
+          clearTimeout(timerFireConfig);
+        }
+        $(".ink-slow").remove();
+        this.isTapHolding = false; 
     }
     // ========================================== PRIVILEGED ================================
 

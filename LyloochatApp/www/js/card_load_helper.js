@@ -68,7 +68,7 @@ function CardLoaderHelper(listCards, cb){
 
         var reader = new FileReader();
         reader.onloadend = function(evt) {
-          if(evt.target.result !== undefined){
+          if((evt.target.result !== undefined) && (evt.target.result !== "")){
             var cardJSON = JSON.parse(evt.target.result);
             _loadCardFromData.call(self, cardJSON, i);
           }else{
