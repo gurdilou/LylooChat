@@ -34,6 +34,7 @@ gulp.task('serve', function() {
   });
   gulp.watch(['*.html', 'js/**/*.js'], {cwd: workDir}, reload);
   gulp.watch('scss/**/*.scss', {cwd: workDir}, ['sass']);
+  gulp.watch('lib/materialize/sass/**/*.scss', {cwd: workDir}, ['materialize-sass']);
   gulp.watch('templates/**/*.hbs', {cwd: workDir}, ['handlebars']);
 });
 
@@ -80,6 +81,15 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('css', {cwd: workDir}))
     .pipe(browserSync.stream());
 });
+//Materialize Scss to css
+gulp.task('materialize-sass', function() {
+  gulp.src('./lib/materialize/sass/**/*.scss', {cwd: workDir})
+    .pipe(sass.sync({outputStyle: 'compressed'}).on('error', sass.logError))
+    .pipe(autoprefixer('last 2 version'))
+    .pipe(gulp.dest('css', {cwd: workDir}))
+    .pipe(browserSync.stream());
+});
+
 //generate view templates for client
 gulp.task('handlebars', function() {
 
@@ -126,15 +136,17 @@ gulp.task('build-templates', function () {
 });
 // Copie toutes les libraires dans le dossier de prod
 gulp.task('build-lib',function(cb){
-  gulp.src(['js/lib/*'], {cwd: workDir})
+  gulp.src(['js/lib/**/*'], {cwd: workDir})
+    .pipe(gulp.dest(prodDir+'/js/lib/'))
+  gulp.src(['lib/**/*'], {cwd: workDir})
     .pipe(gulp.dest(prodDir+'/js/lib/'))
 
-  return gulp.src(['bower_components/**/*'], {cwd: workDir})
+  return gulp.src(['bower_components/**'], {cwd: workDir})
     .pipe(gulp.dest(prodDir+'/css/bower_components/'));
 });
 
 //Compute CSS and deploy
-gulp.task('build-styles', ['sass'], function(){
+gulp.task('build-styles', ['sass', 'materialize-sass'], function(){
   return gulp.src(['css/**/*.css', 'css/**/*.woff', 'css/**/*.woff2', 'css/**/*.ttf'], {cwd: workDir})
     .pipe(gulp.dest(prodDir+'/css'));
 });

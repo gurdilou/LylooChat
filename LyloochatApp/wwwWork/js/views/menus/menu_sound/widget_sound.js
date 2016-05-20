@@ -47,6 +47,7 @@ function Widget_Sound(appMenuSound, $parentCtn, sound, addToRecent){
         var context = {
             name: this.sound.name,
             durationStr: this.sound.getDurationStr(),
+            icon: 'play',
         };
         var widget_sound_str = Lyloochat.templates.widget_sound(context);
 

@@ -74,6 +74,9 @@ function App(deviceHandler){
 function showMaskPanel(onExit) {
   $.inner_showMaskPanel(this, true, onExit);
 }
+function showModalMaskPanel() {
+  $.inner_showMaskPanel(this, false, undefined);
+}
 function hideMaskPanel() {
   $.inner_hideMaskPanel(this);
 }
@@ -384,14 +387,14 @@ function AppGrid(app) {
     this.isTapHolding = false;
     this.card_widgets = [];
 
-    const TAP_HOLD_DURATION = 75;
+    const TAP_HOLD_DURATION = 100;
     const CONFIG_HOLD_DURATION = 750;
 
     
     _fill.call(this);
     // ========================================== PRIVATE ===================================
     // fill : Remplit la grille
-    function _fill() {
+    function _fill() { 
         //Création grille
         var gridSource = document.getElementById("grid-cards");
         for(i = 0; i < app.model.listCards.length(); i++){
@@ -426,7 +429,6 @@ function AppGrid(app) {
       
       //gestion du tap
       $(".ripple").on('click', function(e) {
-        console.log("click");
         if(!self.isTapHolding){ //si on n'est pas pendant un appui long
           //On récupère la div de la carte cliqué
           var target = $( e.target );
@@ -506,8 +508,8 @@ function AppGrid(app) {
       //Lors du début d'un appui long, on ajoute une onde
       var _onStartTapHolding = function() {
         console.log("_onStartTapHolding");
-        self.isTapHolding = true;
         _addAnimation.call(this, event_start, "ink-slow");
+        self.isTapHolding = true;
       };
       //Lors d'un appui long on affiche la configuration d'une carte
       var _onlongtouch = function() {
@@ -515,11 +517,20 @@ function AppGrid(app) {
         var app = phonegapHandler.app;
         if(app.loaded){
           if(app.views.cardConfigurator === undefined){
-            app.views.cardConfigurator = new CardConfigurator();
+            app.views.cardConfigurator = new CardConfigurator(self);
           }
 
-          var $self = $(self);
-          app.views.cardConfigurator.onClick($self, event_start);
+          //On donne l'élément configuré
+          var elemCard = $(event_start.target);
+          while( !elemCard.attr("cardNumber")  && elemCard.parent()){
+            elemCard = elemCard.parent();
+          }
+          var index = elemCard.attr("cardNumber");
+          if(index) {
+            var widget = self.card_widgets[index];
+            app.views.cardConfigurator.onClick(widget);
+          }
+          
         }
         self.isTapHolding = false;
       };
@@ -529,6 +540,8 @@ function AppGrid(app) {
         event_start = e;
         timerConfigRipple = setTimeout(_onStartTapHolding, TAP_HOLD_DURATION); 
         timerFireConfig = setTimeout(_onlongtouch, CONFIG_HOLD_DURATION); 
+
+        
       });
 
       $(".ripple").on('mouseup', function(e) {
@@ -693,10 +706,11 @@ function AppMenu(app) {
   // ========================================== PRIVILEGED ================================
 }
 
-function CardConfigurator(){
+function CardConfigurator(appGrid){
   // ========================================== VARIABLES =================================
+  this.appGrid = appGrid;
   var busy = false;
-  var elementSelect;
+  var widget = undefined;
 
   // ========================================== CONSTRUCTOR ===============================
 
@@ -706,57 +720,65 @@ function CardConfigurator(){
   // _exitConfig : Quitte l'écran
   function _exitConfig() {
     this.busy = false;
-    this.elementSelect = undefined;
+    this.widget = undefined;
     hideMaskPanel();
   }
 
   // _displayMenusVertical : Affiche le menu vertical
   function _displayMenusVertical() {
+    var self = this;
     var maskPanel = $(".mask");
-    maskPanel.html("<div class='cardConfigurator-button-ctn'></div>");
-    var buttonsPanel = maskPanel.find(".cardConfigurator-button-ctn");
-
-    var buttContext = {
-      class: "butt-edit",
-      title: "Editer l'item",
-      icon: "edit",
-      code: "Editer"
+    var menuContext = {
+      loc :  {
+        title: 'Configuration',
+        ok: 'OK',
+        cancel: 'Annuler',
+        card_text: 'Texte',
+        card_sound: 'Son',
+        card_drawing: 'Dessin',
+        displayed_text: 'Texte affiché',
+        played_sound: 'Son joué',
+        displayed_draw: 'Dessin',
+      }
     };
-    buttonsPanel.html(Lyloochat.templates.widget_badge_button(buttContext));
-    var buttEdit = $(".badge-button.butt-edit");
-    buttEdit.on("click", _on_editItem);
+    maskPanel.html(Lyloochat.templates.menu_card_config(menuContext));
 
-    buttContext = {
-      class: "butt-delete",
-      title: "Supprimer l'item",
-      icon: "delete",
-      code: "Supprimer"
-    };
-    buttonsPanel.append(Lyloochat.templates.widget_badge_button(buttContext));
-    var buttDelete = $(".badge-button.butt-delete");
-    buttDelete.on("click", _on_deleteItem);
+    if(this.widget.card instanceof Card_Text){
+      _fillMenuText.call(self);
+    }else if (this.widget.card instanceof Card_Sound){
+      _fillMenuSound.call(self);
+    }else if (this.widget.card instanceof Card_Drawing){
+      _fillMenuDrawing.call(self);
+    }
+    Materialize.updateTextFields();
+    
+    $('ul.tabs').tabs(); 
   }
 
-  // _on_deleteItem : Lorsqu'on supprime un item
-  function _on_deleteItem(event){
-    // TODO : dev _on_deleteItem
-    console.log("_on_deleteItem");
-    event.stopPropagation();
+  // _fillMenuText : Sélection du menu  pour une carte de texte
+  function _fillMenuText() {
+    $('.menu-card-config ul.tabs').tabs('select_tab', 'card_text');
+    var input = $('#card_text_content');
+    input.val(this.widget.card.label);     
+  }
+  // _fillMenuSound : Sélection du menu  pour une carte de son
+  function _fillMenuSound() {
+    //  TODO
+    $('.menu-card-config ul.tabs').tabs('select_tab', 'card_sound');
+  }
+  // _fillMenuDrawing : Sélection du menu  pour une carte de dessin
+  function _fillMenuDrawing() {
+    //  TODO
+    $('.menu-card-config ul.tabs').tabs('select_tab', 'card_drawing');
   }
 
-  // _on_editItem : Lorsqu'on édite un item
-  function _on_editItem(event){
-    // TODO : dev _on_editItem
-    console.log("_on_editItem");
-    event.stopPropagation();
-  }
   // ========================================== PRIVILEGED ================================
-  this.onClick = function(element, event) {
+  this.onClick = function(widget) {
     if(!this.busy){
       this.busy = true;
-      this.elementSelect = element;
+      this.widget = widget;
 
-      showMaskPanel.call(this, _exitConfig);
+      showModalMaskPanel.call(this);
       _displayMenusVertical.call(this);
     }
   };

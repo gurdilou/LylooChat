@@ -1,7 +1,10 @@
-function CardConfigurator(){
+function CardConfigurator(appGrid){
   // ========================================== VARIABLES =================================
+  this.appGrid = appGrid;
   var busy = false;
-  var elementSelect;
+  var widget;
+  var sounds;
+  var selectedSound;
 
   // ========================================== CONSTRUCTOR ===============================
 
@@ -11,57 +14,105 @@ function CardConfigurator(){
   // _exitConfig : Quitte l'écran
   function _exitConfig() {
     this.busy = false;
-    this.elementSelect = undefined;
-    hideMaskPanel();
+    this.widget = undefined;
+    hidePopupPanel();
   }
 
   // _displayMenusVertical : Affiche le menu vertical
-  function _displayMenusVertical() {
-    var maskPanel = $(".mask");
-    maskPanel.html("<div class='cardConfigurator-button-ctn'></div>");
-    var buttonsPanel = maskPanel.find(".cardConfigurator-button-ctn");
-
-    var buttContext = {
-      class: "butt-edit",
-      title: "Editer l'item",
-      icon: "edit",
-      code: "Editer"
+  function _displayMenusVertical() { 
+    var self = this;
+    var maskPanel = $(".popup");
+    var menuContext = {
+      loc :  {
+        title: 'Configuration',
+        ok: 'OK',
+        cancel: 'Annuler',
+        card_text: 'Texte',
+        card_sound: 'Son',
+        card_drawing: 'Dessin',
+        displayed_text: 'Texte affiché',
+        played_sound: 'Son joué',
+        displayed_draw: 'Dessin',
+      }
     };
-    buttonsPanel.html(Lyloochat.templates.widget_badge_button(buttContext));
-    var buttEdit = $(".badge-button.butt-edit");
-    buttEdit.on("click", _on_editItem);
+    maskPanel.html(Lyloochat.templates.menu_card_config(menuContext));
 
-    buttContext = {
-      class: "butt-delete",
-      title: "Supprimer l'item",
-      icon: "delete",
-      code: "Supprimer"
-    };
-    buttonsPanel.append(Lyloochat.templates.widget_badge_button(buttContext));
-    var buttDelete = $(".badge-button.butt-delete");
-    buttDelete.on("click", _on_deleteItem);
+    if(this.widget.card instanceof Card_Text){
+      _fillMenuText.call(self);
+    }else if (this.widget.card instanceof Card_Sound){
+      _fillMenuSound.call(self);
+    }else if (this.widget.card instanceof Card_Drawing){
+      _fillMenuDrawing.call(self);
+    }
+    Materialize.updateTextFields();    
+    $('ul.tabs').tabs(); 
+
+
+    //event listeners
+    $('.btn-sound-search').on('click', function(e){
+      var wordSearched = $('#card-soundpath').val();
+
+      self.appGrid.app.getSoundLibrary(function(soundLibrary){
+        self.sounds = soundLibrary.searchSounds('', wordSearched);
+
+        var ctn = $('.sound-list');
+        ctn.removeClass('hidden');
+        ctn.empty();
+
+        for(i = 0; i < self.sounds.size(); i++){
+          var candidate = self.sounds.get(i);
+
+          _addSoundCandidate.call(self, ctn, candidate, i);
+        } 
+      });
+    });
   }
 
-  // _on_deleteItem : Lorsqu'on supprime un item
-  function _on_deleteItem(event){
-    // TODO : dev _on_deleteItem
-    console.log("_on_deleteItem");
-    event.stopPropagation();
+  // _addSoundCandidate : Ajoute un son validant le motif de recherche
+  function _addSoundCandidate(ctn, candidate) {
+    var context = {
+            name: candidate.name,
+            durationStr: candidate.getDurationStr(),
+            icon: 'play',
+        };
+    var widget_sound_str = Lyloochat.templates.widget_sound(context);
+    ctn.append(widget_sound_str);
+    var elem_sound = ctn.children().last();
+
+    //events
+    var self = this;
+    elem_sound.on("tap", function(e){
+      $('#card-soundpath').val(candidate.name);
+      self.selectedSound = candidate;  
+    });
   }
 
-  // _on_editItem : Lorsqu'on édite un item
-  function _on_editItem(event){
-    // TODO : dev _on_editItem
-    console.log("_on_editItem");
-    event.stopPropagation();
+  // _fillMenuText : Sélection du menu  pour une carte de texte
+  function _fillMenuText() {
+    $('.menu-card-config ul.tabs').tabs('select_tab', 'card_text');
+    var input = $('#card_text_content');
+    input.val(this.widget.card.label);     
   }
+  // _fillMenuSound : Sélection du menu  pour une carte de son
+  function _fillMenuSound() {
+    //  TODO
+    $('.menu-card-config ul.tabs').tabs('select_tab', 'card_sound');
+  }
+  // _fillMenuDrawing : Sélection du menu  pour une carte de dessin
+  function _fillMenuDrawing() {
+    //  TODO
+    $('.menu-card-config ul.tabs').tabs('select_tab', 'card_drawing');
+  }
+
   // ========================================== PRIVILEGED ================================
-  this.onClick = function(element, event) {
+  this.onClick = function(widget) {
     if(!this.busy){
       this.busy = true;
-      this.elementSelect = element;
+      this.widget = widget;
 
-      showMaskPanel.call(this, _exitConfig);
+      showPopupPanel.call(this);
+
+
       _displayMenusVertical.call(this);
     }
   };

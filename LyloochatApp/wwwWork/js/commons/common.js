@@ -1,8 +1,17 @@
 function showMaskPanel(onExit) {
   $.inner_showMaskPanel(this, true, onExit);
 }
+function showModalMaskPanel() {
+  $.inner_showMaskPanel(this, false, undefined);
+}
 function hideMaskPanel() {
   $.inner_hideMaskPanel(this);
+}
+function showPopupPanel() {
+  $.inner_showPopupPanel(this); 
+}
+function hidePopupPanel() {
+  $.inner_hidePopupPanel(this);
 }
 function showErrorPanel(msg) {
   $.inner_showErrorPanel(this, msg, hideErrorPanel);
@@ -38,6 +47,18 @@ function hideLoadingPanel() {
     maskPanel.html("");
     maskPanel.removeClass("visible");
     maskPanel.off("click");
+  };
+
+  // showPopupPanel : Affiche un masque pour une popup
+  $.inner_showPopupPanel = function(caller) {
+    var maskPanel = $(".popup");
+    maskPanel.html("");
+    maskPanel.addClass("visible");
+  };
+  $.inner_hidePopupPanel = function(caller) {
+    var maskPanel = $(".popup");
+    maskPanel.html("");
+    maskPanel.removeClass("visible");
   };
   
   $.inner_showErrorPanel = function(caller, msg) {

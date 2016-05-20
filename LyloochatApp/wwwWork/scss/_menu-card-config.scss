@@ -1,0 +1,25 @@
+// scss-lint:disable SelectorDepth, PropertySortOrder, NestingDepth
+
+.menu-card-config {
+  overflow-y: auto;
+  
+  .card-type-select { 
+    margin-bottom: 24px; 
+  }
+
+  .card-form.col {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-left: 0px;
+  }
+
+  .card-input.input-field {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-left: 0px;
+  } 
+
+  .btn-floating.btn-sound-search {
+    margin-top: 20px;
+  } 
+}

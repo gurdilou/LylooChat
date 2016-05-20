@@ -44,47 +44,6 @@
 
   }
 
-  .sound {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin: 0 auto;
-    font-size: 1em;
-    padding: 4px; 
-    padding-right: 12px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-
-    &.selected {
-      background: $primary-color-light;
-    }
-
-    &:hover{
-      cursor: pointer;
-      background: $primary-color-light;
-    }
-
-    .sound-icon {
-      color: darken($primary-color-light, 15);
-      font-size: 3em;
-      align-self: center;
-    }
-    
-    .name {
-      flex-grow : 1;
-      margin-left: 6px;
-      align-self: center;
-      user-select: none;
-    }
-
-    .duration {
-      color: lighten($accent-color, 20);
-      align-self: center;
-      font-size: .8em;
-      user-select: none;
-    }
-  }
-
   $shadow-color-1: rgba(0, 0, 0, .1); 
   .list{
     margin: auto;

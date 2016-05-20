@@ -7,14 +7,14 @@ function AppGrid(app) {
     this.isTapHolding = false;
     this.card_widgets = [];
 
-    const TAP_HOLD_DURATION = 75;
+    const TAP_HOLD_DURATION = 100;
     const CONFIG_HOLD_DURATION = 750;
 
     
     _fill.call(this);
     // ========================================== PRIVATE ===================================
     // fill : Remplit la grille
-    function _fill() {
+    function _fill() { 
         //Création grille
         var gridSource = document.getElementById("grid-cards");
         for(i = 0; i < app.model.listCards.length(); i++){
@@ -49,7 +49,6 @@ function AppGrid(app) {
       
       //gestion du tap
       $(".ripple").on('click', function(e) {
-        console.log("click");
         if(!self.isTapHolding){ //si on n'est pas pendant un appui long
           //On récupère la div de la carte cliqué
           var target = $( e.target );
@@ -129,8 +128,8 @@ function AppGrid(app) {
       //Lors du début d'un appui long, on ajoute une onde
       var _onStartTapHolding = function() {
         console.log("_onStartTapHolding");
-        self.isTapHolding = true;
         _addAnimation.call(this, event_start, "ink-slow");
+        self.isTapHolding = true;
       };
       //Lors d'un appui long on affiche la configuration d'une carte
       var _onlongtouch = function() {
@@ -138,11 +137,20 @@ function AppGrid(app) {
         var app = phonegapHandler.app;
         if(app.loaded){
           if(app.views.cardConfigurator === undefined){
-            app.views.cardConfigurator = new CardConfigurator();
+            app.views.cardConfigurator = new CardConfigurator(self);
           }
 
-          var $self = $(self);
-          app.views.cardConfigurator.onClick($self, event_start);
+          //On donne l'élément configuré
+          var elemCard = $(event_start.target);
+          while( !elemCard.attr("cardNumber")  && elemCard.parent()){
+            elemCard = elemCard.parent();
+          }
+          var index = elemCard.attr("cardNumber");
+          if(index) {
+            var widget = self.card_widgets[index];
+            app.views.cardConfigurator.onClick(widget);
+          }
+          
         }
         self.isTapHolding = false;
       };
@@ -152,6 +160,8 @@ function AppGrid(app) {
         event_start = e;
         timerConfigRipple = setTimeout(_onStartTapHolding, TAP_HOLD_DURATION); 
         timerFireConfig = setTimeout(_onlongtouch, CONFIG_HOLD_DURATION); 
+
+        
       });
 
       $(".ripple").on('mouseup', function(e) {
