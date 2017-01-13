@@ -3,6 +3,7 @@ function CardConfigurator(appGrid){
   this.appGrid = appGrid;
   var busy = false;
   var widget;
+  var index;
   var sounds;
   var selectedSound;
 
@@ -19,7 +20,7 @@ function CardConfigurator(appGrid){
   }
 
   // _displayMenusVertical : Affiche le menu vertical
-  function _displayMenusVertical() { 
+  function _displayMenusVertical() {
     var self = this;
     var maskPanel = $(".popup");
     var menuContext = {
@@ -44,12 +45,12 @@ function CardConfigurator(appGrid){
     }else if (this.widget.card instanceof Card_Drawing){
       _fillMenuDrawing.call(self);
     }
-    Materialize.updateTextFields();    
-    $('ul.tabs').tabs(); 
+    Materialize.updateTextFields();
+    $('ul.tabs').tabs();
 
 
     //event listeners
-    $('.btn-sound-search').on('click', function(e){
+    $('.menu-card-config .btn-sound-search').on('click', function(e){
       var wordSearched = $('#card-soundpath').val();
 
       self.appGrid.app.getSoundLibrary(function(soundLibrary){
@@ -63,9 +64,32 @@ function CardConfigurator(appGrid){
           var candidate = self.sounds.get(i);
 
           _addSoundCandidate.call(self, ctn, candidate, i);
-        } 
+        }
       });
     });
+    $('.menu-card-config .btn-validate').on('click', function(e){
+		var activeTab = $('.tabs .active');
+		var newWidget = null;
+		if(activeTab.hasClass('menu-text')) {
+		    var label = $('#card_text_content').val();
+			let card = new Card_Text(self.widget.card.id, label, label);
+			newWidget = new Widget_Card_Text(appGrid, card);
+		}
+		if(activeTab.hasClass('menu-sound')) {
+			//TODO generate widget sound
+		}
+		if(activeTab.hasClass('menu-drawing')) {
+			//TODO generate widget drawing
+		}
+
+		if(newWidget) {
+			appGrid.onCardEdit(self.index, newWidget);
+		}
+		hidePopupPanel();
+    });
+	$('.menu-card-config .btn-cancel').on('click', function(e){
+		hidePopupPanel();
+	});
   }
 
   // _addSoundCandidate : Ajoute un son validant le motif de recherche
@@ -83,7 +107,7 @@ function CardConfigurator(appGrid){
     var self = this;
     elem_sound.on("tap", function(e){
       $('#card-soundpath').val(candidate.name);
-      self.selectedSound = candidate;  
+      self.selectedSound = candidate;
     });
   }
 
@@ -91,7 +115,7 @@ function CardConfigurator(appGrid){
   function _fillMenuText() {
     $('.menu-card-config ul.tabs').tabs('select_tab', 'card_text');
     var input = $('#card_text_content');
-    input.val(this.widget.card.label);     
+    input.val(this.widget.card.label);
   }
   // _fillMenuSound : Sélection du menu  pour une carte de son
   function _fillMenuSound() {
@@ -105,10 +129,11 @@ function CardConfigurator(appGrid){
   }
 
   // ========================================== PRIVILEGED ================================
-  this.onClick = function(widget) {
+  this.onClick = function(index) {
     if(!this.busy){
       this.busy = true;
-      this.widget = widget;
+	  this.index = index;
+      this.widget = appGrid.card_widgets[index];
 
       showPopupPanel.call(this);
 

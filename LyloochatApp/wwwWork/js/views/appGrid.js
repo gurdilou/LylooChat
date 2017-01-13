@@ -10,13 +10,15 @@ function AppGrid(app) {
     const TAP_HOLD_DURATION = 100;
     const CONFIG_HOLD_DURATION = 750;
 
-    
+
     _fill.call(this);
     // ========================================== PRIVATE ===================================
     // fill : Remplit la grille
-    function _fill() { 
-        //Création grille
+    function _fill() {
+        //Création/RAZ grille
         var gridSource = document.getElementById("grid-cards");
+		gridSource.innerHTML = '';
+		this.card_widgets = [];
         for(i = 0; i < app.model.listCards.length(); i++){
             var card = app.model.listCards.getCard(i);
 
@@ -46,29 +48,29 @@ function AppGrid(app) {
     //_addEvents_RippleEffects : Colle un écouteur pour faire un petit effet su chaque carte
     function _addEvents_RippleEffects(){
       var self = this;
-      
+
       //gestion du tap
       $(".ripple").on('click', function(e) {
-        if(!self.isTapHolding){ //si on n'est pas pendant un appui long
+        if(!self.isTapHolding){ //si on n'est pas pendant un appui
           //On récupère la div de la carte cliqué
           var target = $( e.target );
           while( !target.attr("cardNumber")  && target.parent()){
             target = target.parent();
           }
           var index = target.attr("cardNumber");
-          
+
           if(index) {
             var widget = self.card_widgets[index];
             if(!self.busy) {
               self.busy = true;
 
-              _addAnimation.call(self, e, "ink"); 
+              _addAnimation.call(self, e, "ink");
               setTimeout(function() {
                   widget.onCardThumbnailClick();
                   self.busy = false;
               }, (TAP_HOLD_DURATION));
             }
-          } 
+          }
         }else{
           console.log("tap canceled");
         }
@@ -127,7 +129,7 @@ function AppGrid(app) {
       //gestion du touch hold
       //Lors du début d'un appui long, on ajoute une onde
       var _onStartTapHolding = function() {
-        console.log("_onStartTapHolding");
+        // console.debug("_onStartTapHolding");
         _addAnimation.call(this, event_start, "ink-slow");
         self.isTapHolding = true;
       };
@@ -147,10 +149,10 @@ function AppGrid(app) {
           }
           var index = elemCard.attr("cardNumber");
           if(index) {
-            var widget = self.card_widgets[index];
-            app.views.cardConfigurator.onClick(widget);
+            // var widget = self.card_widgets[index];
+            app.views.cardConfigurator.onClick(index);
           }
-          
+
         }
         self.isTapHolding = false;
       };
@@ -158,10 +160,10 @@ function AppGrid(app) {
 
       $(".ripple").on('mousedown', function(e) {
         event_start = e;
-        timerConfigRipple = setTimeout(_onStartTapHolding, TAP_HOLD_DURATION); 
-        timerFireConfig = setTimeout(_onlongtouch, CONFIG_HOLD_DURATION); 
+        timerConfigRipple = setTimeout(_onStartTapHolding, TAP_HOLD_DURATION);
+        timerFireConfig = setTimeout(_onlongtouch, CONFIG_HOLD_DURATION);
 
-        
+
       });
 
       $(".ripple").on('mouseup', function(e) {
@@ -172,13 +174,21 @@ function AppGrid(app) {
     function _clearTouchHoldRipple(timerConfigRipple, timerFireConfig){
         if (timerConfigRipple) {
           clearTimeout(timerConfigRipple);
-        }        
+        }
         if (timerFireConfig) {
           clearTimeout(timerFireConfig);
         }
         $(".ink-slow").remove();
-        this.isTapHolding = false; 
+        this.isTapHolding = false;
     }
     // ========================================== PRIVILEGED ================================
-
+	/**
+	 * When a card has been manually edited
+	 * @param  {int} index      index of card
+	 * @param  {Widget_Card} cardEdited the new widget selected
+	 */
+	this.onCardEdit = function(index, cardEdited) {
+		app.model.listCards.replaceCard(index, cardEdited.card);
+		_fill.call(this);
+	}
 }

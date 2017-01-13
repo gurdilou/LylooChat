@@ -1,25 +1,23 @@
 // scss-lint:disable SelectorDepth, PropertySortOrder, NestingDepth
 
 .cardConfigurator-button-ctn {
-  display: flex;
-  margin: auto;
-  flex-direction: column;
+	display: flex;
+	margin: auto;
+	flex-direction: column;
 
-  .badge-button {
-    margin: 1em;
-    margin-top: 60px;
+	.badge-button {
+		margin: 60px 1em 1em;
 
+		&.butt-edit {
+			.icon {
+				font-size: 1.6666em;
+				line-height: 0.8em;
+				vertical-align: -18%;
+			}
 
-    &.butt-edit {
-      .icon {
-        font-size: 1.6666em;
-        line-height: .8em;
-        vertical-align: -18%;
-      }
-
-      .code {
-        font-size: 1.6666em;
-      }
-    }
-  }
+			.code {
+				font-size: 1.6666em;
+			}
+		}
+	}
 }
