@@ -1,0 +1,60 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"removeComments": true,
+		"noImplicitAny": false,
+		"suppressImplicitAnyIndexErrors": true,
+		"allowJs": false
+	},
+	"compileOnSave": false,
+	"filesGlob": [
+		"wwwWork/ts/**/*.ts",
+		"wwwWork/typings/**/*.d.ts"
+	],
+	"files": [
+		"wwwWork/ts/app.ts",
+		"wwwWork/ts/commons/common.ts",
+		"wwwWork/ts/commons/hbs_helpers.ts",
+		"wwwWork/ts/index.ts",
+		"wwwWork/ts/lib/FakeMediaHandler.ts",
+		"wwwWork/ts/lib/jsmediatags.min.ts",
+		"wwwWork/ts/lib/jsmediatags.ts",
+		"wwwWork/ts/model/app_options.ts",
+		"wwwWork/ts/model/card_drawing.ts",
+		"wwwWork/ts/model/card_sound.ts",
+		"wwwWork/ts/model/card_text.ts",
+		"wwwWork/ts/model/card.ts",
+		"wwwWork/ts/model/listCards.ts",
+		"wwwWork/ts/model/mediaHandler.ts",
+		"wwwWork/ts/model/sound_library.ts",
+		"wwwWork/ts/model/sound_list.ts",
+		"wwwWork/ts/model/sound.ts",
+		"wwwWork/ts/views/app_views.ts",
+		"wwwWork/ts/views/appGrid.ts",
+		"wwwWork/ts/views/appMenu.ts",
+		"wwwWork/ts/views/card-configuration/soundSearched.ts",
+		"wwwWork/ts/views/cardConfigurator.ts",
+		"wwwWork/ts/views/cards-expanded/screen_card_drawing.ts",
+		"wwwWork/ts/views/cards-expanded/screen_card_sound.ts",
+		"wwwWork/ts/views/cards-expanded/screen_card_text.ts",
+		"wwwWork/ts/views/cards-expanded/screen_card.ts",
+		"wwwWork/ts/views/cards/widget_card_drawing.ts",
+		"wwwWork/ts/views/cards/widget_card_sound.ts",
+		"wwwWork/ts/views/cards/widget_card_text.ts",
+		"wwwWork/ts/views/cards/widget_card.ts",
+		"wwwWork/ts/views/menus/menu_base.ts",
+		"wwwWork/ts/views/menus/menu_sound.ts",
+		"wwwWork/ts/views/menus/menu_sound/widget_sound.ts",
+		"wwwWork/typings/globals/jquery/index.d.ts",
+		"wwwWork/typings/index.d.ts",
+		"wwwWork/typings/modules/templates/index.d.ts"
+	],
+	"atom": {
+		"rewriteTsconfig": true
+	}
+}

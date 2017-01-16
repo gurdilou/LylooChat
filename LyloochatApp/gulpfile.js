@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var workDir='wwwWork/';
-var prodDir='www/'; 
+var prodDir='www/';
 
 
 //variables
@@ -19,6 +19,13 @@ var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
 var cache = require('gulp-cached');
+var browserify = require("browserify");
+var source = require('vinyl-source-stream');
+var typescript = require('typescript');
+var tsify = require("tsify");
+var sourcemaps = require('gulp-sourcemaps');
+var buffer = require('vinyl-buffer');
+
 
 
 //*** MAIN TASKS
@@ -47,7 +54,7 @@ gulp.task('full-deploy', function(callback) {
               'build-phonegap',
               'run',
               callback);
-}); 
+});
 // III - Deploy and start phonegap deploy
 gulp.task('quick-deploy', function(callback) {
   runSequence(
@@ -174,4 +181,23 @@ gulp.task('serve-phonegap', function(cb){
     console.log(stderr);
     cb(err);
   });
+});
+
+
+gulp.task("ts-compile", function () {
+    return browserify({
+        basedir: '.',
+        debug: true,
+        entries: [workDir+'ts/index.ts'],
+        cache: {},
+        packageCache: {}
+    })
+    .plugin(tsify)
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(workDir+"/js"));
 });
