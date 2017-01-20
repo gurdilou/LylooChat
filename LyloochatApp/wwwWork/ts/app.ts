@@ -2,22 +2,24 @@ import {AppOptions} from "./model/app_options";
 import {PhonegapHandler} from "./index";
 import {SoundLibrary} from "./model/sound_library";
 import {CardList} from "./model/listCards";
-import {AppGrid} from "./views/appGrid";
 import {AppViews} from "./views/app_views";
+import {Dialogs} from "./commons/common";
 
 export class LyloochatApp {
 	// ========================================== VARIABLES =================================
 	public listCards: CardList;
 	public options = new AppOptions();
-	public views = new AppViews();
-	private loaded: boolean = false;
+	public views;
+	public loaded: boolean = false;
 	private soundLibrary: SoundLibrary = null;
 
 
-	constructor(private deviceHandler: PhonegapHandler) {
+	constructor(public deviceHandler: PhonegapHandler) {
 		Handlebars.registerPartial('widget_badge_button', Lyloochat.templates.widget_badge_button);
 		Handlebars.registerPartial('widget_text_button', Lyloochat.templates.widget_text_button);
 		Handlebars.registerPartial('widget_floating_button', Lyloochat.templates.widget_floating_button);
+
+		this.views = new AppViews(this);
 	}
 
 
@@ -33,19 +35,19 @@ export class LyloochatApp {
 
 		//Chargement du modèle
 		let self = this;
-		showLoadingPanel("Chargement des cartes...");
+		Dialogs.showLoadingPanel("Chargement des cartes...");
 		this.listCards = new CardList();
 		this.deviceHandler.loadCards(this.listCards, function() {
 			//Création des vues
 			self.views.initMenu(this);
 			self.views.initGrid(this);
 			self.loaded = true;
-			hideLoadingPanel();
+			Dialogs.hideLoadingPanel();
 		});
 
 		window.onerror = function(msg, url, line, col, error) {
 			console.error(msg);
-			showErrorPanel(msg);
+			Dialogs.showErrorPanel(msg);
 		};
 	}
 
@@ -56,9 +58,9 @@ export class LyloochatApp {
 		} else {
 			let self = this;
 			let soundLibrary = new SoundLibrary(this);
-			showLoadingPanel("Chargement des sons...");
+			Dialogs.showLoadingPanel("Chargement des sons...");
 			this.deviceHandler.loadSounds(soundLibrary, function() {
-				hideLoadingPanel();
+				Dialogs.hideLoadingPanel();
 				self.soundLibrary = soundLibrary;
 				cb(self.soundLibrary);
 			});

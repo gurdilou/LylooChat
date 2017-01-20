@@ -3,7 +3,7 @@ import {SoundLibrary} from "./model/sound_library";
 import {Sound} from "./model/sound";
 import {SoundList} from "./model/sound_list";
 import {CardList} from "./model/listCards";
-import {Card_Text} from "./model/card_text";
+import {CardText} from "./model/card_text";
 import {FakeMediaHandler} from "./lib/FakeMediaHandler";
 import {MedialHandler} from "./model/mediaHandler";
 
@@ -54,12 +54,12 @@ export class PhonegapHandler {
 	public initialize() {
 		this.app = new LyloochatApp(this);
 
-		window.addEventListener('load', this.app.initialisation(), false);
+		window.addEventListener('load', this.app.initialisation, false);
 	}
 	// loadCards charge les cartes depuis l'appareil
 	public loadCards(listCards: CardList, cb: () => void) {
 		for (let i = 0; i < 16; i++) {
-			let cardLoaded = new Card_Text(i, "Card number " + i, "Card number " + i);
+			let cardLoaded = new CardText("" + i, "Card number " + i, "Card number " + i);
 			listCards.addCard(cardLoaded);
 		}
 		cb();

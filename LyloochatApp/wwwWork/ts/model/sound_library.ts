@@ -4,7 +4,7 @@ import {LyloochatApp} from "../app";
 export class SoundLibrary {
 	// ========================================== VARIABLES =================================
 	public recents_played: SoundList = null;
-	private all_sounds: SoundList = null;
+	public all_sounds: SoundList = null;
 	private ready: boolean = false;
 
 	// ========================================== CONSTRUCTOR ===============================

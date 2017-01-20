@@ -24,7 +24,7 @@ export class MenuSound extends MenuBase {
 	// ========================================== PRIVATE ===================================
 	//_addSound : Ajoute un son dans le menu
 	private addSound(ctn, sound, addToRecent) {
-		let widget_sound = new WidgetSound(this, ctn, sound, addToRecent);
+		let widget_sound = new WidgetSound(this, sound, addToRecent);
 		widget_sound.insert();
 	}
 
@@ -145,7 +145,7 @@ export class MenuSound extends MenuBase {
 	};
 
 	//Lorsqu'on joue une musique
-	public onPlay(widget_sound, addToRecent) {
+	public onPlay(widget_sound: WidgetSound, isInRecentPlayed: boolean) {
 		let self = this;
 
 		this.stopPlayingSound();
@@ -153,7 +153,7 @@ export class MenuSound extends MenuBase {
 		this.playingWidgetSound = widget_sound;
 		this.playingWidgetSound.play();
 
-		if (addToRecent) {
+		if (isInRecentPlayed) {
 			this.soundLibrary.addRecent(widget_sound.sound, function() {
 				self.refreshRecents();
 			});

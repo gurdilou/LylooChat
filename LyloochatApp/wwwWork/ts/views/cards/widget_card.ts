@@ -1,35 +1,36 @@
+import {AppGrid} from "../appGrid";
+import {Card} from "../../model/card";
+
+
 //Classe mère des cartes widgets
 //Classe virtuelle
-function Widget_Card(appGrid, card){
+export abstract class WidgetCard {
     // ========================================== VARIABLES =================================
-    this.appGrid = appGrid;
-    this.card = card;
-    this.elem_card = undefined;
-    this.fullscreen_card = undefined;
+	protected fullscreen_card: HTMLElement = null;
+	private elem_card: HTMLElement = null;
     // ========================================== CONSTRUCTOR ===============================
-    // ========================================== PRIVATE ===================================
+	constructor(
+		private appGrid: AppGrid,
+		public card: Card) {
+	}
+	// ========================================== PRIVATE ===================================
 
 
 
     // ========================================== ABSTRACT ===================================
     // Retourne le contenu texte de la miniature
-    this.getCardThumbailContent = function(){
-        showErrorPanel("Shouldn't be there you naughty boy !");
-        return "";
-    };
-    //Lors d'un clic simple sur la carte
-    this.onCardThumbnailClick = function(){
-        showErrorPanel("Shouldn't be there you naughty boy !");
-    };
+	public abstract getCardThumbailContent();
+	//Lors d'un clic simple sur la carte
+	public abstract onCardThumbnailClick();
 
-    // ========================================== PRIVILEGED ================================
-    // Rend la carte dans un élément HTML
-    this.render = function(container){
-        $(container).append( this.getCardThumbailContent.call(this) );
+	// ========================================== PRIVILEGED ================================
+	// Rend la carte dans un élément HTML
+	public render(container: HTMLElement) {
+		$(container).append(this.getCardThumbailContent());
 
-        var lastChild = container.lastElementChild;
-        this.elem_card = lastChild;
+		let lastChild = <HTMLElement>container.lastElementChild;
+		this.elem_card = lastChild;
 
-        return "";
-    };
+		return "";
+	}
 }

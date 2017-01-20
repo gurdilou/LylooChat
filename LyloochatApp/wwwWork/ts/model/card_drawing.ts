@@ -1,6 +1,6 @@
 import {Card} from "./card";
 
-export class Card_Drawing extends Card {
+export class CardDrawing extends Card {
 	// ========================================== VARIABLES =================================
 	constructor(id: string, code: string, private svg: any) {
 		super(id, code);
