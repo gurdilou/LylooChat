@@ -188,12 +188,13 @@ gulp.task("ts-compile", function () {
     return browserify({
         basedir: '.',
         debug: true,
-        entries: [workDir+'ts/index.ts'],
+        entries: [workDir+'ts/dev/index.ts'],
         cache: {},
         packageCache: {}
     })
     .plugin(tsify)
     .bundle()
+	.on('error', function (error) { console.error(error.toString()); })
     .pipe(source('bundle.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))

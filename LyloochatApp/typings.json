@@ -1,5 +1,9 @@
 {
   "globalDependencies": {
-    "jquery": "registry:dt/jquery#1.10.0+20170104155652"
+    "cordova-plugin-file": "registry:dt/cordova-plugin-file#0.0.0+20160916224823",
+    "handlebars": "registry:dt/handlebars#4.0.5+20160810231743",
+    "jquery": "registry:dt/jquery#1.10.0+20170104155652",
+    "materialize-css": "registry:dt/materialize-css#0.97.5+20170120192433",
+    "phonegap": "registry:dt/phonegap#2.3.0+20160510002910"
   }
 }

@@ -1,15 +1,15 @@
+import {WidgetCard} from "../cards/widget_card";
 //Classe mère des cartes widgets
 //Classe virtuelle
-function Screen_Card(widget_card){
+export abstract class ScreenCard {
     // ========================================== VARIABLES =================================
-    this.widget_card = widget_card;
+	constructor(protected widget_card: WidgetCard) {
+	}
     // ========================================== CONSTRUCTOR ===============================
     // ========================================== PRIVATE ===================================
     // ========================================== ABSTRACT ==================================
     //Lors d'un clic simple sur la carte
-    this.display = function(){
-        showErrorPanel("Shouldn't be there you naughty boy !");
-    };
+	public abstract display();
     // ========================================== PRIVILEGED ================================
 
 }

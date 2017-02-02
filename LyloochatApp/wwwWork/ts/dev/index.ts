@@ -1,15 +1,16 @@
-import {LyloochatApp} from "./app";
-import {SoundLibrary} from "./model/sound_library";
-import {Sound} from "./model/sound";
-import {SoundList} from "./model/sound_list";
-import {CardList} from "./model/listCards";
-import {CardText} from "./model/card_text";
-import {FakeMediaHandler} from "./lib/FakeMediaHandler";
-import {MedialHandler} from "./model/mediaHandler";
+import {LyloochatApp} from "../app";
+import {SoundLibrary} from "../model/sound_library";
+import {Sound} from "../model/sound";
+import {SoundList} from "../model/sound_list";
+import {CardList} from "../model/listCards";
+import {CardText} from "../model/card_text";
+import {FakeMediaHandler} from "../dev/FakeMediaHandler";
+import {MedialHandler} from "../model/mediaHandler";
+import {AppHandler} from "../appHandler";
 
 
-export class PhonegapHandler {
-	private app: LyloochatApp = undefined;
+export class PhonegapHandler implements AppHandler {
+	private app: LyloochatApp = null;
 
 	// ========================================== VARIABLES =================================
 
@@ -77,7 +78,7 @@ export class PhonegapHandler {
 	}
 
 	//createSoundHandler : Créer un media object pour manipuler un son
-	public createSoundHandler(sound: Sound, cb_onStop: () => void, cb_onCreated: (mediaHandler: MedialHandler) => void) {
+	public createSoundHandler(sound: Sound, cb_onCreated: (mediaHandler: MedialHandler) => void) {
 		let fake = new FakeMediaHandler();
 		cb_onCreated(fake);
 	}

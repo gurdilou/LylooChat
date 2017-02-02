@@ -1,15 +1,21 @@
 import {LyloochatApp} from "../app";
 import {MenuSound} from "./menus/menu_sound";
+import {MenuText} from "./menus/menu_text";
+import {MenuDrawing} from "./menus/menu_drawing";
+import {MenuOptions} from "./menus/menu_options";
+import {MenuBase} from "./menus/menu_base";
+
+
 export class AppMenu {
 	// ========================================== VARIABLES =================================
 
-	private menu_text = null;
-	private menu_sound = null;
-	private menu_drawing = null;
-	private menu_options = null;
-	private selected_menu = null;
-	private selected_menu_elem = null;
-	private old_scroll_position = 0;
+	private menu_text: MenuText = null;
+	private menu_sound: MenuSound = null;
+	private menu_drawing: MenuDrawing = null;
+	private menu_options: MenuOptions = null;
+	private selected_menu: MenuBase = null;
+	private selected_menu_elem: JQuery = null;
+	private old_scroll_position: number = 0;
 
 	constructor(public app: LyloochatApp) {
 		this.fill();
@@ -67,14 +73,14 @@ export class AppMenu {
 	}
 
 	//_createMenu_Sound : Créer le menu pour jouer un son
-	private createMenu_Sound(app_menu_sound) {
+	private createMenu_Sound(app_menu_sound: JQuery) {
 		if (this.menu_sound === undefined) {
 			this.menu_sound = new MenuSound(this);
 		}
 		this.selectMenu(this.menu_sound, app_menu_sound);
 	}
 	//_createMenu_Text : Créer le menu pour afficher un texte
-	private createMenu_Text(app_menu_text) {
+	private createMenu_Text(app_menu_text: JQuery) {
 		if (this.menu_text === undefined) {
 			// this.menu_text = new AppMenu_Text(this);
 			//TODO
@@ -82,7 +88,7 @@ export class AppMenu {
 		this.selectMenu(this.menu_text, app_menu_text);
 	}
 	//_createMenu_Drawing : Créer le menu pour afficher un dessin
-	private createMenu_Drawing(app_menu_drawing) {
+	private createMenu_Drawing(app_menu_drawing: JQuery) {
 		if (this.menu_drawing === undefined) {
 			// this.menu_drawing = new AppMenu_Drawing(this);
 			//TODO
@@ -90,7 +96,7 @@ export class AppMenu {
 		this.selectMenu(this.menu_drawing, app_menu_drawing);
 	}
 	//_createMenu_Options : Créer le menu pour afficher les options
-	private createMenu_Options(app_menu_options) {
+	private createMenu_Options(app_menu_options: JQuery) {
 		if (this.menu_options === undefined) {
 			// this.menu_options = new AppMenu_Options(this);
 			//TODO
@@ -99,7 +105,7 @@ export class AppMenu {
 	}
 
 	//_selectMenu : Affiche ou masque un menu
-	private selectMenu(menu, app_menu_elem) {
+	private selectMenu(menu: MenuBase, app_menu_elem: JQuery) {
 		if (menu === this.selected_menu) {
 			menu.hide();
 			app_menu_elem.removeClass("selected");

@@ -1,4 +1,4 @@
-interface MedialHandler {
+export interface MedialHandler {
 	play();
 	stop();
 	release();

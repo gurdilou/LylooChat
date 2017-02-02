@@ -1,13 +1,19 @@
+import {ScreenCard} from "./screen_card";
+import {WidgetCardDrawing} from "../cards/widget_card_drawing";
+import {Dialogs} from "../../commons/common";
 //Une carte en plein écran avec du texte
-function Screen_Card_Drawing(widget_card){
+export class ScreenCardDrawing extends ScreenCard {
     // ========================================== VARIABLES =================================
     // ========================================== CONSTRUCTOR ===============================
-    Screen_Card.apply(this, [widget_card]);
-
+	constructor(widget_card: WidgetCardDrawing) {
+		super(widget_card);
+	}
 
     // ========================================== PRIVATE ===================================
 
     // ========================================== OVERRIDE===================================
     // ========================================== PRIVILEGED ================================
-
+	public display() {
+		Dialogs.showErrorPanel("display card sound");
+	}
 }

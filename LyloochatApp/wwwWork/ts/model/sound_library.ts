@@ -1,4 +1,5 @@
 import {SoundList} from "./sound_list";
+import {Sound} from "./sound";
 import {LyloochatApp} from "../app";
 
 export class SoundLibrary {
@@ -50,7 +51,7 @@ export class SoundLibrary {
 	};
 
 	// addRecent : Ajoute un son aux récents
-	public addRecent(soundPlayed, cb) {
+	public addRecent(soundPlayed: Sound, cb: () => void) {
 		this.recents_played.insertAtBegin(soundPlayed);
 		this.recents_played.deleteDuplicates();
 		this.recents_played.keepFirst(10);

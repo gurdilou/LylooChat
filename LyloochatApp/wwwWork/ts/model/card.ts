@@ -1,6 +1,6 @@
 export class Card {
 	// ========================================== VARIABLES =================================
-	constructor(protected id: string, protected code: string) {
+	constructor(public id: string, public code: string) {
 
 	}
 	// ========================================== CONSTRUCTOR ===============================

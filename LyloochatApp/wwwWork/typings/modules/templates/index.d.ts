@@ -7,5 +7,8 @@ declare namespace Lyloochat {
 		static widget_badge_button(context: any);
 		static widget_text_button(context: any);
 		static widget_floating_button(context: any);
+		static menu_card_config(context: any);
+		static widget_card_text(context: any);
+		static screen_display_card_text(context: any);
 	}
 }

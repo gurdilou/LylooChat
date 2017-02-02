@@ -14,7 +14,7 @@ export class Sound {
 	}
 
 	// ========================================== PRIVATE ===================================
-	private zeroPad(num, places) {
+	private zeroPad(num: number, places: number) {
 		let zero = places - num.toString().length + 1;
 		return Array(+(zero > 0 && zero)).join("0") + num;
 	}

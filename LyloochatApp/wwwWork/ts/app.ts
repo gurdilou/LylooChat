@@ -1,9 +1,11 @@
 import {AppOptions} from "./model/app_options";
-import {PhonegapHandler} from "./index";
+import {AppHandler} from "./appHandler";
 import {SoundLibrary} from "./model/sound_library";
 import {CardList} from "./model/listCards";
 import {AppViews} from "./views/app_views";
 import {Dialogs} from "./commons/common";
+import {HandlebarHelpers} from "./commons/hbs_helpers";
+import {SoundList} from "./model/sound_list";
 
 export class LyloochatApp {
 	// ========================================== VARIABLES =================================
@@ -14,11 +16,8 @@ export class LyloochatApp {
 	private soundLibrary: SoundLibrary = null;
 
 
-	constructor(public deviceHandler: PhonegapHandler) {
-		Handlebars.registerPartial('widget_badge_button', Lyloochat.templates.widget_badge_button);
-		Handlebars.registerPartial('widget_text_button', Lyloochat.templates.widget_text_button);
-		Handlebars.registerPartial('widget_floating_button', Lyloochat.templates.widget_floating_button);
-
+	constructor(public deviceHandler: AppHandler) {
+		HandlebarHelpers.initHelpers();
 		this.views = new AppViews(this);
 	}
 
@@ -31,7 +30,7 @@ export class LyloochatApp {
 	public initialisation() {
 		console.log("initialisation");
 
-		$.event.special.tap.emitTapOnTaphold = false;
+		// $.event.special.tap.emitTapOnTaphold = false;
 
 		//Chargement du modèle
 		let self = this;
@@ -52,7 +51,7 @@ export class LyloochatApp {
 	}
 
 	// getSoundLibrary : Retourne ou charge la librairie de son
-	public getSoundLibrary(cb) {
+	public getSoundLibrary(cb: (library: SoundLibrary) => void) {
 		if (this.soundLibrary !== undefined) {
 			cb(this.soundLibrary);
 		} else {
@@ -67,7 +66,7 @@ export class LyloochatApp {
 		}
 	}
 	// saveRecentsSound : Sauvegarde les sons récemment joués
-	public saveRecentsSound(soundList, cb) {
+	public saveRecentsSound(soundList: SoundList, cb: () => void) {
 		this.deviceHandler.saveRecentsSound(soundList, cb);
 	}
 }

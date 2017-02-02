@@ -2,6 +2,9 @@ import {MenuBase} from "./menu_base";
 import {AppMenu} from "../appMenu";
 import {SoundLibrary} from "../../model/sound_library";
 import {WidgetSound} from "./menu_sound/widget_sound";
+import {Sound} from "../../model/sound";
+
+
 //Une carte avec du dessin
 export class MenuSound extends MenuBase {
 	private soundLibrary: SoundLibrary = null;
@@ -23,7 +26,7 @@ export class MenuSound extends MenuBase {
 
 	// ========================================== PRIVATE ===================================
 	//_addSound : Ajoute un son dans le menu
-	private addSound(ctn, sound, addToRecent) {
+	private addSound(ctn: JQuery, sound: Sound, addToRecent: boolean) {
 		let widget_sound = new WidgetSound(this, sound, addToRecent);
 		widget_sound.insert();
 	}

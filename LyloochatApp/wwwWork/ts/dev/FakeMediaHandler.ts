@@ -1,10 +1,17 @@
-import {Card}	from "./card";
-
-export class CardText extends Card {
+export class FakeMediaHandler {
 	// ========================================== VARIABLES =================================
-	constructor(id: string, code: string, public label: string) {
-		super(id, code);
-	}
+
+	// ========================================== CONSTRUCTOR ===============================
+
 	// ========================================== PRIVATE ===================================
 	// ========================================== PRIVILEGED ================================
+	public play() {
+
+	}
+	public stop() {
+
+	}
+	public release() {
+
+	}
 }

@@ -1,5 +1,6 @@
 import {AppGrid} from "./appGrid";
 import {WidgetCard} from "./cards/widget_card";
+import {WidgetCardText} from "./cards/widget_card_text";
 import {SoundList} from "../model/sound_list";
 import {Sound} from "../model/sound";
 import {Dialogs} from "../commons/common";
@@ -31,7 +32,6 @@ export class CardConfigurator {
 
 	// _displayMenusVertical : Affiche le menu vertical
 	private displayMenusVertical() {
-		let self = this;
 		let maskPanel = $(".popup");
 		let menuContext = {
 			loc: {
@@ -51,15 +51,16 @@ export class CardConfigurator {
 		if (this.widget.card instanceof CardText) {
 			this.fillMenuText();
 		} else if (this.widget.card instanceof CardSound) {
-			_fillMenuSound.call(self);
+			this.fillMenuSound();
 		} else if (this.widget.card instanceof CardDrawing) {
-			_fillMenuDrawing.call(self);
+			this.fillMenuDrawing();
 		}
 		Materialize.updateTextFields();
 		$('ul.tabs').tabs();
 
 
 		//event listeners
+		let self = this;
 		$('.menu-card-config .btn-sound-search').on('click', function(e) {
 			let wordSearched = $('#card-soundpath').val();
 
@@ -70,10 +71,10 @@ export class CardConfigurator {
 				ctn.removeClass('hidden');
 				ctn.empty();
 
-				for (i = 0; i < self.sounds.size(); i++) {
+				for (let i = 0; i < self.sounds.size(); i++) {
 					let candidate = self.sounds.get(i);
 
-					_addSoundCandidate.call(self, ctn, candidate, i);
+					self.addSoundCandidate(ctn, candidate);
 				}
 			});
 		});
@@ -82,8 +83,8 @@ export class CardConfigurator {
 			let newWidget = null;
 			if (activeTab.hasClass('menu-text')) {
 				let label = $('#card_text_content').val();
-				let card = new Card_Text(self.widget.card.id, label, label);
-				newWidget = new Widget_Card_Text(appGrid, card);
+				let card = new CardText(self.widget.card.id, label, label);
+				newWidget = new WidgetCardText(self.appGrid, card);
 			}
 			if (activeTab.hasClass('menu-sound')) {
 				//TODO generate widget sound
@@ -93,22 +94,22 @@ export class CardConfigurator {
 			}
 
 			if (newWidget) {
-				appGrid.onCardEdit(self.index, newWidget);
+				self.appGrid.onCardEdit(self.index, newWidget);
 			}
-			hidePopupPanel();
+			self.exitConfig();
 		});
 		$('.menu-card-config .btn-cancel').on('click', function(e) {
-			hidePopupPanel();
+			self.exitConfig();
 		});
 	}
 
 	// _addSoundCandidate : Ajoute un son validant le motif de recherche
-	private addSoundCandidate(ctn, candidate) {
+	private addSoundCandidate(ctn: JQuery, candidate: Sound) {
 		let context = {
-            name: candidate.name,
-            durationStr: candidate.getDurationStr(),
-            icon: 'play',
-        };
+			name: candidate.name,
+			durationStr: candidate.getDurationStr(),
+			icon: 'play',
+		};
 		let widget_sound_str = Lyloochat.templates.widget_sound(context);
 		ctn.append(widget_sound_str);
 		let elem_sound = ctn.children().last();
@@ -125,7 +126,8 @@ export class CardConfigurator {
 	private fillMenuText() {
 		$('.menu-card-config ul.tabs').tabs('select_tab', 'card_text');
 		let input = $('#card_text_content');
-		input.val(this.widget.card.label);
+		let cardText = <CardText>this.widget.card;
+		input.val(cardText.label);
 	}
 	// _fillMenuSound : Sélection du menu  pour une carte de son
 	private fillMenuSound() {
@@ -139,16 +141,14 @@ export class CardConfigurator {
 	}
 
 	// ========================================== PRIVILEGED ================================
-	public onClick(index) {
+	public onClick(index: number) {
 		if (!this.busy) {
 			this.busy = true;
 			this.index = index;
-			this.widget = appGrid.card_widgets[index];
+			this.widget = this.appGrid.card_widgets[index];
 
-			showPopupPanel.call(this);
-
-
-			_displayMenusVertical.call(this);
+			Dialogs.showPopupPanel();
+			this.displayMenusVertical();
 		}
 	}
 }

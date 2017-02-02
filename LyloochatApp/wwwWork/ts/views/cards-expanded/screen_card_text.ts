@@ -1,38 +1,43 @@
+import {ScreenCard} from "./screen_card";
+import {WidgetCardText} from "../cards/widget_card_text";
+import {CardText} from "../../model/card_text";
 //Une carte en plein écran avec du texte
-function Screen_Card_Text(widget_card){
-    // ========================================== VARIABLES =================================
-    // ========================================== CONSTRUCTOR ===============================
-    Screen_Card.apply(this, [widget_card]);
+export class ScreenCardText extends ScreenCard {
+	// ========================================== VARIABLES =================================
+	// ========================================== CONSTRUCTOR ===============================
+	constructor(widget_card: WidgetCardText) {
+		super(widget_card);
+	}
 
+	// ========================================== PRIVATE ===================================
+	// ========================================== OVERRIDE===================================
+	//Lors d'un clic simple sur la carte
+	public display() {
+		let body = $("body");
 
-    // ========================================== PRIVATE ===================================
-    // ========================================== OVERRIDE===================================
-    //Lors d'un clic simple sur la carte
-    this.display = function(){
-        var body = $("body");
+		let cardText = <CardText>this.widget_card.card;
+		let context = {
+			label: cardText.label,
+		};
+		let fullscreen_elem = Lyloochat.templates.screen_display_card_text(context);
+		body.append(fullscreen_elem);
 
-        var context = {
-            label: widget_card.card.label,
-        };
-        var fullscreen_elem = Lyloochat.templates.screen_display_card_text(context);
-        body.append(fullscreen_elem);
+		let card_expanded_elem = body.children().last();
 
-        var card_expanded_elem = body.children().last();
+		let box_text_elem = card_expanded_elem.find('.container');
+		box_text_elem.boxfit();
 
-        var box_text_elem = card_expanded_elem.find('.container');
-        box_text_elem.boxfit();
+		$(window).resize(function() {
+			card_expanded_elem.attr('style', '');
+			box_text_elem.attr('style', '');
+			box_text_elem.boxfit();
+		});
 
-        $( window ).resize(function() {
-            card_expanded_elem.attr('style', '');
-            box_text_elem.attr('style', '');
-            box_text_elem.boxfit();
-        });
-
-        var innerButton = card_expanded_elem.find('.card-fs-butt-ok');
-        innerButton.on('click', function(e){
-            $(card_expanded_elem).remove();
-        });
-    };
-    // ========================================== PRIVILEGED ================================
+		let innerButton = card_expanded_elem.find('.card-fs-butt-ok');
+		innerButton.on('click', function(e) {
+			$(card_expanded_elem).remove();
+		});
+	}
+	// ========================================== PRIVILEGED ================================
 
 }

@@ -1,22 +1,28 @@
+import {WidgetCard} from "./widget_card";
+import {AppGrid} from "../appGrid";
+import {CardSound} from "../../model/card_sound";
+import {Dialogs} from "../../commons/common";
 //Une carte avec du son
-function Widget_Card_Sound(appGrid, card){
-    // ========================================== VARIABLES =================================
-    Widget_Card.apply(this, [appGrid, card]);
+export class WidgetCardSound extends WidgetCard {
+    // ========================================== let IABLES =================================
+	constructor(appGrid: AppGrid, card: CardSound) {
+		super(appGrid, card);
+	}
     // ========================================== CONSTRUCTOR ===============================
     // ========================================== PRIVATE ===================================
     // ========================================== OVERRIDE===================================
     // Retourne le contenu texte de la miniature
-    this.getCardThumbailContent = function(){
+	public getCardThumbailContent() {
 
-        var context = {
-            cardNumber: card.id,
-            title: card.code
-        };
-        return Lyloochat.templates.widget_card_text(context);
-    };
-    //Lors d'un clic simple sur la carte
-    this.onCardThumbnailClick = function(){
-        showErrorPanel("Click Widget_Card_Sound");
-    };
+		let context = {
+			cardNumber: this.card.id,
+			title: this.card.code
+		};
+		return Lyloochat.templates.widget_card_text(context);
+	}
+	//Lors d'un clic simple sur la carte
+	public onCardThumbnailClick() {
+		Dialogs.showErrorPanel("Click Widget_Card_Sound");
+	}
     // ========================================== PRIVILEGED ================================
 }

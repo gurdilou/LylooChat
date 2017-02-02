@@ -2,19 +2,24 @@ import {LyloochatApp} from "../app";
 import {WidgetCard} from "./cards/widget_card";
 import {CardText} from "../model/card_text";
 import {CardSound} from "../model/card_sound";
+import {WidgetCardText} from "./cards/widget_card_text";
+import {WidgetCardSound} from "./cards/widget_card_sound";
+import {WidgetCardDrawing} from "./cards/widget_card_drawing";
 import {CardDrawing} from "../model/card_drawing";
 import {Dialogs} from "../commons/common";
+import {CardConfigurator} from "./cardConfigurator";
 
 export class AppGrid {
 	// ========================================== VARIABLES =================================
 	private static TAP_HOLD_DURATION = 100;
 	private static CONFIG_HOLD_DURATION = 750;
 
+	public card_widgets: WidgetCard[] = [];
 	private busy: boolean = false;
 	private isTapHolding: boolean = false;
-	private card_widgets: WidgetCard[] = [];
 
-	constructor(private app: LyloochatApp) {
+
+	constructor(public app: LyloochatApp) {
 		this.fill();
 	}
 
@@ -30,11 +35,11 @@ export class AppGrid {
 			let card_widget = undefined;
 
 			if (card instanceof CardText) {
-				card_widget = new Widget_Card_Text(this, card);
+				card_widget = new WidgetCardText(this, card);
 			} else if (card instanceof CardDrawing) {
-				card_widget = new Widget_Card_Drawing(this, card);
+				card_widget = new WidgetCardDrawing(this, card);
 			} else if (card instanceof CardSound) {
-				card_widget = new Widget_Card_Sound(this, card);
+				card_widget = new WidgetCardSound(this, card);
 			}
 
 			if (card_widget) {
@@ -53,7 +58,7 @@ export class AppGrid {
 		let self = this;
 
 		//gestion du tap
-		$(".ripple").on('click', function(e: JQueryMouseEventObject, ...args: any[]){
+		$(".ripple").on('click', function(e: JQueryMouseEventObject, ...args: any[]) {
 			if (!self.isTapHolding) { //si on n'est pas pendant un appui
 				//On récupère la div de la carte cliqué
 				let target = $(e.target);
@@ -80,7 +85,7 @@ export class AppGrid {
 
 	// _addAnimation : Ajoute un effet localisé à une tuile
 	// code is src elem child seeked
-	private addAnimation(e:  JQueryMouseEventObject, code: string) {
+	private addAnimation(e: JQueryMouseEventObject, code: string) {
 		let self, ink, d, x, y;
 
 		if (this.app.loaded) {
@@ -161,7 +166,7 @@ export class AppGrid {
 		};
 
 
-		$(".ripple").on('mousedown', function(e: JQueryMouseEventObject, ...args: any[]){
+		$(".ripple").on('mousedown', function(e: JQueryMouseEventObject, ...args: any[]) {
 			event_start = e;
 			timerConfigRipple = setTimeout(_onStartTapHolding, AppGrid.TAP_HOLD_DURATION);
 			timerFireConfig = setTimeout(_onlongtouch, AppGrid.CONFIG_HOLD_DURATION);

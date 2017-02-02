@@ -35,6 +35,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "phonegap": "^6.4.3",
     "vinyl-paths": "^2.0.0"
   }
 }
