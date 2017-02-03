@@ -1,13 +1,14 @@
 import {SoundLibrary} from "../model/sound_library";
 import {Dialogs} from "../commons/common";
 import {Sound} from "../model/sound";
+import {SoundList} from "../model/sound_list";
+import {RecentsSoundsIOHelper} from "./recents_sounds_io_helper";
+
 
 export class SoundHelper {
 	// ========================================== VARIABLES =================================
-	private sound_list = null;
-	private recent_list = null;
-
-
+	private sound_list: SoundList = null;
+	private recent_list: SoundList = null;
 	private nbExpected = 0;
 	private nbReceived = 0;
 
@@ -18,7 +19,7 @@ export class SoundHelper {
 	}
 	// ========================================== PRIVATE ===================================
 	//fail : gestion des erreurs fichiers IO
-	private fail(error) {
+	private fail(error: any) {
 		let msg = '';
 		switch (error.code) {
 			case FileError.NOT_FOUND_ERR:
@@ -63,36 +64,41 @@ export class SoundHelper {
 		Dialogs.showErrorPanel(msg);
 	};
 	//_loadSoundFromDirectory : Charge un son depuis l appareil
-	private loadSoundFromDirectory(dirLooked, entry, index, onAllSoundsLoaded) {
+	private loadSoundFromDirectory(dirLooked: string, entry: FileEntry, index: number, onAllSoundsLoaded: Function) {
 		// Chargement du fichier
 		let self = this;
-		entry.file(function(file) {
-			try {
-				//Lecture de tous les tags
-				jsmediatags.read(file, {
-					onSuccess: function(tag) {
-						let title = tag.tags.title;
-						let author = tag.tags.author;
-						// Pour obtenir la durée du son, cf après
-						self.getSoundDuration.call(dirLooked + entry.fullPath, index, function(duration) {
-							self.onSoundLoaded.call(true, dirLooked + entry.fullPath, author, title, duration, onAllSoundsLoaded);
-						});
-					},
-					onError: function(error) {
-						Dialogs.showErrorPanel(error.info);
-						self.onSoundLoaded(false, '', '', '', 0, onAllSoundsLoaded);
+		let jsmediatags = window.jsmediatags;
+
+		entry.file(
+			(file: File) => {
+				try {
+					//Lecture de tous les tags
+					jsmediatags.read(file, {
+						onSuccess: function(tag) {
+							let title = tag.tags.title;
+							let author = tag.tags.author;
+							// Pour obtenir la durée du son, cf après
+							self.getSoundDuration(dirLooked + entry.fullPath, index, function(duration) {
+								self.onSoundLoaded(true, dirLooked + entry.fullPath, author, title, duration, onAllSoundsLoaded);
+							});
+						},
+						onError: function(error) {
+							Dialogs.showErrorPanel(error.info);
+							self.onSoundLoaded(false, '', '', '', 0, onAllSoundsLoaded);
+						}
 					}
-				}
-				);
-			} catch (err) {
-				Dialogs.showErrorPanel(err.message);
-				self.onSoundLoaded(false, '', '', '', 0, onAllSoundsLoaded);
-			};
-		}, self.fail);
+					);
+				} catch (err) {
+					Dialogs.showErrorPanel(err.message);
+					self.onSoundLoaded(false, '', '', '', 0, onAllSoundsLoaded);
+				};
+			}, self.fail
+		);
 	}
 
 	// _onSoundLoaded : Lorsqu'un son a été chargé
-	private onSoundLoaded(success, path, author, title, duration, onAllSoundsLoaded) {
+	private onSoundLoaded(success: boolean, path: string, author: string, title: string,
+		duration: number, onAllSoundsLoaded: Function) {
 		if (success) {
 			let newSound = new Sound(title, author, path, duration);
 			this.sound_list.add(newSound);
@@ -106,12 +112,12 @@ export class SoundHelper {
 	}
 
 	// _getSoundDuration : Retourne la durée du son
-	private getSoundDuration(path, index, cb) {
+	private getSoundDuration(path: string, index: number, cb: (duration: number) => void) {
 		let elemHTML = "<audio controls style='display:none' id='dummyPlayer" + index + "'>";
 		elemHTML += "<source src='" + path + "' type='audio/mpeg'> </audio>";
 		let dummy_player = $(elemHTML);
 		$(document.body).append(dummy_player);
-		let vid = <HTMLVideoElement> document.getElementById("dummyPlayer" + index);
+		let vid = <HTMLVideoElement>document.getElementById("dummyPlayer" + index);
 
 		vid.addEventListener('loadedmetadata', function() {
 			let duration = vid.duration;
@@ -124,40 +130,38 @@ export class SoundHelper {
 		}, false);
 	}
 	// _loadAllSoundsFromDevice : Charge la liste complète des sons
-	private loadAllSoundsFromDevice(onAllSoundsLoaded) {
+	private loadAllSoundsFromDevice(onAllSoundsLoaded: Function) {
 		let devicePlatform = device.platform;
 		let dirLooked = "";
 		let dirMusicName = "";
 		if (devicePlatform === "Android") {
-			dirLooked = cordova.file.externalRootDirectory;
+			dirLooked = window.cordova.file.externalRootDirectory;
 			dirMusicName = "Music";
 		}
 		//TODO autres plateformes
 
 		let self = this;
-		let jsmediatags = window.jsmediatags;
-		window.resolveLocalFileSystemURL(dirLooked, function(dirEntry) {
-
-			dirEntry.getDirectory(dirMusicName, { create: true, exclusive: false }, function(dirMusic) {
-				let directoryReader = dirMusic.createReader();
-				directoryReader.readEntries(function(entries) {
-					let i;
-					self.nbExpected = entries.length;
-					for (i = 0; i < entries.length; i++) {
-						(function(i) {
-							let entry = entries[i];
-							console.log("entry name : " + entry.fullPath);
-							_loadSoundFromDirectory.call(self, dirLooked, entry, i, onAllSoundsLoaded);
-						})(i);
-					}
+		window.resolveLocalFileSystemURL(dirLooked, (dirEntry: DirectoryEntry) => {
+			dirEntry.getDirectory(dirMusicName, { create: true, exclusive: false },
+				(dirMusic: DirectoryEntry) => {
+					let directoryReader = dirMusic.createReader();
+					directoryReader.readEntries(
+						(entries: FileEntry[]) => {
+							self.nbExpected = entries.length;
+							for (let i = 0; i < entries.length; i++) {
+								(function(index) {
+									let entry = entries[index];
+									self.loadSoundFromDirectory(dirLooked, entry, i, onAllSoundsLoaded);
+								})(i);
+							}
+						}, self.fail);
 				}, self.fail);
-			}, self.fail);
 		}, self.fail);
 	}
 
 	//_loadRecentSounds : Charge les sons récents et appelle le cb onRecentSoundsLoaded
-	private loadRecentSounds(onRecentSoundsLoaded) {
-		let helper = new RecentsSounds_IOHelper(this.lib.recents_played);
+	private loadRecentSounds(onRecentSoundsLoaded: Function) {
+		let helper = new RecentsSoundsIOHelper(this.lib.recents_played);
 		helper.load(onRecentSoundsLoaded);
 	}
 

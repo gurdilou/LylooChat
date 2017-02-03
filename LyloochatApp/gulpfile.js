@@ -43,6 +43,7 @@ gulp.task('serve', function() {
   gulp.watch('scss/**/*.scss', {cwd: workDir}, ['sass']);
   gulp.watch('lib/materialize/sass/**/*.scss', {cwd: workDir}, ['materialize-sass']);
   gulp.watch('templates/**/*.hbs', {cwd: workDir}, ['handlebars']);
+  gulp.watch('ts/**/*.ts', {cwd: workDir}, ['ts-compile']);
 });
 
 // III - Deploy and start phonegap deploy
@@ -144,9 +145,9 @@ gulp.task('build-templates', function () {
 // Copie toutes les libraires dans le dossier de prod
 gulp.task('build-lib',function(cb){
   gulp.src(['js/lib/**/*'], {cwd: workDir})
-    .pipe(gulp.dest(prodDir+'/js/lib/'))
+    .pipe(gulp.dest(prodDir+'/js/lib/'));
   gulp.src(['lib/**/*'], {cwd: workDir})
-    .pipe(gulp.dest(prodDir+'/js/lib/'))
+    .pipe(gulp.dest(prodDir+'/js/lib/'));
 
   return gulp.src(['bower_components/**'], {cwd: workDir})
     .pipe(gulp.dest(prodDir+'/css/bower_components/'));

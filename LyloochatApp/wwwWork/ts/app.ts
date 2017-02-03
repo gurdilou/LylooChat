@@ -11,7 +11,7 @@ export class LyloochatApp {
 	// ========================================== VARIABLES =================================
 	public listCards: CardList;
 	public options = new AppOptions();
-	public views;
+	public views: AppViews = null;
 	public loaded: boolean = false;
 	private soundLibrary: SoundLibrary = null;
 
@@ -38,8 +38,6 @@ export class LyloochatApp {
 		this.listCards = new CardList();
 		this.deviceHandler.loadCards(this.listCards, function() {
 			//Création des vues
-			self.views.initMenu(this);
-			self.views.initGrid(this);
 			self.loaded = true;
 			Dialogs.hideLoadingPanel();
 		});

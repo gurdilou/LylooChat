@@ -1,5 +1,5 @@
 export class Dialogs {
-	public static showMaskPanel(onExit) {
+	public static showMaskPanel(onExit: Function) {
 		Dialogs.inner_showMaskPanel(this, true, onExit);
 	}
 	public static showModalMaskPanel() {
@@ -14,13 +14,13 @@ export class Dialogs {
 	public static hidePopupPanel() {
 		Dialogs.inner_hidePopupPanel(this);
 	}
-	public static showErrorPanel(msg) {
+	public static showErrorPanel(msg: string) {
 		Dialogs.inner_showErrorPanel(this, msg);
 	}
 	public static hideErrorPanel() {
 		Dialogs.inner_hideErrorPanel(this);
 	}
-	public static showLoadingPanel(msg) {
+	public static showLoadingPanel(msg: string) {
 		Dialogs.inner_showLoadingPanel(this, msg);
 	}
 	public static hideLoadingPanel() {
@@ -28,7 +28,7 @@ export class Dialogs {
 	}
 
 	// showMaskPanel : Affiche un masque sur l'application
-	private static inner_showMaskPanel(caller: any, exitable: boolean, onExit: () => void) {
+	private static inner_showMaskPanel(caller: any, exitable: boolean, onExit: Function) {
 		(function(window, $) {
 			let maskPanel = $(".mask");
 			maskPanel.html("");
@@ -43,7 +43,7 @@ export class Dialogs {
 		})(window, jQuery);
 	};
 	private static inner_hideMaskPanel(caller: any) {
-		(function(window, $) {
+		(function(window: Window) {
 			let maskPanel = $(".mask");
 			maskPanel.html("");
 			maskPanel.removeClass("visible");
@@ -53,14 +53,14 @@ export class Dialogs {
 
 	// showPopupPanel : Affiche un masque pour une popup
 	private static inner_showPopupPanel(caller: any) {
-		(function(window, $) {
+		(function(window: Window) {
 			let maskPanel = $(".popup");
 			maskPanel.html("");
 			maskPanel.addClass("visible");
 		});
 	}
 	private static inner_hidePopupPanel(caller: any) {
-		(function(window, $) {
+		(function(window: Window) {
 			let maskPanel = $(".popup");
 			maskPanel.html("");
 			maskPanel.removeClass("visible");
@@ -68,7 +68,7 @@ export class Dialogs {
 	}
 
 	private static inner_showErrorPanel(caller: any, msg: string) {
-		(function(window, $) {
+		(function(window: Window) {
 			Dialogs.inner_showMaskPanel(this, true, Dialogs.hideErrorPanel);
 
 			let maskPanel = $(".mask");
@@ -107,16 +107,7 @@ export class Dialogs {
 	}
 
 
-	private static inner_hideLoadingPanel(caller) {
+	private static inner_hideLoadingPanel(caller: any) {
 		Dialogs.inner_hideMaskPanel(caller);
 	}
-
 }
-
-//
-//
-// (function(window, $) {
-//
-//
-//
-// })(window, jQuery);

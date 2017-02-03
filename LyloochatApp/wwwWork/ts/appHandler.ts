@@ -5,13 +5,13 @@ import {CardList} from "./model/listCards";
 import {MedialHandler} from "./model/mediaHandler";
 
 export interface AppHandler {
-	initialize();
+	initialize(): void;
 
-	loadCards(listCards: CardList, cb: () => void);
+	loadCards(listCards: CardList, cb: () => void): void;
 
-	loadSounds(lib: SoundLibrary, cb: () => void);
+	loadSounds(lib: SoundLibrary, cb: () => void): void;
 
-	createSoundHandler(sound: Sound, cb_onCreated: (mediaHandler: MedialHandler) => void);
+	createSoundHandler(sound: Sound, cb_onCreated: (mediaHandler: MedialHandler) => void): void;
 
-	saveRecentsSound(soundList: SoundList, cb: () => void);
+	saveRecentsSound(soundList: SoundList, cb: () => void): void;
 }

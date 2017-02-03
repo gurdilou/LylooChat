@@ -616,7 +616,6 @@ interface /*PhoneGapNavigator extends*/ Navigator {
 }
 
 interface Window {
-    requestFileSystem: any;
     openDatabase(database_name: string, database_version: string, database_displayname: string, database_size: number): Database;
 }
 
