@@ -199,7 +199,9 @@ gulp.task("ts-compile", function () {
     .pipe(source('bundle.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(uglify())
-    .pipe(sourcemaps.write('./'))
+    // .pipe(uglify())
+	.pipe(sourcemaps.write('.', {
+		   sourceRoot: function(file){ return file.cwd; }
+	  }))
     .pipe(gulp.dest(workDir+"/js"));
 });
