@@ -6,6 +6,9 @@ import {CardList} from "../model/listCards";
 import {AppHandler} from "../appHandler";
 import {MedialHandler} from "../model/mediaHandler";
 import {CardLoaderHelper} from "./card_load_helper";
+import {SoundHelper} from "./sound_helper";
+import {RecentsSoundsIOHelper} from "./recents_sounds_io_helper";
+
 
 export class PhonegapHandler implements AppHandler {
 	private app: LyloochatApp = null;
@@ -73,7 +76,7 @@ export class PhonegapHandler implements AppHandler {
 
 	// saveRecentsSound : Sauvegarde les sons récemment joués
 	public saveRecentsSound(soundList: SoundList, cb: () => void) {
-		let helper = new RecentsSounds_IOHelper(soundList);
+		let helper = new RecentsSoundsIOHelper(soundList);
 		helper.save(cb);
 	}
 }

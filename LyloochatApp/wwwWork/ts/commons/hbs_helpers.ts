@@ -1,10 +1,10 @@
 export class HandlebarHelpers {
-	public static initHelpers() {
-		Handlebars.registerHelper('if_eq', function(a, b, opts) {
+	public static initHelpers(caller : any) {
+		Handlebars.registerHelper('if_eq', function(a: any, b: any, opts: any) {
 			if (a === b) {
-				return opts.fn(this);
+				return opts.fn(caller);
 			} else {
-				return opts.inverse(this);
+				return opts.inverse(caller);
 			}
 		});
 	}

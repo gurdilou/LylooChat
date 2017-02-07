@@ -10,7 +10,7 @@ export class CardLoaderHelper {
 	constructor(private listCards: CardList, private callbackAfterLoad: Function) {
 	}
 	// ========================================== PRIVATE ===================================
-	private fail(error) {
+	private fail(error: FileError) {
 		let msg = '';
 		switch (error.code) {
 			case FileError.NOT_FOUND_ERR:
@@ -63,11 +63,11 @@ export class CardLoaderHelper {
 		Dialogs.showErrorPanel(msg);
 	}
 	// _loadOrCreateCard : Charge ou créé une carte de l'appli
-	private loadOrCreateCard(dirApp, i) {
+	private loadOrCreateCard(dirApp: DirectoryEntry, i: number) {
 		let self = this;
 
-		dirApp.getFile("Card" + i + ".json", { create: true }, function(entry) {
-			entry.file(function(file) {
+		dirApp.getFile("Card" + i + ".json", { create: true }, function(entry: FileEntry) {
+			entry.file(function(file: File) {
 
 				let reader = new FileReader();
 				reader.onloadend = function(evt: ProgressEvent) {
@@ -84,7 +84,7 @@ export class CardLoaderHelper {
 		}, self.fail);
 	}
 	// _loadCardFromData : Charge une carte en fonction du json
-	private loadCardFromData(data, index) {
+	private loadCardFromData(data: any, index: number) {
 		console.log("_loadCardFromData ... : " + JSON.stringify(data));
 		// TODO
 	}

@@ -43,33 +43,33 @@ export class Dialogs {
 		})(window, jQuery);
 	};
 	private static inner_hideMaskPanel(caller: any) {
-		(function(window: Window) {
+		(function(window: Window, $: JQueryStatic) {
 			let maskPanel = $(".mask");
 			maskPanel.html("");
 			maskPanel.removeClass("visible");
 			maskPanel.off("click");
-		});
+		})(window, jQuery);
 	}
 
 	// showPopupPanel : Affiche un masque pour une popup
 	private static inner_showPopupPanel(caller: any) {
-		(function(window: Window) {
+		(function(window: Window, $: JQueryStatic) {
 			let maskPanel = $(".popup");
 			maskPanel.html("");
 			maskPanel.addClass("visible");
-		});
+		})(window, jQuery);
 	}
 	private static inner_hidePopupPanel(caller: any) {
-		(function(window: Window) {
+		(function(window: Window, $: JQueryStatic) {
 			let maskPanel = $(".popup");
 			maskPanel.html("");
 			maskPanel.removeClass("visible");
-		});
+		})(window, jQuery);
 	}
 
 	private static inner_showErrorPanel(caller: any, msg: string) {
-		(function(window: Window) {
-			Dialogs.inner_showMaskPanel(this, true, Dialogs.hideErrorPanel);
+		(function(window: Window, $: JQueryStatic) {
+			Dialogs.inner_showMaskPanel(caller, true, Dialogs.hideErrorPanel);
 
 			let maskPanel = $(".mask");
 			let context = {
@@ -84,7 +84,7 @@ export class Dialogs {
 				}
 			};
 			maskPanel.html(Lyloochat.templates.widget_dialog(context));
-		});
+		})(window, jQuery);
 	}
 
 
@@ -92,10 +92,10 @@ export class Dialogs {
 		Dialogs.inner_hideMaskPanel(caller);
 	}
 
-	//
+
 	private static inner_showLoadingPanel(caller: any, msg: string) {
 		(function(window, $) {
-			Dialogs.inner_showMaskPanel(this, false, Dialogs.hideLoadingPanel);
+			Dialogs.inner_showMaskPanel(caller, false, Dialogs.hideLoadingPanel);
 
 			let maskPanel = $(".mask");
 			let context = {
@@ -103,7 +103,7 @@ export class Dialogs {
 				messages: [msg]
 			};
 			maskPanel.html(Lyloochat.templates.widget_dialog(context));
-		});
+		})(window, jQuery);
 	}
 
 

@@ -10,7 +10,7 @@ export abstract class WidgetCard {
 	private elem_card: HTMLElement = null;
     // ========================================== CONSTRUCTOR ===============================
 	constructor(
-		private appGrid: AppGrid,
+		protected appGrid: AppGrid,
 		public card: Card) {
 	}
 	// ========================================== PRIVATE ===================================
@@ -19,9 +19,9 @@ export abstract class WidgetCard {
 
     // ========================================== ABSTRACT ===================================
     // Retourne le contenu texte de la miniature
-	public abstract getCardThumbailContent();
+	public abstract getCardThumbailContent(): string;
 	//Lors d'un clic simple sur la carte
-	public abstract onCardThumbnailClick();
+	public abstract onCardThumbnailClick(): void;
 
 	// ========================================== PRIVILEGED ================================
 	// Rend la carte dans un élément HTML

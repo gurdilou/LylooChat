@@ -35,10 +35,7 @@ export class WidgetSound {
 		if (!this.soundHandler) {
 			this.appMenuSound.appMenu.app.deviceHandler.createSoundHandler(
 				this.sound,
-				function() {
-					self.onStop();
-				},
-				function(media) {
+				(media: MedialHandler) => {
 					self.soundHandler = media;
 					cb(self.soundHandler);
 				});

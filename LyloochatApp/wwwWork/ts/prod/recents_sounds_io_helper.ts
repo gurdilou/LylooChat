@@ -110,26 +110,26 @@ export class RecentsSoundsIOHelper {
 								fileHandler.file(function(file) {
 
 									let reader = new FileReader();
-									reader.onloadend = function(evt) {
-										if ((evt.target.result !== undefined) && (evt.target.result !== "")) {
-											let soundsJSON = JSON.parse(evt.target.result);
+									reader.onloadend = function(evt: ProgressEvent) {
+										if (reader.result && (reader.result !== "")) {
+											let soundsJSON = JSON.parse(reader.result);
 											cb(soundsJSON);
 										} else {
 											cb(undefined);
 										}
 									};
 									reader.readAsText(file);
-								}, fail);
-							}, fail);
-					}, fail);
-			}, fail);
+								}, self.fail);
+							}, self.fail);
+					}, self.fail);
+			}, self.fail);
 	}
 	// ========================================== OVERRIDE===================================
 	// ========================================== PRIVILEGED ================================
 	// ========================================== OVERRIDE ==================================
 	// save : Sauvegarde les sons récemment joués
 	public save(cb: Function) {
-		let listSoundsJSON = [];
+		let listSoundsJSON: any[] = [];
 		for (let i = 0; i < this.listSounds.size(); i++) {
 			let sound = this.listSounds.get(i);
 

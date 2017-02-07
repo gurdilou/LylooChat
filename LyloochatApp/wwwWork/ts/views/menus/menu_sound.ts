@@ -32,7 +32,7 @@ export class MenuSound extends MenuBase {
 	}
 
 	//_search_sounds : Recherche des sons contenant le terme donné
-	private search_sounds(searchWord) {
+	private search_sounds(searchWord: string) {
 		this.stopPlayingSound();
 
 		let content = $(".app-content");

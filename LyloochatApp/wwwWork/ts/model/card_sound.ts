@@ -2,7 +2,7 @@ import {Card}	from "./card";
 
 export class CardSound extends Card {
 	// ========================================== VARIABLES =================================
-	constructor(id: string, code: string, private filepath: string) {
+	constructor(id: string, code: string, public filepath: string) {
 		super(id, code);
 	}
 	// ========================================== CONSTRUCTOR ===============================

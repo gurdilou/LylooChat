@@ -1,5 +1,5 @@
 export interface MedialHandler {
-	play();
-	stop();
-	release();
+	play(): void;
+	stop(): void;
+	release(): void;
 }

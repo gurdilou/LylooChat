@@ -15,9 +15,9 @@ export abstract class MenuBase {
 	// ========================================== PRIVATE ===================================
 	// ========================================== ABSTRACT ===================================
 	// Affiche le menu
-	public abstract show();
+	public abstract show(): void;
 	// Affiche le menu
-	public abstract hide();
+	public abstract hide(): void;
 	// ========================================== OVERRIDE===================================
 	// ========================================== PRIVILEGED ================================
 }

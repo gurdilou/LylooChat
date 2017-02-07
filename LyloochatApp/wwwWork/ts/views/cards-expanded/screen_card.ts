@@ -9,7 +9,7 @@ export abstract class ScreenCard {
     // ========================================== PRIVATE ===================================
     // ========================================== ABSTRACT ==================================
     //Lors d'un clic simple sur la carte
-	public abstract display();
+	public abstract display(): void;
     // ========================================== PRIVILEGED ================================
 
 }

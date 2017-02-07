@@ -7,7 +7,6 @@ import {WidgetCardSound} from "./cards/widget_card_sound";
 import {WidgetCardDrawing} from "./cards/widget_card_drawing";
 import {CardDrawing} from "../model/card_drawing";
 import {Dialogs} from "../commons/common";
-import {CardConfigurator} from "./cardConfigurator";
 
 export class AppGrid {
 	// ========================================== VARIABLES =================================
@@ -146,10 +145,6 @@ export class AppGrid {
 		let _onlongtouch = function() {
 			self.clearTouchHoldRipple(timerConfigRipple, timerFireConfig);
 			if (self.app.loaded) {
-				if (self.app.views.cardConfigurator === undefined) {
-					self.app.views.cardConfigurator = new CardConfigurator(self);
-				}
-
 				//On donne l'élément configuré
 				let elemCard = $(event_start.target);
 				while (!elemCard.attr("cardNumber") && elemCard.parent()) {
@@ -158,7 +153,7 @@ export class AppGrid {
 				let index = elemCard.attr("cardNumber");
 				if (index) {
 					// let widget = self.card_widgets[index];
-					self.app.views.cardConfigurator.onClick(index);
+					self.app.views.getCardConfigurator().onClick(+index);
 				}
 
 			}
@@ -173,7 +168,7 @@ export class AppGrid {
 		});
 
 		$(".ripple").on('mouseup', function(e) {
-			this.clearTouchHoldRipple(timerConfigRipple, timerFireConfig);
+			self.clearTouchHoldRipple(timerConfigRipple, timerFireConfig);
 		});
 	}
 	// _clearTouchHoldRipple : Supprime les effets de ripples longs

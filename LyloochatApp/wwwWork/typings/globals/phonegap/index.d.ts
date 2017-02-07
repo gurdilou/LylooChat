@@ -12,7 +12,7 @@ interface Acceleration {
     timestamp: number; //DOMTimeStamp;
 }
 declare var Acceleration: {
-    new(): Acceleration;
+    new (): Acceleration;
 }
 
 interface AccelerometerOptions {
@@ -20,8 +20,8 @@ interface AccelerometerOptions {
 }
 
 interface Accelerometer {
-    getCurrentAcceleration(accelerometerSuccess: (acceleration: Acceleration) => void , accelerometerError: () => void ): void;
-    watchAcceleration(accelerometerSuccess: (acceleration: Acceleration) => void , accelerometerError: () => void , accelerometerOptions?: AccelerometerOptions): void;
+    getCurrentAcceleration(accelerometerSuccess: (acceleration: Acceleration) => void, accelerometerError: () => void): void;
+    watchAcceleration(accelerometerSuccess: (acceleration: Acceleration) => void, accelerometerError: () => void, accelerometerOptions?: AccelerometerOptions): void;
     clearWatch(watchID: number): void;
 }
 
@@ -33,7 +33,7 @@ interface CameraPopoverOptions {
     arrowDir?: number;
 }
 declare var CameraPopoverOptions: {
-    new(x: number, y: number, width: number, height: number, arrowDir: number): CameraPopoverOptions;
+    new (x: number, y: number, width: number, height: number, arrowDir: number): CameraPopoverOptions;
 }
 
 interface CameraOptions {
@@ -87,8 +87,8 @@ interface Camera {
     EncodingType: CameraEncodingTypeObject;
     MediaType: CameraMediaTypeObject;
     PopoverArrowDirection: CameraPopoverArrowDirectionObject;
-    getPicture(cameraSuccess: (imageData: string) => void , cameraError: (message: string) => void , cameraOptions?: CameraOptions): void;
-    cleanup(cameraSuccess: (imageData: string) => void , cameraError: (message: string) => void ): void;
+    getPicture(cameraSuccess: (imageData: string) => void, cameraError: (message: string) => void, cameraOptions?: CameraOptions): void;
+    cleanup(cameraSuccess: (imageData: string) => void, cameraError: (message: string) => void): void;
 }
 
 interface CaptureAudioOptions {
@@ -118,9 +118,9 @@ interface CaptureError {
 }
 
 interface Capture {
-    captureAudio(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureAudioOptions): void;
-    captureImage(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions): void;
-    captureVideo(captureSuccess: (mediaFiles: MediaFile[]) => void , captureError: (error: CaptureError) =>void , options?: CaptureImageOptions): void;
+    captureAudio(captureSuccess: (mediaFiles: MediaFile[]) => void, captureError: (error: CaptureError) => void, options?: CaptureAudioOptions): void;
+    captureImage(captureSuccess: (mediaFiles: MediaFile[]) => void, captureError: (error: CaptureError) => void, options?: CaptureImageOptions): void;
+    captureVideo(captureSuccess: (mediaFiles: MediaFile[]) => void, captureError: (error: CaptureError) => void, options?: CaptureImageOptions): void;
 }
 
 interface Connection {
@@ -156,8 +156,8 @@ declare var CompassError: {
 }
 
 interface Compass {
-    getCurrentHeading(compassSuccess: (heading: CompassHeading) => void , compassError: (error: CompassError) => void , compassOptions?: CompassOptions): void;
-    watchHeading(compassSuccess: (heading: CompassHeading) => void , compassError: (error: CompassError) => void , compassOptions?: CompassOptions): void;
+    getCurrentHeading(compassSuccess: (heading: CompassHeading) => void, compassError: (error: CompassError) => void, compassOptions?: CompassOptions): void;
+    watchHeading(compassSuccess: (heading: CompassHeading) => void, compassError: (error: CompassError) => void, compassOptions?: CompassOptions): void;
     clearWatch(watchID: number): void;
 }
 
@@ -182,7 +182,7 @@ interface ContactField {
     pref: boolean;
 }
 declare var ContactField: {
-    new(type: string, calue: string, perf: boolean): ContactField;
+    new (type: string, calue: string, perf: boolean): ContactField;
 }
 
 interface Contact {
@@ -210,8 +210,8 @@ interface ContactFindOptions {
     filter?: string;
     multiple?: boolean;
 }
-declare var ContactFindOptions : {
-    new(): ContactFindOptions;
+declare var ContactFindOptions: {
+    new (): ContactFindOptions;
 }
 
 interface ContactName {
@@ -223,7 +223,7 @@ interface ContactName {
     honorificSuffix: string;
 }
 declare var ContactName: {
-    new(): ContactName;
+    new (): ContactName;
 }
 
 interface ContactOrganization {
@@ -250,7 +250,7 @@ declare var ContactError: {
 
 interface Contacts {
     create(properties?: any): Contact;
-    find(contactFields: string[], contactSuccess: (contacts: Contact[]) => void , contactError: (error: ContactError) => void , contactFindOptions?: ContactFindOptions): void;
+    find(contactFields: string[], contactSuccess: (contacts: Contact[]) => void, contactError: (error: ContactError) => void, contactFindOptions?: ContactFindOptions): void;
 }
 
 interface Device {
@@ -272,32 +272,12 @@ interface File {
 }
 */
 
-interface FileWriter {
-    readyState: any;
-    fileName: string;
-    length: number;
-    position: number;
-    error: FileError;
-
-    onwritestart: Function;
-    onprogress: Function;
-    onwrite: Function;
-    onabort: Function;
-    onerror: Function;
-    onwriteend: Function;
-
-    abort(): void;
-    seek(arg: number): void;
-    truncate(arg: number): void;
-    write(arg: any): void;
-}
-
 interface FileSystem {
     name: string;
     root: DirectoryEntry;
 }
 declare var DirectoryEntry: {
-    new(name: string, root: DirectoryEntry): DirectoryEntry;
+    new (name: string, root: DirectoryEntry): DirectoryEntry;
 }
 
 interface FileSystemEntry {
@@ -310,8 +290,19 @@ interface FileSystemEntry {
     getMetadata(onSuccess?: (arg: Metadata) => void, onError?: (arg: FileError) => void): void;
     setMetadata(onSuccess?: (arg: Metadata) => void, onError?: (arg: FileError) => void, options?: any): void;
     toURL(): string;
+	/**
+     * Deletes a file or directory. It is an error to attempt to delete a directory that is not empty. It is an error to attempt to delete the root directory of a filesystem.
+     * @param successCallback A callback that is called on success.
+     * @param errorCallback   A callback that is called when errors happen.
+     */
     remove(onSuccess?: () => void, onError?: (arg: FileError) => void): void;
-    getParent(onSuccess?: (arg: DirectoryEntry) => void, onError?: (arg: FileError) => void): void;
+	/**
+     * Look up the parent DirectoryEntry containing this Entry. If this Entry is the root of its filesystem,
+     * its parent is itself.
+     * @param successCallback A callback that is called with the time of the last modification.
+     * @param errorCallback   A callback that is called when errors happen.
+     */
+	getParent(onSuccess?: (arg: DirectoryEntry) => void, onError?: (arg: FileError) => void): void;
 }
 
 interface FileEntry extends FileSystemEntry {
@@ -336,12 +327,12 @@ interface FileTransfer {
     onprogress: Function;
 
     //upload(filePath: string, server: string, successCallback: (metadata: Metadata) => void , errorCallback: (error: FileError) => void , options?: any): void;
-    upload(filePath: string, server: string, successCallback: (result: FileUploadResult) => void , errorCallback: (error: FileError) => void , options?: any): void;
-    download(source: string, target: string, successCallback: (fileEntry: FileEntry) => void , errorCallback: (error: FileError) => void, options?: any): void;
+    upload(filePath: string, server: string, successCallback: (result: FileUploadResult) => void, errorCallback: (error: FileError) => void, options?: any): void;
+    download(source: string, target: string, successCallback: (fileEntry: FileEntry) => void, errorCallback: (error: FileError) => void, options?: any): void;
     abort(): void;
 }
 declare var FileTransfer: {
-    new(): FileTransfer;
+    new (): FileTransfer;
 }
 
 interface FileUploadOptions {
@@ -353,7 +344,7 @@ interface FileUploadOptions {
     headers?: any;
 }
 declare var FileUploadOptions: {
-    new(): FileUploadOptions;
+    new (): FileUploadOptions;
 }
 
 interface FileUploadResult {
@@ -362,11 +353,17 @@ interface FileUploadResult {
     response: string;
 }
 
-interface Flags {
-    create: boolean;
-    exclusive?: boolean;
-}
 
+/**
+ * This dictionary is used to supply arguments to methods
+ * that look up or create files or directories.
+ */
+interface Flags {
+	/** Used to indicate that the user wants to create a file or directory if it was not previously there. */
+	create?: boolean;
+	/** By itself, exclusive must have no effect. Used with create, it must cause getFile and getDirectory to fail if the target path already exists. */
+	exclusive?: boolean;
+}
 /*
 interface LocalFileSystem {
     requestFileSystem: Function;
@@ -484,16 +481,16 @@ interface GlobalizationCurrencyPattern {
 }
 
 interface Globalization {
-    getPreferredLanguage(successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void): void;
-    getLocaleName(successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void): void;
-    dateToString(date: Date, successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateOptions): void;
+    getPreferredLanguage(successCallback: (properties: { value: string }) => void, errorCallback: (error: GlobalizationError) => void): void;
+    getLocaleName(successCallback: (properties: { value: string }) => void, errorCallback: (error: GlobalizationError) => void): void;
+    dateToString(date: Date, successCallback: (properties: { value: string }) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateOptions): void;
     stringToDate(dateString: string, successCallback: (properties: GlobalizationDate) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateOptions): void;
     getDatePattern(successCallback: (properties: GlobalizationDatePattern) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateOptions): void;
-    getDateNames(successCallback: (properties: {value: string[]}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateNameOptions): void;
-    isDayLightSavingsTime(date: Date, successCallback: (properties: {dst: boolean}) => void, errorCallback: (error: GlobalizationError) => void): void;
-    getFirstDayOfWeek(successCallback: (properties: {value: number}) => void, errorCallback: (error: GlobalizationError) => void): void;
-    numberToString(number: number, successCallback: (properties: {value: string}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationNumberOptions): void;
-    stringToNumber(string: string, successCallback: (properties: {value: number}) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationNumberOptions): void;
+    getDateNames(successCallback: (properties: { value: string[] }) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationDateNameOptions): void;
+    isDayLightSavingsTime(date: Date, successCallback: (properties: { dst: boolean }) => void, errorCallback: (error: GlobalizationError) => void): void;
+    getFirstDayOfWeek(successCallback: (properties: { value: number }) => void, errorCallback: (error: GlobalizationError) => void): void;
+    numberToString(number: number, successCallback: (properties: { value: string }) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationNumberOptions): void;
+    stringToNumber(string: string, successCallback: (properties: { value: number }) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationNumberOptions): void;
     getNumberPattern(successCallback: (parameters: GlobalizationNumberPattern) => void, errorCallback: (error: GlobalizationError) => void, options?: GlobalizationNumberOptions): void;
     getCurrencyPattern(currencyCode: string, successCallback: (parameters: GlobalizationCurrencyPattern) => void, errorCallback: (error: GlobalizationError) => void): void;
 }
@@ -520,7 +517,7 @@ interface Media {
     stop(): void;
 }
 declare var Media: {
-    new(src: string, onSuccess: (arg: any) => any, onError: (error: any) => any): Media;
+    new (src: string, onSuccess: (arg: any) => any, onError: (error: any) => any): Media;
 }
 
 interface Notification {

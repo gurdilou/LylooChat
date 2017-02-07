@@ -17,7 +17,7 @@ export class LyloochatApp {
 
 
 	constructor(public deviceHandler: AppHandler) {
-		HandlebarHelpers.initHelpers();
+		HandlebarHelpers.initHelpers(this);
 		this.views = new AppViews(this);
 	}
 
