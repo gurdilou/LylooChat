@@ -1,6 +1,6 @@
 var gulp = require('gulp');
-var workDir='wwwWork/';
-var prodDir='www/';
+var workDir = 'wwwWork/';
+var prodDir = 'www/';
 
 
 //variables
@@ -25,6 +25,8 @@ var typescript = require('typescript');
 var tsify = require("tsify");
 var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
+var watchify = require("watchify");
+var gutil = require("gulp-util");
 
 
 
@@ -33,45 +35,53 @@ var buffer = require('vinyl-buffer');
 gulp.task('default', ['serve']);
 
 // II - Local html server during desktop developement
-gulp.task('serve', function() {
-  browserSync({
-    server: {
-      baseDir: workDir
-    }
-  });
-  gulp.watch(['*.html', 'js/**/*.js'], {cwd: workDir}, reload);
-  gulp.watch('scss/**/*.scss', {cwd: workDir}, ['sass']);
-  gulp.watch('lib/materialize/sass/**/*.scss', {cwd: workDir}, ['materialize-sass']);
-  gulp.watch('templates/**/*.hbs', {cwd: workDir}, ['handlebars']);
-  gulp.watch('ts/**/*.ts', {cwd: workDir}, ['ts-compile']);
+gulp.task('serve', ['handlebars', 'sass'], function() {
+    compileTypescript();
+
+    gulp.watch(['*.html', 'js/**/*.js'], {
+        cwd: workDir
+    }, reload);
+    gulp.watch('scss/**/*.scss', {
+        cwd: workDir
+    }, ['sass']);
+    gulp.watch('lib/materialize/sass/**/*.scss', {
+        cwd: workDir
+    }, ['materialize-sass']);
+    gulp.watch('templates/**/*.hbs', {
+        cwd: workDir
+    }, ['handlebars']);
+
+
+    return browserSync({
+        server: {
+            baseDir: workDir
+        }
+    });
 });
 
 // III - Deploy and start phonegap deploy
 gulp.task('full-deploy', function(callback) {
-  runSequence(
-              'build-clean',
-              'handlebars',
-              ['build-lib', 'build-js', 'build-styles', 'build-templates'],
-              'build-phonegap',
-              'run',
-              callback);
+    runSequence(
+        'build-clean',
+        'handlebars', ['build-lib', 'build-js', 'build-styles', 'build-templates'],
+        'build-phonegap',
+        'run',
+        callback);
 });
 // III - Deploy and start phonegap deploy
 gulp.task('quick-deploy', function(callback) {
-  runSequence(
-              'build-clean',
-              ['build-lib', 'build-js-clear', 'build-styles', 'build-templates'],
-              'run',
-              callback);
+    runSequence(
+        'build-clean', ['build-lib', 'build-js-clear', 'build-styles', 'build-templates'],
+        'run',
+        callback);
 });
 
 // IV - Deploy and start phonegap serve
 gulp.task('phone-serve', function(callback) {
-  runSequence(
-              'build-clean',
-              ['build-lib', 'build-js', 'build-styles', 'build-templates'],
-              'serve-phonegap',
-              callback);
+    runSequence(
+        'build-clean', ['build-lib', 'build-js', 'build-styles', 'build-templates'],
+        'serve-phonegap',
+        callback);
 });
 
 
@@ -79,96 +89,122 @@ gulp.task('phone-serve', function(callback) {
 //*** SUB TASKS
 //Delete computed files in prod
 gulp.task('build-clean', function(callback) {
-    return del([prodDir+'js/**/app.js', prodDir+'js/templates.js', prodDir+'css/*.css', prodDir+'bower_components/**/*'], callback);
+    return del([prodDir + 'js/**/app.js', prodDir + 'js/templates.js', prodDir + 'css/*.css', prodDir + 'bower_components/**/*'], callback);
 });
 //Scss to css
 gulp.task('sass', function() {
-  gulp.src('./scss/**/*.scss', {cwd: workDir})
-    .pipe(sass.sync({outputStyle: 'compressed'}).on('error', sass.logError))
-    .pipe(autoprefixer('last 2 version'))
-    .pipe(gulp.dest('css', {cwd: workDir}))
-    .pipe(browserSync.stream());
+    gulp.src('./scss/**/*.scss', {
+            cwd: workDir
+        })
+        .pipe(sass.sync({
+            outputStyle: 'compressed'
+        }).on('error', sass.logError))
+        .pipe(autoprefixer('last 2 version'))
+        .pipe(gulp.dest('css', {
+            cwd: workDir
+        }))
+        .pipe(browserSync.stream());
 });
 //Materialize Scss to css
 gulp.task('materialize-sass', function() {
-  gulp.src('./lib/materialize/sass/**/*.scss', {cwd: workDir})
-    .pipe(sass.sync({outputStyle: 'compressed'}).on('error', sass.logError))
-    .pipe(autoprefixer('last 2 version'))
-    .pipe(gulp.dest('css', {cwd: workDir}))
-    .pipe(browserSync.stream());
+    gulp.src('./lib/materialize/sass/**/*.scss', {
+            cwd: workDir
+        })
+        .pipe(sass.sync({
+            outputStyle: 'compressed'
+        }).on('error', sass.logError))
+        .pipe(autoprefixer('last 2 version'))
+        .pipe(gulp.dest('css', {
+            cwd: workDir
+        }))
+        .pipe(browserSync.stream());
 });
 
 //generate view templates for client
 gulp.task('handlebars', function() {
 
-  return gulp.src(workDir+'templates/**/*.hbs')
-    //ecrase le fichier template js
-    //.pipe(cache('handlebars')) //cache files, doesn't recompile unchanged templates ;)
-    .pipe(handlebars({
-      handlebars: require('handlebars'),
-      knownHelpers: ['if_eq'],
-    }))
-    .pipe(wrap('Handlebars.template(<%= contents %>)'))
-    .pipe(declare({
-      namespace: 'Lyloochat.templates',
-      noRedeclare: true, // Avoid duplicate declarations
-    }))
-    .pipe(concat('templates.js'))
-    .pipe(gulp.dest(workDir+'js/'));
+    return gulp.src(workDir + 'templates/**/*.hbs')
+        //ecrase le fichier template js
+        //.pipe(cache('handlebars')) //cache files, doesn't recompile unchanged templates ;)
+        .pipe(handlebars({
+            handlebars: require('handlebars'),
+            knownHelpers: ['if_eq'],
+        }))
+        .pipe(wrap('Handlebars.template(<%= contents %>)'))
+        .pipe(declare({
+            namespace: 'Lyloochat.templates',
+            noRedeclare: true, // Avoid duplicate declarations
+        }))
+        .pipe(concat('templates.js'))
+        .pipe(gulp.dest(workDir + 'js/'));
 });
 
 //JS uglify
-gulp.task('build-js', function () {
-   return gulp.src(['js/**/*.js', '!js/index.js', '!js/templates.js', '!js/lib/*'], {cwd: workDir})
-      .pipe(jshint())
-      .pipe(jshint.reporter('default'))
-      .pipe(concat('app.js'))
-      .pipe(uglify())
-      .pipe(gulp.dest(prodDir+'/js/'));
+gulp.task('build-js', function() {
+    return gulp.src(['js/**/*.js', '!js/index.js', '!js/templates.js', '!js/lib/*'], {
+            cwd: workDir
+        })
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
+        .pipe(concat('app.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(prodDir + '/js/'));
 });
 //JS concat
-gulp.task('build-js-clear', function () {
-   return gulp.src(['js/**/*.js', '!js/index.js', '!js/templates.js', '!js/lib/*'], {cwd: workDir})
-      .pipe(jshint())
-      .pipe(jshint.reporter('default'))
-      .pipe(concat('app.js'))
-      .pipe(gulp.dest(prodDir+'/js/'));
+gulp.task('build-js-clear', function() {
+    return gulp.src(['js/**/*.js', '!js/index.js', '!js/templates.js', '!js/lib/*'], {
+            cwd: workDir
+        })
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
+        .pipe(concat('app.js'))
+        .pipe(gulp.dest(prodDir + '/js/'));
 });
 
 
 
 //Copie les templates
-gulp.task('build-templates', function () {
-   return gulp.src(['js/templates.js'], {cwd: workDir})
-      .pipe(gulp.dest(prodDir+'/js/'));
+gulp.task('build-templates', function() {
+    return gulp.src(['js/templates.js'], {
+            cwd: workDir
+        })
+        .pipe(gulp.dest(prodDir + '/js/'));
 });
 // Copie toutes les libraires dans le dossier de prod
-gulp.task('build-lib',function(cb){
-  gulp.src(['js/lib/**/*'], {cwd: workDir})
-    .pipe(gulp.dest(prodDir+'/js/lib/'));
-  gulp.src(['lib/**/*'], {cwd: workDir})
-    .pipe(gulp.dest(prodDir+'/js/lib/'));
+gulp.task('build-lib', function(cb) {
+    gulp.src(['js/lib/**/*'], {
+            cwd: workDir
+        })
+        .pipe(gulp.dest(prodDir + '/js/lib/'));
+    gulp.src(['lib/**/*'], {
+            cwd: workDir
+        })
+        .pipe(gulp.dest(prodDir + '/js/lib/'));
 
-  return gulp.src(['bower_components/**'], {cwd: workDir})
-    .pipe(gulp.dest(prodDir+'/css/bower_components/'));
+    return gulp.src(['bower_components/**'], {
+            cwd: workDir
+        })
+        .pipe(gulp.dest(prodDir + '/css/bower_components/'));
 });
 
 //Compute CSS and deploy
-gulp.task('build-styles', ['sass', 'materialize-sass'], function(){
-  return gulp.src(['css/**/*.css', 'css/**/*.woff', 'css/**/*.woff2', 'css/**/*.ttf'], {cwd: workDir})
-    .pipe(gulp.dest(prodDir+'/css'));
+gulp.task('build-styles', ['sass', 'materialize-sass'], function() {
+    return gulp.src(['css/**/*.css', 'css/**/*.woff', 'css/**/*.woff2', 'css/**/*.ttf'], {
+            cwd: workDir
+        })
+        .pipe(gulp.dest(prodDir + '/css'));
 });
 // Lance le déploiement du android
-gulp.task('build-phonegap', function(cb){
-  exec('phonegap build android', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    cb(err);
-  });
+gulp.task('build-phonegap', function(cb) {
+    exec('phonegap build android', function(err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
 });
 // Lance le déploiement du android
-gulp.task('run', function(cb){
-    exec('phonegap run android', function (err, stdout, stderr) {
+gulp.task('run', function(cb) {
+    exec('phonegap run android', function(err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
         cb(err);
@@ -176,32 +212,41 @@ gulp.task('run', function(cb){
 });
 
 // Lance le déploiement du android
-gulp.task('serve-phonegap', function(cb){
-  exec('phonegap serve --port 4000', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    cb(err);
-  });
+gulp.task('serve-phonegap', function(cb) {
+    exec('phonegap serve --port 4000', function(err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        cb(err);
+    });
 });
 
-
-gulp.task("ts-compile", function () {
-    return browserify({
+var watchedTsify = watchify(browserify({
         basedir: '.',
         debug: true,
-        entries: [workDir+'ts/dev/index.ts'],
+        entries: [workDir + 'ts/dev/index.ts'],
         cache: {},
         packageCache: {}
-    })
+    }))
     .plugin(tsify)
-    .bundle()
-	.on('error', function (error) { console.error(error.toString()); })
-    .pipe(source('bundle.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({loadMaps: true}))
-    // .pipe(uglify())
-	.pipe(sourcemaps.write('.', {
-		   sourceRoot: function(file){ return file.cwd; }
-	  }))
-    .pipe(gulp.dest(workDir+"/js"));
-});
+	.on('error', function(e) {
+		console.log(e);
+	});
+
+function compileTypescript() {
+    return watchedTsify
+        .bundle()
+        .pipe(source('bundle.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({
+            loadMaps: true
+        }))
+        // .pipe(uglify())
+        .pipe(sourcemaps.write('.', {
+            sourceRoot: function(file) {
+                return file.cwd;
+            }
+        }))
+        .pipe(gulp.dest(workDir + "/js"));
+}
+watchedTsify.on("update", compileTypescript);
+watchedTsify.on("log", gutil.log);

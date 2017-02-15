@@ -25,6 +25,7 @@
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^2.4.0",
     "gulp-uglify": "^1.4.1",
+    "gulp-util": "^3.0.8",
     "gulp-wrap": "^0.11.0",
     "handlebars": "^4.0.3",
     "jsmediatags": "^3.0.0",
@@ -32,7 +33,8 @@
     "tsify": "^3.0.0",
     "typescript": "^2.1.5",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.9.0"
   },
   "dependencies": {
     "phonegap": "^6.4.3",

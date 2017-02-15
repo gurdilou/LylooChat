@@ -18,6 +18,7 @@ export class LyloochatApp {
 
 	constructor(public deviceHandler: AppHandler) {
 		HandlebarHelpers.initHelpers(this);
+		HandlebarHelpers.initPartials();
 		this.views = new AppViews(this);
 	}
 
@@ -40,6 +41,8 @@ export class LyloochatApp {
 			//Création des vues
 			self.loaded = true;
 			Dialogs.hideLoadingPanel();
+			self.views.getGrid(); //initialize grid
+			self.views.getMenu(); //initialize menu
 		});
 
 		window.onerror = function(msg, url, line, col, error) {
@@ -50,7 +53,7 @@ export class LyloochatApp {
 
 	// getSoundLibrary : Retourne ou charge la librairie de son
 	public getSoundLibrary(cb: (library: SoundLibrary) => void) {
-		if (this.soundLibrary !== undefined) {
+		if (this.soundLibrary) {
 			cb(this.soundLibrary);
 		} else {
 			let self = this;

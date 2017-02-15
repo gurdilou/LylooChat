@@ -115,7 +115,7 @@ export class RecentsSoundsIOHelper {
 											let soundsJSON = JSON.parse(reader.result);
 											cb(soundsJSON);
 										} else {
-											cb(undefined);
+											cb(null);
 										}
 									};
 									reader.readAsText(file);

@@ -6,7 +6,6 @@ import {MedialHandler} from "../../../model/mediaHandler";
 export class WidgetSound {
 	public playing: boolean = false;
 
-	private elem_parent: JQuery = null;
 	private elem_sound: JQuery = null;
 	private soundHandler: MedialHandler = null;
 
@@ -47,7 +46,7 @@ export class WidgetSound {
 	// ===========================²=============== PRIVILEGED ================================
 	// ========================================== OVERRIDE ==================================
 	// insert : S insère dans le conteneur
-	public insert() {
+	public insert(elem_parent: JQuery) {
 		let context = {
 			name: this.sound.name,
 			durationStr: this.sound.getDurationStr(),
@@ -56,8 +55,8 @@ export class WidgetSound {
 		let widget_sound_str = Lyloochat.templates.widget_sound(context);
 
 		//Ajout
-		this.elem_parent.append(widget_sound_str);
-		this.elem_sound = this.elem_parent.children().last();
+		elem_parent.append(widget_sound_str);
+		this.elem_sound = elem_parent.children().last();
 
 		//events
 		let self = this;

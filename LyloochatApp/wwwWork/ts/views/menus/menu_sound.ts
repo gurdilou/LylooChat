@@ -28,7 +28,7 @@ export class MenuSound extends MenuBase {
 	//_addSound : Ajoute un son dans le menu
 	private addSound(ctn: JQuery, sound: Sound, addToRecent: boolean) {
 		let widget_sound = new WidgetSound(this, sound, addToRecent);
-		widget_sound.insert();
+		widget_sound.insert(ctn);
 	}
 
 	//_search_sounds : Recherche des sons contenant le terme donné
@@ -116,7 +116,7 @@ export class MenuSound extends MenuBase {
 	}
 	// _stopPlayingSound : Arrête la lecture d'un son
 	private stopPlayingSound() {
-		if ((this.playingWidgetSound !== undefined) && (this.playingWidgetSound.playing)) {
+		if ((this.playingWidgetSound) && (this.playingWidgetSound.playing)) {
 			this.playingWidgetSound.stop();
 		}
 	}
@@ -133,7 +133,7 @@ export class MenuSound extends MenuBase {
 
 		this.displayed = true;
 
-		if (this.soundLibrary !== undefined) {
+		if (this.soundLibrary) {
 			this.displaySounds();
 		}
 	};

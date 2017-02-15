@@ -54,8 +54,10 @@ export class PhonegapHandler implements AppHandler {
 	// initialize : Lance l'application
 	public initialize() {
 		this.app = new LyloochatApp(this);
-
-		window.addEventListener('load', this.app.initialisation, false);
+		let self = this;
+		window.addEventListener('load', function(e) {
+			self.app.initialisation();
+		}, false);
 	}
 	// loadCards charge les cartes depuis l'appareil
 	public loadCards(listCards: CardList, cb: () => void) {
@@ -88,3 +90,7 @@ export class PhonegapHandler implements AppHandler {
 		cb();
 	}
 }
+
+
+let phonegapHandler = new PhonegapHandler();
+phonegapHandler.initialize();

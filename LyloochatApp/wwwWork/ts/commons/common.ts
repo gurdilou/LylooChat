@@ -3,7 +3,7 @@ export class Dialogs {
 		Dialogs.inner_showMaskPanel(this, true, onExit);
 	}
 	public static showModalMaskPanel() {
-		Dialogs.inner_showMaskPanel(this, false, undefined);
+		Dialogs.inner_showMaskPanel(this, false, null);
 	}
 	public static hideMaskPanel() {
 		Dialogs.inner_hideMaskPanel(this);

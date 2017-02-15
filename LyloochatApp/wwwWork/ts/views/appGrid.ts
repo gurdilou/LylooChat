@@ -31,7 +31,7 @@ export class AppGrid {
 		this.card_widgets = [];
 		for (let i = 0; i < this.app.listCards.length(); i++) {
 			let card = this.app.listCards.getCard(i);
-			let card_widget = undefined;
+			let card_widget = null;
 
 			if (card instanceof CardText) {
 				card_widget = new WidgetCardText(this, card);

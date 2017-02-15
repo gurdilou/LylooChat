@@ -26,7 +26,7 @@ export class CardConfigurator {
 	// _exitConfig : Quitte l'écran
 	private exitConfig() {
 		this.busy = false;
-		this.widget = undefined;
+		this.widget = null;
 		Dialogs.hidePopupPanel();
 	}
 

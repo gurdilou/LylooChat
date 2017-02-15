@@ -1,5 +1,5 @@
 export class HandlebarHelpers {
-	public static initHelpers(caller : any) {
+	public static initHelpers(caller: any) {
 		Handlebars.registerHelper('if_eq', function(a: any, b: any, opts: any) {
 			if (a === b) {
 				return opts.fn(caller);

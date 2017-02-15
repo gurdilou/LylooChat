@@ -74,14 +74,14 @@ export class AppMenu {
 
 	//_createMenu_Sound : Créer le menu pour jouer un son
 	private createMenu_Sound(app_menu_sound: JQuery) {
-		if (this.menu_sound === undefined) {
+		if (!this.menu_sound) {
 			this.menu_sound = new MenuSound(this);
 		}
 		this.selectMenu(this.menu_sound, app_menu_sound);
 	}
 	//_createMenu_Text : Créer le menu pour afficher un texte
 	private createMenu_Text(app_menu_text: JQuery) {
-		if (this.menu_text === undefined) {
+		if (!this.menu_text) {
 			// this.menu_text = new AppMenu_Text(this);
 			//TODO
 		}
@@ -89,7 +89,7 @@ export class AppMenu {
 	}
 	//_createMenu_Drawing : Créer le menu pour afficher un dessin
 	private createMenu_Drawing(app_menu_drawing: JQuery) {
-		if (this.menu_drawing === undefined) {
+		if (!this.menu_drawing) {
 			// this.menu_drawing = new AppMenu_Drawing(this);
 			//TODO
 		}
@@ -97,7 +97,7 @@ export class AppMenu {
 	}
 	//_createMenu_Options : Créer le menu pour afficher les options
 	private createMenu_Options(app_menu_options: JQuery) {
-		if (this.menu_options === undefined) {
+		if (!this.menu_options) {
 			// this.menu_options = new AppMenu_Options(this);
 			//TODO
 		}

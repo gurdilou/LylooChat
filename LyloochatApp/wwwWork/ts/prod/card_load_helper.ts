@@ -71,7 +71,7 @@ export class CardLoaderHelper {
 
 				let reader = new FileReader();
 				reader.onloadend = function(evt: ProgressEvent) {
-					if ((reader.result !== undefined) && (reader.result !== "")) {
+					if ((reader.result) && (reader.result !== "")) {
 						let cardJSON = JSON.parse(reader.result);
 						self.loadCardFromData(cardJSON, i);
 					} else {
