@@ -4,10 +4,10 @@
     <description>
         An small help software in order to make communication for mute people easier, and more interactive.
     </description>
-    <author email="thomas.luce7342@gmail.com" href="http://luce.eu.com">
+    <author email="thomas.luce7342@gmail.com" href="http://luce.pro">
         Thomas Luce
     </author>
-    <content src="index.html" />
+    <content src="indexPhone.html" />
     <preference name="permissions" value="none" />
     <preference name="orientation" value="default" />
     <preference name="target-device" value="universal" />
