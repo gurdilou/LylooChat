@@ -1,101 +1,46 @@
 // scss-lint:disable SelectorDepth, PropertySortOrder, NestingDepth
 
 .app-menu-expanded.app-menu-sound {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  background: $primary-color-content;
-  letter-spacing: initial;
-  font-family: $secondary-font;
-  color: $accent-color;
+	$shadow-color-1: rgba(0, 0, 0, .1);
 
-  .search-bar {
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    margin: 20px auto;
-    border: 1px solid $accent-color;
-    border-radius: 16px;
-    padding: 3px;
-    background: $secondary-color-content;
-    height: 42px; 
+	.list {
+		margin: 0 auto;
+		min-height: 72px;
+		width: 90%;
+		background: $secondary-color-content;
+		border-radius: 4px;
+		box-shadow: 0 1px 10px 0 $shadow-color-1, 0 2px 4px -1px $shadow-color-1;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		margin-bottom: 16px;
+		height: 100%;
 
-    .icon-search {
-      margin-top: 4px; 
-      margin-left: 6px;
-      align-self : center;
-    }
+		&.hidden {
+			display: none;
+		}
+	}
 
-    .search-input {
-      padding-left: 6px;
-      margin-right: 12px;
-      height: 22px;
-      width: 100%;
-      border: none;
-      background: $secondary-color-content;
-      align-self: center;
-      position: relative;
-    }
+	.title {
+		font-family: $primary-font;
+		font-size: 1.4em;
+		color: darken($accent-color, 10);
+		margin: 0 auto;
+		padding-left: 22px;
+		width: 90%;
 
+		&.hidden {
+			display: none;
+		}
+	}
 
-  }
-
-  $shadow-color-1: rgba(0, 0, 0, .1); 
-  .list{
-    margin: auto;
-    margin-top: 0;
-    margin-bottom: 0;
-    min-height: 72px;
-    width: 90%;
-    height: 100%;
-    background: $secondary-color-content;
-    border-radius: 4px;
-    box-shadow:  0 1px 10px 0 $shadow-color-1, 0 2px 4px -1px $shadow-color-1; 
-    overflow-x: hidden;
-    overflow-y: scroll;
-    margin-bottom: 16px;
-    
-    &.hidden {
-      display: none;
-    }
-  }
-
-  .title {
-    font-family: $primary-font;
-    font-size: 1.4em; 
-    color: darken($accent-color, 10);
-    margin: 0 auto;
-    padding-left: 22px;
-    width: 90%;
-
-    &.hidden {
-      display: none;
-    }
-  }
-
-  .rule {
-    width: 90%;
-    color: $primary-color-light;
-    margin-top: 0;
-    border: 1px solid;
-    
-    &.hidden {
-      display: none;
-    }
-  }
+	.rule.hidden {
+		display: none;
+	}
 }
-
-
-
-
 @media (min-width: $screen-small) {
-  .app-menu-expanded.app-menu-sound {
-    .search-bar {
-      width: 66%;
-    }
-  }
+	.app-menu-expanded.app-menu-sound {
+		.search-bar {
+			width: 66%;
+		}
+	}
 }

@@ -17,7 +17,8 @@ export class MenuSound extends MenuBase {
 		this.appMenu.app.getSoundLibrary(function(soundLibrary) {
 			self.soundLibrary = soundLibrary;
 			if (self.displayed) {
-				self.displaySounds();
+				let content = $(".app-content");
+				self.displaySounds(content);
 			}
 		});
 	}
@@ -95,15 +96,13 @@ export class MenuSound extends MenuBase {
 	}
 
 	// _displaySounds : Ajoute les sons dans le widget
-	private displaySounds() {
-		let content = $(".app-content");
-
+	private displaySounds(container: JQuery) {
 		//Ajout des lectures récentes
 		this.refreshRecents();
 
 		//Ajout de l'écoute de la recherche
 		let self = this;
-		let searchInput = content.find(".app-menu-expanded .search-input");
+		let searchInput = container.find(".app-menu-expanded .search-input");
 		searchInput.on("keypress", function(e) {
 			let code = (e.keyCode ? e.keyCode : e.which);
 			if (code === 13) { //Enter keycode
@@ -124,28 +123,19 @@ export class MenuSound extends MenuBase {
 	// ========================================== PRIVILEGED ================================
 	// ========================================== OVERRIDE ==================================
 	// Affiche le menu
-	public show() {
-		let context = {
-		};
-		let appMenuHtml = Lyloochat.templates.menu_sound(context);
-		let content = $(".app-content");
-		content.append(appMenuHtml);
-
-		this.displayed = true;
+	public onShow(container: JQuery) {
+		let appMenuHtml = Lyloochat.templates.menu_sound();
+		container.append(appMenuHtml);
 
 		if (this.soundLibrary) {
-			this.displaySounds();
+			this.displaySounds(container);
 		}
-	};
+	}
 
 	// Cahche le menu
-	public hide() {
+	public onHide() {
 		this.stopPlayingSound();
-
-		let menu = $(".app-content .app-menu-expanded");
-		menu.remove();
-		this.displayed = false;
-	};
+	}
 
 	//Lorsqu'on joue une musique
 	public onPlay(widget_sound: WidgetSound, isInRecentPlayed: boolean) {

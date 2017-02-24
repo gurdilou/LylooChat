@@ -3,13 +3,16 @@ import {SoundLibrary} from "../model/sound_library";
 import {Sound} from "../model/sound";
 import {SoundList} from "../model/sound_list";
 import {CardList} from "../model/listCards";
+import {Card} from "../model/card";
 import {CardText} from "../model/card_text";
+import {CardSound} from "../model/card_sound";
+import {CardDrawing} from "../model/card_drawing";
 import {FakeMediaHandler} from "../dev/FakeMediaHandler";
 import {MedialHandler} from "../model/mediaHandler";
 import {AppHandler} from "../appHandler";
 
 
-export class PhonegapHandler implements AppHandler {
+export class WebHandler implements AppHandler {
 	private app: LyloochatApp = null;
 
 	// ========================================== VARIABLES =================================
@@ -62,7 +65,14 @@ export class PhonegapHandler implements AppHandler {
 	// loadCards charge les cartes depuis l'appareil
 	public loadCards(listCards: CardList, cb: () => void) {
 		for (let i = 0; i < 16; i++) {
-			let cardLoaded = new CardText("" + i, "Card number " + i, "Card number " + i);
+			let cardLoaded: Card = null;
+			if (i % 2 === 0) {
+				cardLoaded = new CardSound("" + i, "Card sound " + i, "lalala.mp3");
+			} else if (i % 3 === 0) {
+				cardLoaded = new CardDrawing("" + i, "Card drawing " + i, null);
+			} else {
+				cardLoaded = new CardText("" + i, "Card text " + i, "Card text " + i);
+			}
 			listCards.addCard(cardLoaded);
 		}
 		cb();
@@ -91,6 +101,6 @@ export class PhonegapHandler implements AppHandler {
 	}
 }
 
-
-let phonegapHandler = new PhonegapHandler();
-phonegapHandler.initialize();
+console.log("Web version");
+let webHandler = new WebHandler();
+webHandler.initialize();

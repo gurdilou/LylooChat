@@ -120,8 +120,6 @@ export class CardLoaderHelper {
 
 	//_notifyCardLoaded : Notifie qu'une carte en plus a été chargé
 	private notifyCardLoaded() {
-		console.log("_notifyCardLoaded ++");
-
 		this.nbLoaded = this.nbLoaded + 1;
 		if (this.nbLoaded === 16) {
 			this.callbackAfterLoad();

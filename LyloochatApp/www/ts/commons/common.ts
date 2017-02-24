@@ -84,6 +84,7 @@ export class Dialogs {
 				}
 			};
 			maskPanel.html(Lyloochat.templates.widget_dialog(context));
+			console.log("Error displayed : " + msg);
 		})(window, jQuery);
 	}
 

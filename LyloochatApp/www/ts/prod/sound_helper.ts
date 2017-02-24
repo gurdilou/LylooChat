@@ -83,7 +83,7 @@ export class SoundHelper {
 							});
 						},
 						onError: function(error) {
-							Dialogs.showErrorPanel(error.info);
+							console.log("Info : No tags reader found for sound : " + (file ? file.name : "null"));
 							self.onSoundLoaded(false, '', '', '', 0, onAllSoundsLoaded);
 						}
 					}

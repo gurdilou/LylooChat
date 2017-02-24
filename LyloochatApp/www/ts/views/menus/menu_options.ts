@@ -9,10 +9,10 @@ export class MenuOptions extends MenuBase {
 		super(appMenu);
 	}
 
-	public show() {
+	public onShow(container: JQuery) {
 
 	}
-	public hide() {
+	public onHide() {
 
 	}
 }

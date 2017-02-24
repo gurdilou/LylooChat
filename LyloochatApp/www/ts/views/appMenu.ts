@@ -82,24 +82,21 @@ export class AppMenu {
 	//_createMenu_Text : Créer le menu pour afficher un texte
 	private createMenu_Text(app_menu_text: JQuery) {
 		if (!this.menu_text) {
-			// this.menu_text = new AppMenu_Text(this);
-			//TODO
+			this.menu_text = new MenuText(this);
 		}
 		this.selectMenu(this.menu_text, app_menu_text);
 	}
 	//_createMenu_Drawing : Créer le menu pour afficher un dessin
 	private createMenu_Drawing(app_menu_drawing: JQuery) {
 		if (!this.menu_drawing) {
-			// this.menu_drawing = new AppMenu_Drawing(this);
-			//TODO
+			this.menu_drawing = new MenuDrawing(this);
 		}
 		this.selectMenu(this.menu_drawing, app_menu_drawing);
 	}
 	//_createMenu_Options : Créer le menu pour afficher les options
 	private createMenu_Options(app_menu_options: JQuery) {
 		if (!this.menu_options) {
-			// this.menu_options = new AppMenu_Options(this);
-			//TODO
+			this.menu_options = new MenuOptions(this);
 		}
 		this.selectMenu(this.menu_options, app_menu_options);
 	}
@@ -115,8 +112,8 @@ export class AppMenu {
 		} else {
 			if (this.selected_menu) {
 				this.selected_menu.hide();
-				this.selected_menu_elem = null;
 				this.selected_menu_elem.removeClass("selected");
+				this.selected_menu_elem = null;
 				this.freeGrid();
 			}
 
@@ -143,5 +140,4 @@ export class AppMenu {
 		grid.addClass("freeze-scroll");
 		grid.scrollTop(0);
 	}
-
 }

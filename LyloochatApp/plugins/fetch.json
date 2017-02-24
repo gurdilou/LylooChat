@@ -10,7 +10,7 @@
     "cordova-plugin-file": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-file"
+            "id": "cordova-plugin-file@~4.3.1"
         },
         "is_top_level": true,
         "variables": {}
@@ -26,7 +26,7 @@
     "cordova-plugin-media": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-media@1.0.1"
+            "id": "cordova-plugin-media"
         },
         "is_top_level": true,
         "variables": {}
@@ -34,9 +34,17 @@
     "cordova-plugin-fullscreen": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-fullscreen"
+            "id": "cordova-plugin-fullscreen@~1.1.0"
         },
         "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-compat": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-compat"
+        },
+        "is_top_level": false,
         "variables": {}
     }
 }

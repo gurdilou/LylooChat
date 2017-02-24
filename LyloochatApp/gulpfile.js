@@ -26,7 +26,8 @@ var buffer = require('vinyl-buffer');
 var watchify = require("watchify");
 var gutil = require("gulp-util");
 
-
+//Typescript compilation handler
+var watchedTsify = null;
 
 //*** MAIN TASKS
 // I - Default task
@@ -34,12 +35,13 @@ gulp.task('default', ['serve']);
 
 // II - Local html server during desktop developement
 gulp.task('serve', ['handlebars', 'sass'], function() {
-    compileTypescript(false);
+    prepareTypescriptCompile(false);
+    compileTypescript();
 
-    gulp.watch(['*.html', 'js/**/*.js'], reload);
-    gulp.watch('scss/**/*.scss', ['sass']);
-    gulp.watch('lib/materialize/sass/**/*.scss', ['materialize-sass']);
-    gulp.watch('templates/**/*.hbs', ['handlebars']);
+    gulp.watch(['www/*.html', 'www/js/**/*.js'], reload);
+    gulp.watch('www/scss/**/*.scss', ['sass']);
+    gulp.watch('www/lib/materialize/sass/**/*.scss', ['materialize-sass']);
+    gulp.watch('www/templates/**/*.hbs', ['handlebars']);
 
 
     return browserSync({
@@ -51,7 +53,8 @@ gulp.task('serve', ['handlebars', 'sass'], function() {
 
 // III - Deploy and start phonegap deploy
 gulp.task('deploy', function(callback) {
-    compileTypescript(true);
+    prepareTypescriptCompile(true);
+    compileTypescript();
 
     runSequence(
         'clean', ['handlebars', 'sass'],
@@ -65,7 +68,7 @@ gulp.task('deploy', function(callback) {
 //*** SUB TASKS
 //Delete computed files in prod
 gulp.task('clean', function(callback) {
-    return del([prodDir + 'js/bundle*.js', prodDir + 'js/templates.js', prodDir + 'css/styles.css'], callback);
+    return del(['www/js/bundle*.js', 'www/js/templates.js', 'www/css/styles.css'], callback);
 });
 //Scss to css
 gulp.task('sass', function() {
@@ -124,39 +127,41 @@ gulp.task('run', function(cb) {
     });
 });
 
-var watchedDevTsify = watchify(browserify({
-        basedir: '.',
-        debug: true,
-        entries: ['www/ts/dev/index.ts'],
-        cache: {},
-        packageCache: {}
-    }))
-    .plugin(tsify)
-    .on('error', function(e) {
-        console.log(e);
-    });
-watchedDevTsify.on("update", compileTypescript);
-watchedDevTsify.on("log", gutil.log);
-var watchedProdTsify = watchify(browserify({
-        basedir: '.',
-        debug: true,
-        entries: ['www/ts/prod/index.ts'],
-        cache: {},
-        packageCache: {}
-    }))
-    .plugin(tsify)
-    .on('error', function(e) {
-        console.log(e);
-    });
-watchedProdTsify.on("update", compileTypescript);
-watchedProdTsify.on("log", gutil.log);
-
-function compileTypescript(deployOnPhone) {
-    var sourceTs = watchedDevTsify;
+//TODO log compile error
+function prepareTypescriptCompile(deployOnPhone) {
+    var filename = 'www/ts/dev/index.ts';
     if (deployOnPhone) {
-        sourceTs = watchedProdTsify;
-    }
-    return sourceTs
+        filename = 'www/ts/prod/index.ts';
+		watchedTsify = browserify({
+	            basedir: '.',
+	            debug: true,
+	            entries: [filename],
+	            cache: {},
+	            packageCache: {}
+	        })
+	        .plugin(tsify)
+	        .on('error', function(e) {
+	            gutil.log(e);
+	        });
+    }else {
+		watchedTsify = watchify(browserify({
+				basedir: '.',
+				debug: true,
+				entries: [filename],
+				cache: {},
+				packageCache: {}
+			}))
+			.plugin(tsify)
+			.on('error', function(e) {
+				gutil.log(e);
+			});
+			watchedTsify.on("update", compileTypescript);
+			watchedTsify.on("log", gutil.log);
+	}
+}
+
+function compileTypescript() {
+    return watchedTsify
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())

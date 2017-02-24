@@ -1,44 +1,5 @@
 this["Lyloochat"] = this["Lyloochat"] || {};
 this["Lyloochat"]["templates"] = this["Lyloochat"]["templates"] || {};
-this["Lyloochat"]["templates"]["menu_card_config"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
-
-  return "<div class=\"material-context menu-card-config\">\r\n  <div class=\"row\">\r\n    <div class=\"col s12 m10 offset-m1 l8 offset-l2\">\r\n      <div class=\"card\">\r\n        <div class=\"card-content\">\r\n          <span class=\"card-title\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.title : stack1), depth0))
-    + "</span>\r\n\r\n          <div class=\"row\">\r\n            <div class=\"card-type-select col s12\">\r\n              <ul class=\"tabs\">\r\n                <li class=\"tab col s3\"><a class=\"menu-text\" href=\"#card_text\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.card_text : stack1), depth0))
-    + "</a></li>\r\n                <li class=\"tab col s3\"><a class=\"menu-sound\" href=\"#card_sound\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.card_sound : stack1), depth0))
-    + "</a></li>\r\n                <li class=\"tab col s3\"><a class=\"menu-drawing\" href=\"#card_drawing\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.card_drawing : stack1), depth0))
-    + "</a></li>\r\n              </ul>\r\n            </div>\r\n\r\n            <div id=\"card_text\" class=\"col s12\">\r\n              <div class=\"row\">\r\n                <form class=\"card-form col s12\">\r\n                  <div class=\"row\">\r\n                    <div class=\"card-input input-field col s12\">\r\n                      <i class=\"material-icons prefix\">create</i>\r\n                      <input  id=\"card_text_content\" type=\"text\">\r\n                      <label for=\"card_text_content\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.displayed_text : stack1), depth0))
-    + "</label>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n\r\n            <div id=\"card_sound\" class=\"col s12\">\r\n              <div class=\"row\">\r\n                <form class=\"card-form col s12\">\r\n                  <div class=\"row\">\r\n                    <div class=\"card-input input-field col s12\">\r\n                      <i class=\"material-icons prefix\">create</i>\r\n                      <input  id=\"card_content\" type=\"text\">\r\n                      <label for=\"card_content\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.displayed_text : stack1), depth0))
-    + "</label>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"row\">\r\n                    <div class=\"card-input input-field col s10\">\r\n                      <i class=\"material-icons prefix\">audiotrack</i>\r\n                      <input  id=\"card-soundpath\" type=\"text\">\r\n                      <label for=\"card-soundpath\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.played_sound : stack1), depth0))
-    + "</label>\r\n                    </div>\r\n                    <div class=\"col s2\">\r\n                      <a class=\"btn-floating btn-sound-search\"><i class=\"material-icons\">search</i></a>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"row\">\r\n                    <div class=\"sound-list hidden\">\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n\r\n            <div id=\"card_drawing\" class=\"col s12\">\r\n              <div class=\"row\">\r\n                <form class=\"card-form col s12\">\r\n                  <div class=\"row\">\r\n                    <div class=\"card-input input-field col s12\">\r\n                      <i class=\"material-icons prefix\">create</i>\r\n                      <input  id=\"card_content\" type=\"text\">\r\n                      <label for=\"card_content\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.displayed_text : stack1), depth0))
-    + "</label>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"row\">\r\n                    <div class=\"card-input input-field col s12 m6 l6\">\r\n                      <a class=\"waves-effect waves-light btn\"><i class=\"material-icons left\">gesture</i>"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.displayed_draw : stack1), depth0))
-    + "</a>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n\r\n\r\n          </div>\r\n        </div>\r\n\r\n\r\n        <div class=\"card-action\">\r\n		  <a class=\"waves-effect waves-teal btn btn-validate\" href=\"#\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.ok : stack1), depth0))
-    + "</a>\r\n		  <a class=\"waves-effect waves-teal btn-flat btn-cancel\" href=\"#\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.cancel : stack1), depth0))
-    + "</a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n";
-},"useData":true});
-this["Lyloochat"]["templates"]["menu_sound"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<div class=\"app-menu-expanded app-menu-sound\">\r\n  <div class=\"search-bar\">\r\n	<i class=\"icon ic ic-lg icon-search\"></i>\r\n    <input class=\"search-input\" contenteditable=\"true\" type=\"search\" autocomplete=\"on\" placeholder=\"Chercher un son...\"></input>\r\n  </div>\r\n  <div class=\"title recents-title\">Récents</div> \r\n  <hr class=\"rule recents-rule\"/>\r\n  <div class=\"list recents-list\">\r\n\r\n  </div>\r\n  <div class=\"title results-title hidden\">Résultats</div>\r\n  <hr class=\"rule results-rule hidden\"/>\r\n  <div class=\"list results-list hidden\"> \r\n\r\n  </div>\r\n</div>\r\n";
-},"useData":true});
-this["Lyloochat"]["templates"]["screen_display_card_text"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, helper;
-
-  return "<div class=\"card-fullscreen card-text\">\r\n    <div class=\"container\">\r\n        "
-    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\r\n    </div>\r\n    <div class=\"container-floating\">\r\n"
-    + ((stack1 = container.invokePartial(partials.widget_floating_button,depth0,{"name":"widget_floating_button","hash":{"icon":"check","title":"OK","class":"card-fs-butt-ok"},"data":data,"indent":"        ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "    </div>\r\n</div>";
-},"usePartial":true,"useData":true});
 this["Lyloochat"]["templates"]["widget_badge_button"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper;
 
@@ -193,3 +154,54 @@ this["Lyloochat"]["templates"]["widget_text_button"] = Handlebars.template({"1":
     + ((stack1 = (helpers.if_eq || (depth0 && depth0.if_eq) || alias2).call(alias1,(depth0 != null ? depth0.withLine : depth0),true,{"name":"if_eq","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "</a>\r\n";
 },"useData":true});
+this["Lyloochat"]["templates"]["menu_card_config"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression;
+
+  return "<div class=\"material-context menu-card-config\">\r\n  <div class=\"row\">\r\n    <div class=\"col s12 m10 offset-m1 l8 offset-l2\">\r\n      <div class=\"card\">\r\n        <div class=\"card-content\">\r\n          <span class=\"card-title\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.title : stack1), depth0))
+    + "</span>\r\n\r\n          <div class=\"row\">\r\n            <div class=\"card-type-select col s12\">\r\n              <ul class=\"tabs\">\r\n                <li class=\"tab col s3\"><a class=\"menu-text\" href=\"#card_text\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.card_text : stack1), depth0))
+    + "</a></li>\r\n                <li class=\"tab col s3\"><a class=\"menu-sound\" href=\"#card_sound\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.card_sound : stack1), depth0))
+    + "</a></li>\r\n                <li class=\"tab col s3\"><a class=\"menu-drawing\" href=\"#card_drawing\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.card_drawing : stack1), depth0))
+    + "</a></li>\r\n              </ul>\r\n            </div>\r\n\r\n            <div id=\"card_text\" class=\"col s12\">\r\n              <div class=\"row\">\r\n                <form class=\"card-form col s12\">\r\n                  <div class=\"row\">\r\n                    <div class=\"card-input input-field col s12\">\r\n                      <i class=\"material-icons prefix\">create</i>\r\n                      <input  id=\"card_text_content\" type=\"text\">\r\n                      <label for=\"card_text_content\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.displayed_text : stack1), depth0))
+    + "</label>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n\r\n            <div id=\"card_sound\" class=\"col s12\">\r\n              <div class=\"row\">\r\n                <form class=\"card-form col s12\">\r\n                  <div class=\"row\">\r\n                    <div class=\"card-input input-field col s12\">\r\n                      <i class=\"material-icons prefix\">create</i>\r\n                      <input  id=\"card_content\" type=\"text\">\r\n                      <label for=\"card_content\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.displayed_text : stack1), depth0))
+    + "</label>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"row\">\r\n                    <div class=\"card-input input-field col s10\">\r\n                      <i class=\"material-icons prefix\">audiotrack</i>\r\n                      <input  id=\"card-soundpath\" type=\"text\">\r\n                      <label for=\"card-soundpath\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.played_sound : stack1), depth0))
+    + "</label>\r\n                    </div>\r\n                    <div class=\"col s2\">\r\n                      <a class=\"btn-floating btn-sound-search\"><i class=\"material-icons\">search</i></a>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"row\">\r\n                    <div class=\"sound-list hidden\">\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n\r\n            <div id=\"card_drawing\" class=\"col s12\">\r\n              <div class=\"row\">\r\n                <form class=\"card-form col s12\">\r\n                  <div class=\"row\">\r\n                    <div class=\"card-input input-field col s12\">\r\n                      <i class=\"material-icons prefix\">create</i>\r\n                      <input  id=\"card_content\" type=\"text\">\r\n                      <label for=\"card_content\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.displayed_text : stack1), depth0))
+    + "</label>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"row\">\r\n                    <div class=\"card-input input-field col s12 m6 l6\">\r\n                      <a class=\"waves-effect waves-light btn\"><i class=\"material-icons left\">gesture</i>"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.displayed_draw : stack1), depth0))
+    + "</a>\r\n                    </div>\r\n                  </div>\r\n                </form>\r\n              </div>\r\n            </div>\r\n\r\n\r\n          </div>\r\n        </div>\r\n\r\n\r\n        <div class=\"card-action\">\r\n		  <a class=\"waves-effect waves-teal btn btn-validate\" href=\"#\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.ok : stack1), depth0))
+    + "</a>\r\n		  <a class=\"waves-effect waves-teal btn-flat btn-cancel\" href=\"#\">"
+    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.cancel : stack1), depth0))
+    + "</a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n";
+},"useData":true});
+this["Lyloochat"]["templates"]["menu_sound"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"app-menu-expanded app-menu-sound\">\r\n  <div class=\"menu-bar search-bar\">\r\n	<i class=\"icon ic ic-lg icon-search\"></i>\r\n    <input class=\"menu-bar-input search-input\" contenteditable=\"true\" type=\"search\" autocomplete=\"on\" placeholder=\"Chercher un son...\"></input>\r\n  </div>\r\n  <div class=\"title recents-title\">Récents</div>\r\n  <hr class=\"rule recents-rule\"/>\r\n  <div class=\"list recents-list\">\r\n\r\n  </div>\r\n  <div class=\"title results-title hidden\">Résultats</div>\r\n  <hr class=\"rule results-rule hidden\"/>\r\n  <div class=\"list results-list hidden\">\r\n\r\n  </div>\r\n</div>\r\n";
+},"useData":true});
+this["Lyloochat"]["templates"]["menu_text"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div class=\"app-menu-expanded app-menu-text\">\r\n  <div class=\"menu-bar text-bar\">\r\n	<i class=\"icon ic ic-lg icon-edit\"></i>\r\n    <input class=\"menu-bar-input text-input\" contenteditable=\"true\" type=\"text\" autocomplete=\"on\" placeholder=\"Afficher un texte...\"></input>\r\n  </div>\r\n  <hr class=\"rule\"/>\r\n</div>\r\n";
+},"useData":true});
+this["Lyloochat"]["templates"]["screen_display_card_sound"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper;
+
+  return "<div class=\"card-fullscreen card-sound\">\r\n	<div class=\"container\">\r\n		<div class=\"text-container\">\r\n			"
+    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\r\n		</div>\r\n		<div class=\"player-button\">\r\n			<i class=\"icon ic ic-lg icon-pause\"></i>\r\n			<progress class=\"player-progressbar\"></progress>\r\n		</div>\r\n	</div>\r\n    <div class=\"container-floating\">\r\n"
+    + ((stack1 = container.invokePartial(partials.widget_floating_button,depth0,{"name":"widget_floating_button","hash":{"icon":"check","title":"OK","class":"card-fs-butt-ok"},"data":data,"indent":"        ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "    </div>\r\n</div>\r\n";
+},"usePartial":true,"useData":true});
+this["Lyloochat"]["templates"]["screen_display_card_text"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper;
+
+  return "<div class=\"card-fullscreen card-text\">\r\n    <div class=\"container\">\r\n        "
+    + ((stack1 = ((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"label","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "\r\n    </div>\r\n    <div class=\"container-floating\">\r\n"
+    + ((stack1 = container.invokePartial(partials.widget_floating_button,depth0,{"name":"widget_floating_button","hash":{"icon":"check","title":"OK","class":"card-fs-butt-ok"},"data":data,"indent":"        ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "    </div>\r\n</div>";
+},"usePartial":true,"useData":true});

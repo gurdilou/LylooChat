@@ -1,0 +1,58 @@
+.app-menu-expanded {
+	display: flex;
+	flex-direction: column;
+	height: 0;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	background: $primary-color-content;
+	letter-spacing: initial;
+	font-family: $secondary-font;
+	color: $accent-color;
+	transition: height ease-out 250ms;
+	overflow: hidden;
+
+	.menu-bar {
+		width: 90%;
+		display: flex;
+		flex-direction: row;
+		margin: 20px auto;
+		border: 1px solid $accent-color;
+		border-radius: 16px;
+		padding: 3px;
+		background: $secondary-color-content;
+		height: 34px;
+
+		.icon {
+			margin-top: 2px;
+			margin-left: 6px;
+			align-self: center;
+		}
+
+		.menu-bar-input {
+			padding-left: 6px;
+			margin-right: 12px;
+			height: 22px;
+			width: 100%;
+			border: none;
+			background: $secondary-color-content;
+			align-self: center;
+			position: relative;
+		}
+	}
+
+	.rule {
+		width: 90%;
+		color: $primary-color-light;
+		margin-top: 0;
+		border: 1px solid;
+	}
+}
+@media (min-width: $screen-small) {
+	.app-menu-expanded {
+		.menu-bar {
+			width: 66%;
+		}
+	}
+}

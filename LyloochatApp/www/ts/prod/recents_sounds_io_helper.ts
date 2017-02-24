@@ -142,7 +142,7 @@ export class RecentsSoundsIOHelper {
 	public load(cb: Function) {
 		let self = this;
 		this.loadSoundsFromFile(function(listSoundsJSON) {
-			if (listSoundsJSON !== undefined) {
+			if (listSoundsJSON) {
 				for (let i = 0; i < listSoundsJSON.length; i++) {
 					let soundJSON = listSoundsJSON[i];
 

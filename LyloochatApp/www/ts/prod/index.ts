@@ -25,14 +25,16 @@ export class PhonegapHandler implements AppHandler {
 
 		if (device.platform === "Android") {
 			AndroidFullScreen.immersiveMode(function() {
-				console.log("It worked!");
+				// console.log("It worked!");
 			},
 				function(error) {
 					console.error(error);
 				});
 		}
-
-		window.addEventListener('load', (e) => { this.app.initialisation(); }, false);
+		let self = this;
+		$(function(){
+			self.app.initialisation();
+		});
 	}
 
     // ========================================== PRIVILEGED ================================
@@ -80,3 +82,7 @@ export class PhonegapHandler implements AppHandler {
 		helper.save(cb);
 	}
 }
+
+console.log("Phone version");
+let phoneHandler = new PhonegapHandler();
+phoneHandler.initialize();

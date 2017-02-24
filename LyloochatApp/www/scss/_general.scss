@@ -1,48 +1,43 @@
 // scss-lint:disable SelectorDepth, PropertySortOrder, NestingDepth
 
-
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 a {
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-
 // scss-lint:disable DuplicateProperty
+
 html {
-  height: 100%;
-  height: 100vh;
-  margin: 0;
-  min-height: 100%;
-  padding: 0;
+	height: 100%;
+	height: 100vh;
+	margin: 0;
+	min-height: 100%;
+	padding: 0;
 }
 // scss-lint:enable DuplicateProperty
 
 body {
-  background: $primary-color-content;
-  color: lighten($primary-text-color, 15%);
-
-  height: 100%;
-  margin: 0;
-  min-height: 100%;
-  padding: 0;
-  overflow: hidden;
+	background: $primary-color-content;
+	color: lighten($primary-text-color, 15%);
+	height: 100%;
+	margin: 0;
+	min-height: 100%;
+	padding: 0;
+	overflow: hidden;
 }
-
 
 .layout {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-
-  height: 100%;
-  position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	height: 100%;
+	position: relative;
 }
-
 @media (min-width: $screen-large) {
-  .layout {
-    flex-direction: row;
-    flex-wrap: nowrap;
-  }
+	.layout {
+		flex-direction: row;
+		flex-wrap: nowrap;
+	}
 }

@@ -5,7 +5,6 @@ import {ScreenCardText} from "../cards-expanded/screen_card_text";
 //Une carte avec du texte
 export class WidgetCardText extends WidgetCard {
     // ========================================== VARIABLES =================================
-	private displayed_screen_card: ScreenCardText = null;
     // ========================================== CONSTRUCTOR ===============================
 	constructor(appGrid: AppGrid, card: CardText) {
 		super(appGrid, card);
@@ -15,8 +14,7 @@ export class WidgetCardText extends WidgetCard {
 
     // ========================================== OVERRIDE===================================
     // Retourne le contenu texte de la miniature
-    public getCardThumbailContent() {
-
+	public getCardThumbailContent() {
 		let context = {
 			cardNumber: this.card.id,
 			title: this.card.code
@@ -25,8 +23,8 @@ export class WidgetCardText extends WidgetCard {
 	}
 	//Lors d'un clic simple sur la carte
 	public onCardThumbnailClick() {
-		this.displayed_screen_card = new ScreenCardText(this);
-		this.displayed_screen_card.display();
+		let displayed_screen_card = new ScreenCardText(this);
+		displayed_screen_card.display();
 	}
 
     // ========================================== PRIVILEGED ================================

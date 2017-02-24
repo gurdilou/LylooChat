@@ -1,9 +1,11 @@
 import {AppMenu} from "../appMenu";
 
+const delay_anim = 250;
 /**
  * Classe de base d'un menu de l'application
  */
 export abstract class MenuBase {
+
 	// ========================================== VARIABLES =================================
 	protected displayed = false;
 
@@ -13,11 +15,32 @@ export abstract class MenuBase {
 
 	}
 	// ========================================== PRIVATE ===================================
+	// Affiche le menu
+	public show(): void {
+		let content = $(".app-content").first();
+		this.onShow(content);
+
+		let menu = $(".app-menu-expanded");
+		menu.attr("style", "height: " + document.body.offsetHeight + "px");
+		window.setTimeout(() => {
+			menu.attr("style", "height: 100%");
+		}, delay_anim);
+		this.displayed = true;
+	}
+	// Affiche le menu
+	public hide(): void {
+		let menu = $(".app-menu-expanded");
+		menu.attr("style", "height:0px");
+		this.onHide();
+		let self = this;
+		window.setTimeout(() => {
+			menu.remove();
+			self.displayed = false;
+		}, delay_anim);
+	}
 	// ========================================== ABSTRACT ===================================
-	// Affiche le menu
-	public abstract show(): void;
-	// Affiche le menu
-	public abstract hide(): void;
+	public abstract onShow(container: JQuery): void;
+	public abstract onHide(): void;
 	// ========================================== OVERRIDE===================================
 	// ========================================== PRIVILEGED ================================
 }

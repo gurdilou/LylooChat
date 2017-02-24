@@ -29,8 +29,6 @@ export class LyloochatApp {
 	// ========================================== PRIVILEGED ================================
 	//initialisation : Charge l'application
 	public initialisation() {
-		console.log("initialisation");
-
 		// $.event.special.tap.emitTapOnTaphold = false;
 
 		//Chargement du modèle
