@@ -22,7 +22,7 @@ export class WidgetCardSound extends WidgetCard {
 	}
 	//Lors d'un clic simple sur la carte
 	public onCardThumbnailClick() {
-		let displayed_screen_card = new ScreenCardSound(this);
+		let displayed_screen_card = new ScreenCardSound(this, this.appGrid.app);
 		displayed_screen_card.display();
 	}
     // ========================================== PRIVILEGED ================================

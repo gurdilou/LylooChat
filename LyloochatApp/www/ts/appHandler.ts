@@ -14,4 +14,10 @@ export interface AppHandler {
 	createSoundHandler(sound: Sound, cb_onCreated: (mediaHandler: MedialHandler) => void): void;
 
 	saveRecentsSound(soundList: SoundList, cb: () => void): void;
+
+	/**
+	 * On phone, hide status bars
+	 * @param  {AppHandler} app [description]
+	 */
+	refreshFullscreen(): void;
 }

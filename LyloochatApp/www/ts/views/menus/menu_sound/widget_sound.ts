@@ -90,7 +90,6 @@ export class WidgetSound {
 		let self = this;
 		this.getMediaHandler(function(mediaHandler) {
 			mediaHandler.stop();
-			mediaHandler.release();
 			self.onStop();
 		});
 	};

@@ -40,7 +40,7 @@ gulp.task('serve', ['handlebars', 'sass'], function() {
 
     gulp.watch(['www/*.html', 'www/js/**/*.js'], reload);
     gulp.watch('www/scss/**/*.scss', ['sass']);
-    gulp.watch('www/lib/materialize/sass/**/*.scss', ['materialize-sass']);
+    gulp.watch('www/js/lib/materialize/sass/**/*.scss', ['materialize-sass']);
     gulp.watch('www/templates/**/*.hbs', ['handlebars']);
 
 
@@ -82,7 +82,7 @@ gulp.task('sass', function() {
 });
 //Materialize Scss to css
 gulp.task('materialize-sass', function() {
-    gulp.src('www/lib/materialize/sass/**/*.scss')
+    gulp.src('www/js/lib/materialize/sass/**/*.scss')
         .pipe(sass.sync({
             outputStyle: 'compressed'
         }).on('error', sass.logError))

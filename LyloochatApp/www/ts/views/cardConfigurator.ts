@@ -1,6 +1,7 @@
 import {AppGrid} from "./appGrid";
 import {WidgetCard} from "./cards/widget_card";
 import {WidgetCardText} from "./cards/widget_card_text";
+import {WidgetCardSound} from "./cards/widget_card_sound";
 import {SoundList} from "../model/sound_list";
 import {Sound} from "../model/sound";
 import {Dialogs} from "../commons/common";
@@ -10,7 +11,7 @@ import {CardSound} from "../model/card_sound";
 
 export class CardConfigurator {
 	// ========================================== VARIABLES =================================
-	private busy: boolean = false;
+	private busy = false;
 	private widget: WidgetCard;
 	private index: number;
 	private sounds: SoundList;
@@ -47,6 +48,7 @@ export class CardConfigurator {
 			}
 		};
 		maskPanel.html(Lyloochat.templates.menu_card_config(menuContext));
+		$('ul.tabs').tabs();
 
 		if (this.widget.card instanceof CardText) {
 			this.fillMenuText();
@@ -56,27 +58,17 @@ export class CardConfigurator {
 			this.fillMenuDrawing();
 		}
 		Materialize.updateTextFields();
-		$('ul.tabs').tabs();
-
 
 		//event listeners
 		let self = this;
+		$("#card-soundpath").on('keypress', (e) => {
+			let code = (e.keyCode ? e.keyCode : e.which);
+			if (code === 13) { //Enter keycode
+				self.onSearchSound();
+			}
+		});
 		$('.menu-card-config .btn-sound-search').on('click', function(e) {
-			let wordSearched = $('#card-soundpath').val();
-
-			self.appGrid.app.getSoundLibrary(function(soundLibrary) {
-				self.sounds = soundLibrary.searchSounds('', wordSearched);
-
-				let ctn = $('.sound-list');
-				ctn.removeClass('hidden');
-				ctn.empty();
-
-				for (let i = 0; i < self.sounds.size(); i++) {
-					let candidate = self.sounds.get(i);
-
-					self.addSoundCandidate(ctn, candidate);
-				}
-			});
+			self.onSearchSound();
 		});
 		$('.menu-card-config .btn-validate').on('click', function(e) {
 			let activeTab = $('.tabs .active');
@@ -87,12 +79,20 @@ export class CardConfigurator {
 				newWidget = new WidgetCardText(self.appGrid, card);
 			}
 			if (activeTab.hasClass('menu-sound')) {
-				//TODO generate widget sound
+				let label = $('#card_sound_content').val();
+				if (self.selectedSound) {
+					let card = new CardSound(self.widget.card.id, label, self.selectedSound);
+					newWidget = new WidgetCardSound(self.appGrid, card);
+				} else {
+					Dialogs.showErrorPanel("Veuillez choisir un son.");
+					return;
+				}
 			}
 			if (activeTab.hasClass('menu-drawing')) {
 				//TODO generate widget drawing
 			}
-
+			self.selectedSound = null;
+			self.appGrid.app.deviceHandler.refreshFullscreen();
 			if (newWidget) {
 				self.appGrid.onCardEdit(self.index, newWidget);
 			}
@@ -100,6 +100,24 @@ export class CardConfigurator {
 		});
 		$('.menu-card-config .btn-cancel').on('click', function(e) {
 			self.exitConfig();
+		});
+	}
+
+	private onSearchSound() {
+		let wordSearched = $('#card-soundpath').val();
+
+		let self = this;
+		this.appGrid.app.getSoundLibrary(function(soundLibrary) {
+			self.sounds = soundLibrary.searchSounds('', wordSearched);
+
+			let ctn = $('.sound-list');
+			ctn.removeClass('hidden');
+			ctn.empty();
+			for (let i = 0; i < self.sounds.size(); i++) {
+				let candidate = self.sounds.get(i);
+
+				self.addSoundCandidate(ctn, candidate);
+			}
 		});
 	}
 
@@ -131,8 +149,13 @@ export class CardConfigurator {
 	}
 	// _fillMenuSound : Sélection du menu  pour une carte de son
 	private fillMenuSound() {
-		//  TODO
 		$('.menu-card-config ul.tabs').tabs('select_tab', 'card_sound');
+		let input = $('#card_sound_content');
+		let card = <CardSound>this.widget.card;
+		input.val(card.code);
+		this.selectedSound = card.sound;
+		let sound = $("#card-soundpath");
+		sound.val(card.sound.name);
 	}
 	// _fillMenuDrawing : Sélection du menu  pour une carte de dessin
 	private fillMenuDrawing() {

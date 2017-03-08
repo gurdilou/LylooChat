@@ -1,11 +1,22 @@
 <div class="card-fullscreen card-sound">
 	<div class="container">
 		<div class="text-container">
-			{{{label}}}
+			<div class="sound-text">
+				{{{label}}}
+			</div>
 		</div>
-		<div class="player-button">
-			<i class="icon ic ic-lg icon-pause"></i>
-			<progress class="player-progressbar"></progress>
+		<div class="player-button material-context">
+			<div class="row-progress">
+				<i class="icon player-status ic ic-xl icon-pause"></i>
+				<div class="progress">
+					<div class="determinate" style="width: 0px"></div>
+				</div>
+			</div>
+			<div class="row-infos">
+				<span class="infos">
+					{{{sound.author}}} - {{{sound.name}}}
+				</span>
+			</div>
 		</div>
 	</div>
     <div class="container-floating">

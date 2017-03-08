@@ -1,4 +1,3 @@
-import {SoundLibrary} from "./sound_library";
 import {Sound}  from "./sound";
 
 export class SoundList {
@@ -6,7 +5,7 @@ export class SoundList {
 	private list: Sound[] = [];
 
 	// ========================================== CONSTRUCTOR ===============================
-	constructor(private library: SoundLibrary) {
+	constructor() {
 
 	}
 	// ========================================== PRIVATE ===================================
@@ -23,12 +22,10 @@ export class SoundList {
 	//add : Ajoute un son à la liste
 	public add(sound: Sound) {
 		this.list.push(sound);
-		sound.library = this.library;
 	};
 	// insertAtBegin : Insère un un son en position 0
 	public insertAtBegin(sound: Sound) {
 		this.list.unshift(sound);
-		sound.library = this.library;
 	};
 	//deleteDuplicates :  Supprime les sons dupliqués
 	public deleteDuplicates() {

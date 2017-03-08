@@ -12,6 +12,8 @@
 	color: $accent-color;
 	transition: height ease-out 250ms;
 	overflow: hidden;
+	align-items: stretch;
+	align-content: stretch;
 
 	.menu-bar {
 		width: 90%;
@@ -22,6 +24,7 @@
 		border-radius: 16px;
 		padding: 3px;
 		background: $secondary-color-content;
+		flex-basis: 34px;
 		height: 34px;
 
 		.icon {
@@ -47,6 +50,7 @@
 		color: $primary-color-light;
 		margin-top: 0;
 		border: 1px solid;
+		flex-basis: 1px;
 	}
 }
 @media (min-width: $screen-small) {

@@ -13,7 +13,7 @@
 		overflow-x: hidden;
 		overflow-y: scroll;
 		margin-bottom: 16px;
-		height: 100%;
+		flex-grow: 2;
 
 		&.hidden {
 			display: none;
@@ -27,6 +27,7 @@
 		margin: 0 auto;
 		padding-left: 22px;
 		width: 90%;
+		flex-basis: 30px;
 
 		&.hidden {
 			display: none;

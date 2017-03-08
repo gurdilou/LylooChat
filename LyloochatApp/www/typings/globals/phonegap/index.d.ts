@@ -515,6 +515,7 @@ interface Media {
     startRecord(): void;
     stopRecord(): void;
     stop(): void;
+	position: number;
 }
 declare var Media: {
     new (src: string, onSuccess: (arg: any) => any, onError: (error: any) => any): Media;

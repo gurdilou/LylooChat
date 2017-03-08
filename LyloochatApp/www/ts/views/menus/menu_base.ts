@@ -1,5 +1,4 @@
 import {AppMenu} from "../appMenu";
-
 const delay_anim = 250;
 /**
  * Classe de base d'un menu de l'application
@@ -32,6 +31,8 @@ export abstract class MenuBase {
 		let menu = $(".app-menu-expanded");
 		menu.attr("style", "height:0px");
 		this.onHide();
+		this.appMenu.app.deviceHandler.refreshFullscreen();
+
 		let self = this;
 		window.setTimeout(() => {
 			menu.remove();

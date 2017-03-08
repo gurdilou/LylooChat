@@ -39,6 +39,7 @@
 		"www/ts/model/sound.ts",
 		"www/ts/prod/card_load_helper.ts",
 		"www/ts/prod/index.ts",
+		"www/ts/prod/phoneMedia.ts",
 		"www/ts/prod/recents_sounds_io_helper.ts",
 		"www/ts/prod/sound_helper.ts",
 		"www/ts/views/app_views.ts",

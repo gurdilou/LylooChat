@@ -6,12 +6,12 @@ export class SoundLibrary {
 	// ========================================== VARIABLES =================================
 	public recents_played: SoundList = null;
 	public all_sounds: SoundList = null;
-	private ready: boolean = false;
+	private ready = false;
 
 	// ========================================== CONSTRUCTOR ===============================
 	constructor(private app: LyloochatApp) {
-		this.recents_played = new SoundList(this);
-		this.all_sounds = new SoundList(this);
+		this.recents_played = new SoundList();
+		this.all_sounds = new SoundList();
 	}
 	// ========================================== PRIVATE ===================================
 
@@ -21,7 +21,7 @@ export class SoundLibrary {
 		termSearched = termSearched.toLowerCase();
 		prefix = prefix.toLowerCase();
 
-		let results = new SoundList(this);
+		let results = new SoundList();
 		for (let i = 0; i < this.all_sounds.size(); i++) {
 			let sound = this.all_sounds.get(i);
 

@@ -1,8 +1,4 @@
-import {SoundLibrary} from "./sound_library";
-
-
 export class Sound {
-	public library: SoundLibrary;
 	// ========================================== VARIABLES =================================
 	// ========================================== CONSTRUCTOR ===============================
 	constructor(

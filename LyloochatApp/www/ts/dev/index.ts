@@ -67,7 +67,8 @@ export class WebHandler implements AppHandler {
 		for (let i = 0; i < 16; i++) {
 			let cardLoaded: Card = null;
 			if (i % 2 === 0) {
-				cardLoaded = new CardSound("" + i, "Card sound " + i, "lalala.mp3");
+				let sound = new Sound("Pudding1", "Puddi", "/media/storage/music/puddi1.mp3", 10);
+				cardLoaded = new CardSound("" + i, "Card sound " + i, sound);
 			} else if (i % 3 === 0) {
 				cardLoaded = new CardDrawing("" + i, "Card drawing " + i, null);
 			} else {
@@ -98,6 +99,9 @@ export class WebHandler implements AppHandler {
 	public saveRecentsSound(soundList: SoundList, cb: () => void) {
 		// TODO
 		cb();
+	}
+
+	public refreshFullscreen() {
 	}
 }
 
