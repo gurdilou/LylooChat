@@ -34,7 +34,7 @@ var watchedTsify = null;
 gulp.task('default', ['serve']);
 
 // II - Local html server during desktop developement
-gulp.task('serve', ['handlebars', 'sass'], function() {
+gulp.task('serve', ['clean', 'handlebars', 'sass'], function() {
     prepareTypescriptCompile(false);
     compileTypescript();
 
@@ -47,7 +47,8 @@ gulp.task('serve', ['handlebars', 'sass'], function() {
     return browserSync({
         server: {
             baseDir: 'www'
-        }
+        },
+		notify: false
     });
 });
 
@@ -68,7 +69,7 @@ gulp.task('deploy', function(callback) {
 //*** SUB TASKS
 //Delete computed files in prod
 gulp.task('clean', function(callback) {
-    return del(['www/js/bundle*.js', 'www/js/templates.js', 'www/css/styles.css'], callback);
+    return del(['www/js/bundle*.js*', 'www/js/templates.js', 'www/css/styles.css'], callback);
 });
 //Scss to css
 gulp.task('sass', function() {
@@ -139,10 +140,7 @@ function prepareTypescriptCompile(deployOnPhone) {
 	            cache: {},
 	            packageCache: {}
 	        })
-	        .plugin(tsify)
-	        .on('error', function(e) {
-	            gutil.log(e);
-	        });
+	        .plugin(tsify);
     }else {
 		watchedTsify = watchify(browserify({
 				basedir: '.',
@@ -151,18 +149,18 @@ function prepareTypescriptCompile(deployOnPhone) {
 				cache: {},
 				packageCache: {}
 			}))
-			.plugin(tsify)
-			.on('error', function(e) {
-				gutil.log(e);
-			});
+			.plugin(tsify);
+			
 			watchedTsify.on("update", compileTypescript);
 			watchedTsify.on("log", gutil.log);
+			watchedTsify.on("error", gutil.log);
 	}
 }
 
 function compileTypescript() {
     return watchedTsify
         .bundle()
+		.on('error', function (error) { console.error(error.toString()); })
         .pipe(source('bundle.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({

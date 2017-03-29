@@ -4,6 +4,7 @@ declare namespace Lyloochat {
 		static widget_dialog(context: any): string;
 		static menu_sound(): string;
 		static menu_text(): string;
+		static menu_drawing(): string;
 		static widget_sound(context: any): string;
 		static widget_badge_button(context: any): string;
 		static widget_text_button(context: any): string;

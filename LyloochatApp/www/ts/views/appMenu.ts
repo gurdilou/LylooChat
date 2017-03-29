@@ -15,7 +15,7 @@ export class AppMenu {
 	private menu_options: MenuOptions = null;
 	private selected_menu: MenuBase = null;
 	private selected_menu_elem: JQuery = null;
-	private old_scroll_position: number = 0;
+	private old_scroll_position = 0;
 
 	constructor(public app: LyloochatApp) {
 		this.fill();
@@ -62,7 +62,7 @@ export class AppMenu {
 		app_menu_sound.on('tap', function(event) {
 			self.createMenu_Sound(app_menu_sound);
 		});
-		let app_menu_drawing = $("app-menu-type-pen");
+		let app_menu_drawing = $(".app-menu-type-pen");
 		app_menu_drawing.on('tap', function(event) {
 			self.createMenu_Drawing(app_menu_drawing);
 		});

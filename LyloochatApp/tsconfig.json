@@ -61,6 +61,7 @@
 		"www/ts/views/menus/menu_sound.ts",
 		"www/ts/views/menus/menu_sound/widget_sound.ts",
 		"www/ts/views/menus/menu_text.ts",
+		"www/ts/views/widgets/whiteboard.ts",
 		"www/typings/globals/cordova-plugin-file/index.d.ts",
 		"www/typings/globals/handlebars/index.d.ts",
 		"www/typings/globals/jquery/index.d.ts",

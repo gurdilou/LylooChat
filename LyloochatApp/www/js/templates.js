@@ -27,6 +27,13 @@ this["Lyloochat"]["templates"]["menu_card_config"] = Handlebars.template({"compi
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.cancel : stack1), depth0))
     + "</a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n";
 },"useData":true});
+this["Lyloochat"]["templates"]["menu_drawing"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "<div class=\"app-menu-expanded app-menu-drawing\">\r\n	<canvas id=\"menu-draw-canvas\" class=\"draw-canvas\">\r\n	        Sorry, your browser doesn't support canvas technology.\r\n	</canvas>\r\n	<div class=\"lenu-draw-footer\">\r\n		<div class=\"floating-button menu-color\" title=\""
+    + container.escapeExpression(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"title","hash":{},"data":data}) : helper)))
+    + "\">\r\n		    <i class=\"icon ic ic-lg icon-palette\"></i>\r\n		</div>\r\n		\r\n	</div>\r\n</div>\r\n";
+},"useData":true});
 this["Lyloochat"]["templates"]["menu_sound"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"app-menu-expanded app-menu-sound\">\r\n  <div class=\"menu-bar search-bar\">\r\n	<i class=\"icon ic ic-lg icon-search\"></i>\r\n    <input class=\"menu-bar-input search-input\" contenteditable=\"true\" type=\"search\" autocomplete=\"on\" placeholder=\"Chercher un son...\"></input>\r\n  </div>\r\n  <div class=\"title recents-title\">Récents</div>\r\n  <hr class=\"rule recents-rule\"/>\r\n  <div class=\"list recents-list\">\r\n\r\n  </div>\r\n  <div class=\"title results-title hidden\">Résultats</div>\r\n  <hr class=\"rule results-rule hidden\"/>\r\n  <div class=\"list results-list hidden\">\r\n\r\n  </div>\r\n</div>\r\n";
 },"useData":true});
