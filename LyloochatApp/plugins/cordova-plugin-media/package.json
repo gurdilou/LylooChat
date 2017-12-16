@@ -1,7 +1,35 @@
 {
-  "name": "cordova-plugin-media",
-  "version": "2.4.1",
-  "description": "Cordova Media Plugin",
+  "_from": "cordova-plugin-media@2.4.1",
+  "_id": "cordova-plugin-media@2.4.1",
+  "_inBundle": false,
+  "_integrity": "sha1-kEcG76alns95awXBar4o/Jic1Wk=",
+  "_location": "/cordova-plugin-media",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-media@2.4.1",
+    "name": "cordova-plugin-media",
+    "escapedName": "cordova-plugin-media",
+    "rawSpec": "2.4.1",
+    "saveSpec": null,
+    "fetchSpec": "2.4.1"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-media/-/cordova-plugin-media-2.4.1.tgz",
+  "_shasum": "904706efa6a59ecf796b05c16abe28fc989cd569",
+  "_spec": "cordova-plugin-media@2.4.1",
+  "_where": "/home/tlu/Perso/LylooChat/LyloochatApp/node_modules",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
+  "bugs": {
+    "url": "https://github.com/apache/cordova-plugin-media/issues"
+  },
+  "bundleDependencies": false,
   "cordova": {
     "id": "cordova-plugin-media",
     "platforms": [
@@ -17,10 +45,19 @@
       "tizen"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-media"
+  "deprecated": false,
+  "description": "Cordova Media Plugin",
+  "devDependencies": {
+    "jshint": "^2.6.0"
   },
+  "engines": {
+    "cordovaDependencies": {
+      "3.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-media#readme",
   "keywords": [
     "cordova",
     "media",
@@ -36,20 +73,15 @@
     "cordova-windows",
     "cordova-tizen"
   ],
-  "scripts": {
-    "test": "npm run jshint",
-    "jshint": "jshint www && jshint src && jshint tests"
-  },
-  "author": "Apache Software Foundation",
   "license": "Apache-2.0",
-  "engines": {
-    "cordovaDependencies": {
-      "3.0.0": {
-        "cordova": ">100"
-      }
-    }
+  "name": "cordova-plugin-media",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache/cordova-plugin-media.git"
   },
-  "devDependencies": {
-    "jshint": "^2.6.0"
-  }
+  "scripts": {
+    "jshint": "jshint www && jshint src && jshint tests",
+    "test": "npm run jshint"
+  },
+  "version": "2.4.1"
 }
