@@ -25,6 +25,9 @@ var shell = require('shelljs');
 
 //Typescript compilation handler
 var watchedTsify = null;
+process.env.ANDROID_HOME=process.env.HOME+"/Tools/android/Sdk";
+process.env.PATH += ":$ANDROID_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platforms-tools";
+
 
 //*** MAIN TASKS
 // I - Default task
@@ -108,19 +111,18 @@ gulp.task('handlebars', function () {
 });
 
 // Lance le déploiement du android
-gulp.task('build-phonegap', function (cb) {
+gulp.task('build-phonegap', function () {
     if(shell.exec('node_modules/.bin/cordova build android').code !== 0) {
         shell.echo('Error: Command failed');
         shell.exit(1);
     }
 });
 // Lance le déploiement du android
-gulp.task('run', function (cb) {
-    exec('node_modules/.bin/cordova run android', function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
-    });
+gulp.task('run', function () {
+    if(shell.exec('node_modules/.bin/cordova run android').code !== 0) {
+        shell.echo('Error: Command failed');
+        shell.exit(1);
+    }
 });
 
 //TODO log compile error

@@ -6,7 +6,6 @@ export class SoundLibrary {
 	// ========================================== VARIABLES =================================
 	public recents_played: SoundList = null;
 	public all_sounds: SoundList = null;
-	private ready = false;
 
 	// ========================================== CONSTRUCTOR ===============================
 	constructor(private app: LyloochatApp) {
@@ -47,7 +46,7 @@ export class SoundLibrary {
 
 	// Callback chargement des sons
 	public onSoundsLoaded() {
-		this.ready = true;
+		// todo : Notifuy user
 	};
 
 	// addRecent : Ajoute un son aux récents

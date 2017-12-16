@@ -7,7 +7,6 @@ import {Card} from "../../model/card";
 export abstract class WidgetCard {
     // ========================================== VARIABLES =================================
 	protected fullscreen_card: HTMLElement = null;
-	private elem_card: HTMLElement = null;
     // ========================================== CONSTRUCTOR ===============================
 	constructor(
 		protected appGrid: AppGrid,
@@ -27,10 +26,6 @@ export abstract class WidgetCard {
 	// Rend la carte dans un élément HTML
 	public render(container: HTMLElement) {
 		$(container).append(this.getCardThumbailContent());
-
-		let lastChild = <HTMLElement>container.lastElementChild;
-		this.elem_card = lastChild;
-
 		return "";
 	}
 }
