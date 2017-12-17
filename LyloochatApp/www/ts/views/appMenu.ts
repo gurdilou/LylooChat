@@ -42,10 +42,6 @@ export class AppMenu {
 					longCode: "Dessiner quelquechose",
 					code: "Dessin",
 					icon: "pen"
-				}, {
-					longCode: "Changer les options",
-					code: "Options",
-					icon: "settings"
 				}]
 		};
 		menuSource.innerHTML = Lyloochat.templates.widget_menus(menuContext);

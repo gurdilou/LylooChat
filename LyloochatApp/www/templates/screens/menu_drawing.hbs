@@ -1,11 +1,13 @@
-<div class="app-menu-expanded app-menu-drawing">
-	<canvas id="menu-draw-canvas" class="draw-canvas">
+<div id="menu-draw-canvas" class="app-menu-expanded app-menu-drawing">
+	<canvas class="whiteboard">
 	        Sorry, your browser doesn't support canvas technology.
 	</canvas>
-	<div class="lenu-draw-footer">
-		<div class="floating-button menu-color" title="{{title}}">
-		    <i class="icon ic ic-lg icon-palette"></i>
-		</div>
-		
+	<div class="whiteboard-toolbar">
+        <div class="floating-button menu-brush" title="{{titleBrush}}">
+            <i class="icon ic ic-lg icon-brush"></i>
+        </div>
+        <div class="floating-button menu-color" title="{{titleColor}}">
+            <i class="icon ic ic-lg icon-palette"></i>
+        </div>
 	</div>
 </div>

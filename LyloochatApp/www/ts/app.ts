@@ -12,7 +12,7 @@ export class LyloochatApp {
 	public listCards: CardList;
 	public options = new AppOptions();
 	public views: AppViews = null;
-	public loaded: boolean = false;
+	public loaded = false;
 	private soundLibrary: SoundLibrary = null;
 
 

@@ -14,8 +14,8 @@ export class AppGrid {
 	private static CONFIG_HOLD_DURATION = 750;
 
 	public card_widgets: WidgetCard[] = [];
-	private busy: boolean = false;
-	private isTapHolding: boolean = false;
+	private busy = false;
+	private isTapHolding = false;
 
 
 	constructor(public app: LyloochatApp) {
@@ -31,7 +31,7 @@ export class AppGrid {
 		this.card_widgets = [];
 		for (let i = 0; i < this.app.listCards.length(); i++) {
 			let card = this.app.listCards.getCard(i);
-			let card_widget : WidgetCard = null;
+			let card_widget: WidgetCard = null;
 
 			if (card instanceof CardText) {
 				card_widget = new WidgetCardText(this, card);
@@ -71,7 +71,7 @@ export class AppGrid {
 					if (!self.busy) {
 						self.busy = true;
 
-						self.addAnimation(e, "ink");
+						self.addAnimation(e.pageX, e.pageY, $(e.target), "ink");
 						setTimeout(function() {
 							widget.onCardThumbnailClick();
 							self.busy = false;
@@ -84,21 +84,20 @@ export class AppGrid {
 
 	// _addAnimation : Ajoute un effet localisé à une tuile
 	// code is src elem child seeked
-	private addAnimation(e: JQueryMouseEventObject, code: string) {
-		let self, ink, d, x, y;
+	private addAnimation(posX: number, posY: number, target: JQuery, code: string) {
+		let x, y, ink, d;
 
 		if (this.app.loaded) {
-			self = $(e.target);
-			while (!self.attr("cardNumber") && self.parent()) {
-				self = self.parent();
+			while (!target.attr("cardNumber") && target.parent()) {
+				target = target.parent();
 			}
 
 			//create .ink element if it doesn't exist
-			if (self.find("." + code).length === 0) {
-				self.prepend("<span class='" + code + "'></span>");
+			if (target.find("." + code).length === 0) {
+				target.prepend("<span class='" + code + "'></span>");
 			}
 
-			ink = self.find("." + code + "");
+			ink = target.find("." + code + "");
 			//incase of quick double clicks stop the previous animation
 			ink.removeClass("animate");
 
@@ -106,7 +105,7 @@ export class AppGrid {
 			if (!ink.height() && !ink.width()) {
 				//use self's width or height whichever is larger for the diameter to make a circle
 				//which can cover the entire element.
-				d = Math.max(self.outerWidth(), self.outerHeight());
+				d = Math.max(target.outerWidth(), target.outerHeight());
 				ink.css({
 					height: d,
 					width: d
@@ -116,8 +115,8 @@ export class AppGrid {
 			//get click coordinates
 			//logic = click coordinates relative to page - self's position relative
 			//to page - half of self height/width to make it controllable from the center;
-			x = e.pageX - self.offset().left - ink.width() / 2;
-			y = e.pageY - self.offset().top - ink.height() / 2;
+			x = posX - target.offset().left - ink.width() / 2;
+			y = posY - target.offset().top - ink.height() / 2;
 
 			//set the position and add class .animate
 			ink.css({
@@ -132,13 +131,15 @@ export class AppGrid {
 		let self = this;
 		let timerConfigRipple: number;
 		let timerFireConfig: number;
-		let event_start: JQueryMouseEventObject;
+		let target: JQuery;
+		let posX: number;
+		let posY: number;
 
 		//gestion du touch hold
 		//Lors du début d'un appui long, on ajoute une onde
 		let _onStartTapHolding = function() {
 			// console.debug("_onStartTapHolding");
-			self.addAnimation(event_start, "ink-slow");
+			self.addAnimation(posX, posY, target, "ink-slow");
 			self.isTapHolding = true;
 		};
 		//Lors d'un appui long on affiche la configuration d'une carte
@@ -146,11 +147,10 @@ export class AppGrid {
 			self.clearTouchHoldRipple(timerConfigRipple, timerFireConfig);
 			if (self.app.loaded) {
 				//On donne l'élément configuré
-				let elemCard = $(event_start.target);
-				while (!elemCard.attr("cardNumber") && elemCard.parent()) {
-					elemCard = elemCard.parent();
+				while (!target.attr("cardNumber") && target.parent()) {
+					target = target.parent();
 				}
-				let index = elemCard.attr("cardNumber");
+				let index = target.attr("cardNumber");
 				if (index) {
 					// let widget = self.card_widgets[index];
 					self.app.views.getCardConfigurator().onClick(+index);
@@ -161,12 +161,26 @@ export class AppGrid {
 		};
 
 
-		$(".ripple").on('mousedown', function(e: JQueryMouseEventObject, ...args: any[]) {
-			event_start = e;
+		$(".ripple").on('touchstart', function(e: JQueryEventObject, ...args: any[]) {
+			target = $(e.target);
+			let touchEvent = <TouchEvent>e.originalEvent;
+			posX = touchEvent.touches[0].pageX;
+			posY = touchEvent.touches[0].pageY;
+			timerConfigRipple = setTimeout(_onStartTapHolding, AppGrid.TAP_HOLD_DURATION);
+			timerFireConfig = setTimeout(_onlongtouch, AppGrid.CONFIG_HOLD_DURATION);
+		});
+		$(".ripple").on('mousedown', function(e: JQueryEventObject, ...args: any[]) {
+			target = $(e.target);
+			let mouseEvent = <MouseEvent>e.originalEvent;
+			posX = mouseEvent.pageX;
+			posY = mouseEvent.pageY;
 			timerConfigRipple = setTimeout(_onStartTapHolding, AppGrid.TAP_HOLD_DURATION);
 			timerFireConfig = setTimeout(_onlongtouch, AppGrid.CONFIG_HOLD_DURATION);
 		});
 
+		$(".ripple").on('touchend', function(e) {
+			self.clearTouchHoldRipple(timerConfigRipple, timerFireConfig);
+		});
 		$(".ripple").on('mouseup', function(e) {
 			self.clearTouchHoldRipple(timerConfigRipple, timerFireConfig);
 		});

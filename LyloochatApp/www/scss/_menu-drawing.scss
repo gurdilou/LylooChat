@@ -1,10 +1,34 @@
-.app-menu-drawing {
-	padding: 12px;
+@import "variables";
 
-	.draw-canvas {
-		// width: 300px;// height: 300px;
-		border: 1px solid $primary-color-dark;
-		border-radius: 13px;
-		background: $secondary-color-content;
-	}
+.app-menu-drawing {
+  padding: 12px;
+
+  .whiteboard {
+    border: 1px solid $primary-color-dark;
+    border-radius: 13px;
+    background: $secondary-color-content;
+  }
+  .whiteboard-toolbar {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    &.visible {
+      display: inherit;
+    }
+
+    .menu-brush, .menu-color {
+      right: inherit;
+      left: 30px;
+    }
+    .menu-brush {
+      bottom: 100px;
+    }
+  }
+}
+
+.whiteboard-menu-brush {
+  margin: auto;
+  margin-left: inherit;
+  margin-right: inherit;
 }
