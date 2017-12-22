@@ -108,6 +108,8 @@ export class Whiteboard {
                 return "chalk";
             case Brush.Paintbrush:
                 return "paintbrush";
+            case Brush.Eraser:
+                return "eraser";
             default:
                 return "pencil";
         }
@@ -119,6 +121,8 @@ export class Whiteboard {
                 return Brush.Chalk;
             case "paintbrush":
                 return Brush.Paintbrush;
+            case "eraser":
+                return Brush.Eraser;
             default:
                 return Brush.Pencil;
         }
@@ -127,5 +131,5 @@ export class Whiteboard {
 
 
 export enum Brush {
-    Pencil, Chalk, Paintbrush
+    Pencil, Chalk, Paintbrush, Eraser
 }

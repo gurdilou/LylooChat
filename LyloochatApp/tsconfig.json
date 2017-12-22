@@ -72,8 +72,5 @@
 		"www/typings/modules/jsmediatags/index.d.ts",
 		"www/typings/modules/phonegap-fullscreen/index.d.ts",
 		"www/typings/modules/templates/index.d.ts"
-	],
-	"atom": {
-		"rewriteTsconfig": true
-	}
+	]
 }

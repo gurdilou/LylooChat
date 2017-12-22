@@ -84,7 +84,6 @@
     <allow-navigation href="https://*/*" />
     <allow-navigation href="data:*" />
     <access origin="content:///*" />
-    <engine name="android" spec="^6.4.0" />
     <plugin name="cordova-plugin-fullscreen" spec="^1.2.0" />
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-media" spec="^4.0.0" />

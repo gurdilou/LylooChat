@@ -29,5 +29,7 @@ declare namespace Lyloochat {
         static screen_display_card_sound(context: any): string;
 
         static whiteboard_menu_brush(context: any): string;
+
+        static whiteboard_menu_color(context: any): string;
     }
 }

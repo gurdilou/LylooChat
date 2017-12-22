@@ -32,3 +32,17 @@
   margin-left: inherit;
   margin-right: inherit;
 }
+
+.whiteboard-menu-color {
+  margin: auto;
+  margin-left: inherit;
+  margin-right: inherit;
+
+  .color-pick {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: auto;
+  }
+}
+

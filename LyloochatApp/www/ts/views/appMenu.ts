@@ -2,7 +2,6 @@ import {LyloochatApp} from "../app";
 import {MenuSound} from "./menus/menu_sound";
 import {MenuText} from "./menus/menu_text";
 import {MenuDrawing} from "./menus/menu_drawing";
-import {MenuOptions} from "./menus/menu_options";
 import {MenuBase} from "./menus/menu_base";
 
 
@@ -12,7 +11,6 @@ export class AppMenu {
 	private menu_text: MenuText = null;
 	private menu_sound: MenuSound = null;
 	private menu_drawing: MenuDrawing = null;
-	private menu_options: MenuOptions = null;
 	private selected_menu: MenuBase = null;
 	private selected_menu_elem: JQuery = null;
 	private old_scroll_position = 0;
@@ -62,10 +60,6 @@ export class AppMenu {
 		app_menu_drawing.on('tap', function(event) {
 			self.createMenu_Drawing(app_menu_drawing);
 		});
-		let app_menu_options = $(".app-menu-type-settings");
-		app_menu_options.on('tap', function(event) {
-			self.createMenu_Options(app_menu_options);
-		});
 	}
 
 	//_createMenu_Sound : Créer le menu pour jouer un son
@@ -88,13 +82,6 @@ export class AppMenu {
 			this.menu_drawing = new MenuDrawing(this);
 		}
 		this.selectMenu(this.menu_drawing, app_menu_drawing);
-	}
-	//_createMenu_Options : Créer le menu pour afficher les options
-	private createMenu_Options(app_menu_options: JQuery) {
-		if (!this.menu_options) {
-			this.menu_options = new MenuOptions(this);
-		}
-		this.selectMenu(this.menu_options, app_menu_options);
 	}
 
 	//_selectMenu : Affiche ou masque un menu
