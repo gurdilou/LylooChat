@@ -13,8 +13,8 @@ export class Whiteboard {
     private isDown = false;
     private canvasContext: CanvasRenderingContext2D = null;
     private toolbar: WhiteboardToolbar;
-    private lastX : number;
-    private lastY : number;
+    private lastPoint: CanvasPointEvent;
+    private canvasRect: ClientRect;
 
     constructor(containerId: string) {
         this.parent = $(containerId).first();
@@ -34,19 +34,30 @@ export class Whiteboard {
 
             this.isDown = false;
             let jCanvas = $(this.canvas);
+            this.canvasRect = this.canvas.getBoundingClientRect();
             jCanvas.attr("width", this.parent.width() + "px");
             jCanvas.attr("height", this.parent.height() + "px");
 
             $(window).resize(function () {
-                jCanvas.attr("width", self.parent.width() + "px");
-                jCanvas.attr("height", self.parent.height() + "px");
-                self.canvasContext.fillStyle= "#fff";
-                self.canvasContext.fillRect(0,0,self.canvas.width, self.canvas.height);
+                self.canvas.toBlob((blob) => {
+                    let newWidth = self.parent.width();
+                    let newHeight = self.parent.height();
+                    jCanvas.attr("width", newWidth + "px");
+                    jCanvas.attr("height", newHeight + "px");
+
+                    let img = new Image();
+                    img.onload = function(){
+                        self.canvasContext.drawImage(img,
+                            0, 0, self.canvasRect.width, self.canvasRect.height,
+                            0, 0, newWidth, newHeight);
+                        self.canvasRect = self.canvas.getBoundingClientRect();
+                    }
+                    if(blob) {
+                        img.src = URL.createObjectURL(blob);
+                    }
+                });
             });
             this.canvasContext = this.canvas.getContext("2d");
-            this.canvasContext.lineWidth = this.brushSize.size;
-            this.canvasContext.fillStyle= "#fafafa";
-            this.canvasContext.fillRect(0,0,this.canvas.width, this.canvas.height);
 
             jCanvas.on("touchstart", (e) => {
                 let touchEvent = <TouchEvent>e.originalEvent;
@@ -57,7 +68,7 @@ export class Whiteboard {
                 let touchEvent = <TouchEvent>e.originalEvent;
                 self.onDrawMove(touchEvent.touches[0].pageX - offsetLeft, touchEvent.touches[0].pageY - offsetTop);
             });
-            jCanvas.on("touchup", (e) => {
+            jCanvas.on("touchend", () => {
                 self.onDrawEnd();
             });
 
@@ -68,10 +79,10 @@ export class Whiteboard {
             jCanvas.on("mousemove", (e) => {
                 self.onDrawMove(e.pageX - offsetLeft, e.pageY - offsetTop);
             });
-            jCanvas.on("mouseup", (e) => {
+            jCanvas.on("mouseup", () => {
                 self.onDrawEnd();
             });
-            jCanvas.on("mouseout", (e) => {
+            jCanvas.on("mouseout", () => {
                 self.onDrawEnd();
             });
         }
@@ -85,39 +96,115 @@ export class Whiteboard {
 
     private onDrawStart(startX: number, startY: number) {
         this.isDown = true;
-        this.lastX = startX;
-        this.lastY = startY;
-        this.canvasContext.beginPath();
-        this.canvasContext.moveTo(this.lastX,this.lastY);
+        this.lastPoint = new CanvasPointEvent(startX, startY, this.brush, this.color, this.brushSize, false);
+    }
+
+    private drawCanvas(point: CanvasPointEvent) {
+        if (!point.dragging || !this.lastPoint) {
+            return;
+        }
+
+        // Brush properties
+        this.canvasContext.lineWidth = point.size.size;
+        this.canvasContext.strokeStyle = point.color;
+        this.canvasContext.lineJoin = "round";
+        this.canvasContext.lineCap = "round";
+
+
+        //Tool overwrite
+        this.canvasContext.shadowBlur = 0;
+        this.canvasContext.globalCompositeOperation = "source-over";
+        let dist = Whiteboard.distanceBetween(this.lastPoint, point);
+        let angle = Whiteboard.angleBetween(this.lastPoint, point);
+        let lineWidth = point.size.size;
+
+
+        for (let i = 0; i < dist; i += 4) {
+            let x = this.lastPoint.x + (Math.sin(angle) * i);
+            let y = this.lastPoint.y + (Math.cos(angle) * i);
+
+            let radgrad;
+            let rgb = Whiteboard.hexToRgb(point.color);
+
+            switch (point.brush) {
+                case Brush.Paintbrush :
+                    radgrad = this.canvasContext.createRadialGradient(x, y, 0.1 * lineWidth, x, y, 0.8 * lineWidth);
+                    radgrad.addColorStop(0, 'rgba(' + rgb.red + ',' + rgb.green + ',' + rgb.blue + ',0.2)');
+                    radgrad.addColorStop(0.5, 'rgba(' + rgb.red + ',' + rgb.green + ',' + rgb.blue + ',0.05)');
+                    radgrad.addColorStop(1, 'rgba(' + rgb.red + ',' + rgb.green + ',' + rgb.blue + ',0)');
+                    this.canvasContext.fillStyle = radgrad;
+                    this.canvasContext.fillRect(x - lineWidth, y - lineWidth, 2 * lineWidth, 2 * lineWidth);
+                    break;
+                case Brush.Chalk:
+                    // this.canvasContext.globalCompositeOperation = "destination-over";
+                    for (let i = 20; i--;) {
+                        let offsetX = Whiteboard.getRandomInt(-lineWidth / 1.8, lineWidth / 1.8);
+                        let offsetY = Whiteboard.getRandomInt(-lineWidth / 1.8, lineWidth / 1.8);
+                        this.canvasContext.fillStyle = "#fff";
+                        this.canvasContext.fillRect(point.x + offsetX, point.y + offsetY,
+                            Whiteboard.getRandomInt(1, 3),
+                            Whiteboard.getRandomInt(1, 3));
+                    }
+
+                    radgrad = this.canvasContext.createRadialGradient(x, y, 0.1 * lineWidth, x, y, 0.7 * lineWidth);
+                    radgrad.addColorStop(0, 'rgba(' + rgb.red + ',' + rgb.green + ',' + rgb.blue + ',0.2)');
+                    radgrad.addColorStop(0.85, 'rgba(' + rgb.red + ',' + rgb.green + ',' + rgb.blue + ',0.18)');
+                    radgrad.addColorStop(1, 'rgba(' + rgb.red + ',' + rgb.green + ',' + rgb.blue + ',0)');
+                    this.canvasContext.fillStyle = radgrad;
+                    this.canvasContext.fillRect(x - lineWidth, y - lineWidth, 2 * lineWidth, 2 * lineWidth);
+                    break;
+
+                case Brush.Eraser :
+                    this.canvasContext.globalCompositeOperation = "destination-out";
+                    lineWidth = BrushSize.XLarge.size;
+                default:
+                    radgrad = this.canvasContext.createRadialGradient(x, y, 0, x, y, 0.5 * lineWidth);
+                    radgrad.addColorStop(0, 'rgba(' + rgb.red + ',' + rgb.green + ',' + rgb.blue + ',1)');
+                    radgrad.addColorStop(0.85, 'rgba(' + rgb.red + ',' + rgb.green + ',' + rgb.blue + ',0.9)');
+                    radgrad.addColorStop(1, 'rgba(' + rgb.red + ',' + rgb.green + ',' + rgb.blue + ',0)');
+                    this.canvasContext.fillStyle = radgrad;
+                    this.canvasContext.fillRect(x - lineWidth, y - lineWidth, 2 * lineWidth, 2 * lineWidth);
+            }
+        }
+        this.lastPoint = point;
+
+        // TODO tlu : support other brushes...
+        // http://fabricjs.com/freedrawing
+        // http://perfectionkills.com/exploring-canvas-drawing-techniques/
+    }
+
+    private static getRandomInt(min: number, max: number) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     private onDrawMove(moveX: number, moveY: number) {
         if (this.isDown) {
-            switch(this.brush) {
-                case Brush.Eraser:
-                    this.canvasContext.globalCompositeOperation="destination-out";
-                    this.canvasContext.arc(this.lastX,this.lastY, BrushSize.Large.size,0,Math.PI*2,false);
-                    this.canvasContext.fill();
-                    this.canvasContext.stroke();
-                    this.canvasContext.closePath();
-                    this.canvasContext.beginPath();
-                    this.canvasContext.moveTo(this.lastX, this.lastY);
-                    break;
-                default:
-                    this.canvasContext.globalCompositeOperation="source-over";
-                    this.canvasContext.lineTo(moveX,moveY);
-                    this.canvasContext.strokeStyle = this.color;
-                    this.canvasContext.lineWidth = this.brushSize.size;
-                    this.canvasContext.stroke();
-            }
-            this.lastX = moveX;
-            this.lastY = moveY;
+            let currentPoint = new CanvasPointEvent(moveX, moveY, this.brush, this.color, this.brushSize, true);
+            this.drawCanvas(currentPoint);
         }
     }
 
     private onDrawEnd() {
         this.isDown = false;
-        this.canvasContext.closePath();
+        this.lastPoint = null;
+    }
+
+
+    private static distanceBetween(previousPoint: CanvasPointEvent, point: CanvasPointEvent): number {
+        return Math.sqrt(Math.pow(point.x - previousPoint.x, 2) + Math.pow(point.y - previousPoint.y, 2));
+    }
+
+    private static angleBetween(previousPoint: CanvasPointEvent, point: CanvasPointEvent): number {
+        return Math.atan2(point.x - previousPoint.x, point.y - previousPoint.y);
+    }
+
+    private static hexToRgb(colorHex: string): RGBColor {
+        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(colorHex);
+        return result ? {
+            red: parseInt(result[1], 16),
+            green: parseInt(result[2], 16),
+            blue: parseInt(result[3], 16)
+        } : null;
     }
 
     changeColor(newColor: string) {
@@ -125,7 +212,7 @@ export class Whiteboard {
     }
 
     changeBrush(newBrush: string) {
-        this.brush = this.getBrushFrom(newBrush);
+        this.brush = Whiteboard.getBrushFrom(newBrush);
     }
 
     getBrush(): Brush {
@@ -145,7 +232,8 @@ export class Whiteboard {
         }
     }
 
-    private getBrushFrom(newBrush: string): Brush {
+    // TODO tlu : move into a separate class
+    private static getBrushFrom(newBrush: string): Brush {
         switch (newBrush) {
             case "chalk":
                 return Brush.Chalk;
@@ -172,12 +260,27 @@ export class Whiteboard {
     }
 }
 
+class CanvasPointEvent {
+    constructor(public x: number,
+                public y: number,
+                public brush: Brush,
+                public color: string,
+                public size: BrushSize,
+                public dragging: boolean) {
+    }
+}
+
+interface RGBColor {
+    red: number,
+    green: number,
+    blue: number
+}
 
 export enum Brush {
     Pencil, Chalk, Paintbrush, Eraser
 }
 
-const BASE_LINE_WIDTH = 5;
+const BASE_LINE_WIDTH = 15;
 
 export class BrushSize {
     public static Small = new BrushSize("0.5x", BASE_LINE_WIDTH / 2);
@@ -185,5 +288,6 @@ export class BrushSize {
     public static Large = new BrushSize("2.5x", 2.5 * BASE_LINE_WIDTH);
     public static XLarge = new BrushSize("4x", 4 * BASE_LINE_WIDTH);
 
-    private constructor(public label: string, public size: number) {}
+    private constructor(public label: string, public size: number) {
+    }
 }

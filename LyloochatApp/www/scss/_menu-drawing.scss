@@ -74,6 +74,17 @@
   }
 }
 
+@media (min-width: $screen-large) {
+  .app-menu-drawing .whiteboard-toolbar {
+    left: initial;
+    right: 0;
+
+    .menu-brush, .menu-color, .menu-size {
+      right: 30px;
+      left: initial;
+    }
+  }
+}
 @media (min-width: $screen-medium) {
   .whiteboard-menu-color {
     .color-pick-cell {

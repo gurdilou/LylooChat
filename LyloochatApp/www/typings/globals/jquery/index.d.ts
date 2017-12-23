@@ -3345,6 +3345,8 @@ interface JQuery {
      */
     add(obj: JQuery): JQuery;
 
+    boxfit(opts: any): void;
+
     /**
      * Get the children of each element in the set of matched elements, optionally filtered by a selector.
      *
