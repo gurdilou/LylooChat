@@ -9,6 +9,7 @@ import {Sound} from "../../model/sound";
 export class MenuSound extends MenuBase {
 	private soundLibrary: SoundLibrary = null;
 	private playingWidgetSound: WidgetSound = null;
+	private searchInput: JQuery;
 
 	constructor(appMenu: AppMenu) {
 		super(appMenu);
@@ -123,16 +124,21 @@ export class MenuSound extends MenuBase {
 	// ========================================== PRIVILEGED ================================
 	// ========================================== OVERRIDE ==================================
 	// Affiche le menu
-	public onShow(container: JQuery) {
+	public onShowStart(container: JQuery) {
 		let appMenuHtml = Lyloochat.templates.menu_sound();
 		container.append(appMenuHtml);
+        this.searchInput = container.find(".app-menu-expanded .search-input");
 
 		if (this.soundLibrary) {
 			this.displaySounds(container);
 		}
 	}
 
-	// Cahche le menu
+    public onShowEnd(): void {
+		this.searchInput.focus();
+	}
+
+// Cahche le menu
 	public onHide() {
 		this.stopPlayingSound();
 	}

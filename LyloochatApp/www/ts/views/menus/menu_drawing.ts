@@ -4,25 +4,29 @@ import {Whiteboard} from "../widgets/whiteboard";
 
 //Une carte avec du dessin
 export class MenuDrawing extends MenuBase {
+    private board : Whiteboard;
 
     constructor(appMenu: AppMenu) {
         super(appMenu);
     }
 
-    public onShow(container: JQuery) {
+    public onShowStart(container: JQuery) {
         let value = {
-            titleBrush: "Brushes",
-            titleColor: "Color"
+            titleBrush: "Pinceau",
+            titleColor: "Couleur",
+            titleSize: "Taille du pinceau"
         };
         let appMenuHtml = Lyloochat.templates.menu_drawing(value);
         container.append(appMenuHtml);
-        let board = new Whiteboard("#menu-draw-canvas");
-        window.setTimeout(() => {
-            board.initialize();
-        }, 250);
+
+    }
+
+    public onShowEnd() {
+        this.board = new Whiteboard("#menu-draw-canvas");
+        this.board.show();
     }
 
     public onHide() {
-
+        this.board.hide();
     }
 }

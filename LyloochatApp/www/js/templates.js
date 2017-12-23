@@ -34,7 +34,9 @@ this["Lyloochat"]["templates"]["menu_drawing"] = Handlebars.template({"compiler"
     + alias4(((helper = (helper = helpers.titleBrush || (depth0 != null ? depth0.titleBrush : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titleBrush","hash":{},"data":data}) : helper)))
     + "\">\n            <i class=\"icon ic ic-lg\"></i>\n        </div>\n        <div class=\"floating-button menu-color\" title=\""
     + alias4(((helper = (helper = helpers.titleColor || (depth0 != null ? depth0.titleColor : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titleColor","hash":{},"data":data}) : helper)))
-    + "\">\n            <i class=\"icon ic ic-lg icon-palette\"></i>\n        </div>\n	</div>\n</div>\n";
+    + "\">\n            <i class=\"icon ic ic-lg icon-palette\"></i>\n        </div>\n        <div class=\"floating-button menu-size\" title=\""
+    + alias4(((helper = (helper = helpers.titleSize || (depth0 != null ? depth0.titleSize : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titleSize","hash":{},"data":data}) : helper)))
+    + "\">\n            <span class=\"size-label\"></span>\n        </div>\n	</div>\n</div>\n";
 },"useData":true});
 this["Lyloochat"]["templates"]["menu_sound"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"app-menu-expanded app-menu-sound\">\n  <div class=\"menu-bar search-bar\">\n	<i class=\"icon ic ic-lg icon-search\"></i>\n    <input class=\"menu-bar-input search-input\" contenteditable=\"true\" type=\"search\" autocomplete=\"on\" placeholder=\"Chercher un son...\"></input>\n  </div>\n  <div class=\"title recents-title\">Récents</div>\n  <hr class=\"rule recents-rule\"/>\n  <div class=\"list recents-list\">\n\n  </div>\n  <div class=\"title results-title hidden\">Résultats</div>\n  <hr class=\"rule results-rule hidden\"/>\n  <div class=\"list results-list hidden\">\n\n  </div>\n</div>\n";
@@ -65,36 +67,77 @@ this["Lyloochat"]["templates"]["screen_display_card_text"] = Handlebars.template
     + "    </div>\n</div>";
 },"usePartial":true,"useData":true});
 this["Lyloochat"]["templates"]["whiteboard_menu_brush"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "                            <li class=\"collection-item pick-"
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + " "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\"\n                                value=\""
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + "\">\n                                <span value=\""
+    + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "</span>\n                            </li>\n";
+},"2":function(container,depth0,helpers,partials,data) {
     return " active ";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-    var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {}), alias4=helpers.helperMissing;
-
-  return "<div class=\"material-context whiteboard-menu-brush\">\n    <div class=\"row\">\n        <div class=\"col s12 m10 offset-m2 l8 offset-l2\">\n            <div class=\"card\">\n                <div class=\"card-content\">\n                    <span class=\"card-title menu-brush-title\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.title : stack1), depth0))
-    + "</span>\n                    <ul class=\"collection\">\n                        <li class=\"collection-item pick-pencil "
-    + ((stack1 = (helpers.if_eq || (depth0 && depth0.if_eq) || alias4).call(alias3,(depth0 != null ? depth0.active : depth0),"pencil",{"name":"if_eq","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\" value=\"pencil\">\n                            <i class=\"icon ic ic-lg icon-pencil\"></i>\n                            <span>"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.pencil : stack1), depth0))
-    + "</span>\n                        </li>\n                        <li class=\"collection-item pick-chalk "
-    + ((stack1 = (helpers.if_eq || (depth0 && depth0.if_eq) || alias4).call(alias3,(depth0 != null ? depth0.active : depth0),"chalk",{"name":"if_eq","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\" value=\"chalk\">\n                            <i class=\"icon ic ic-lg icon-chalk\"></i>\n                            <span>"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.chalk : stack1), depth0))
-    + "</span>\n                        </li>\n                        <li class=\"collection-item pick-paintbrush "
-    + ((stack1 = (helpers.if_eq || (depth0 && depth0.if_eq) || alias4).call(alias3,(depth0 != null ? depth0.active : depth0),"paintbrush",{"name":"if_eq","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\" value=\"paintbrush\">\n                            <i class=\"icon ic ic-lg icon-paintbrush\"></i>\n                            <span>"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.paintbrush : stack1), depth0))
-    + "</span>\n                        </li>\n                        <li class=\"collection-item pick-eraser "
-    + ((stack1 = (helpers.if_eq || (depth0 && depth0.if_eq) || alias4).call(alias3,(depth0 != null ? depth0.active : depth0),"eraser",{"name":"if_eq","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "\" value=\"eraser\">\n                            <i class=\"icon ic ic-lg icon-paintbrush\"></i>\n                            <span>"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.eraser : stack1), depth0))
-    + "</span>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n";
-},"useData":true});
-this["Lyloochat"]["templates"]["whiteboard_menu_color"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"material-context whiteboard-menu-color\">\n    <div class=\"row\">\n        <div class=\"col s12 m10 offset-m2 l8 offset-l2\">\n            <div class=\"card\">\n                <div class=\"card-content\">\n                    <span class=\"card-title menu-brush-title\">"
+  return "<div class=\"material-context whiteboard-menu-brush\">\n    <div class=\"row\">\n        <div class=\"col s12 m10 offset-m2 l8 offset-l2\">\n            <div class=\"card\">\n                <div class=\"card-content\">\n                    <span class=\"card-title menu-brush-title\">"
     + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.title : stack1), depth0))
-    + "</span>\n                    <div class=\"pure-g\">\n\n                        <div class=\"pure-u-1-3\" value=\"#0C0C0C\">\n                            <div class=\"color-pick l-box\" style=\"background: #0C0C0C\">\n\n                            </div>\n                        </div>\n                        <div class=\"pure-u-1-3\" value=\"#0C0C0C\">\n                            <div class=\"color-pick l-box\" style=\"background: #0C0C0C\">\n\n                            </div>\n                        </div>\n                        <div class=\"pure-u-1-3\" value=\"#0C0C0C\">\n                            <div class=\"color-pick l-box\" style=\"background: #0C0C0C\">\n\n                            </div>\n                        </div>\n                        <div class=\"pure-u-1-3\" value=\"#0C0C0C\">\n                            <div class=\"color-pick l-box\" style=\"background: #0C0C0C\">\n\n                            </div>\n                        </div>\n                        <div class=\"pure-u-1-3\" value=\"#0C0C0C\">\n                            <div class=\"color-pick l-box\" style=\"background: #0C0C0C\">\n\n                            </div>\n                        </div>\n                        <div class=\"pure-u-1-3\" value=\"#0C0C0C\">\n                            <div class=\"color-pick l-box\" style=\"background: #0C0C0C\">\n\n                            </div>\n                        </div>\n                        <div class=\"pure-u-1-3\" value=\"#0C0C0C\">\n                            <div class=\"color-pick l-box\" style=\"background: #0C0C0C\">\n\n                            </div>\n                        </div>\n                        <div class=\"pure-u-1-3\" value=\"#0C0C0C\">\n                            <div class=\"color-pick l-box\" style=\"background: #0C0C0C\">\n\n                            </div>\n                        </div>\n                        <div class=\"pure-u-1-3\" value=\"#0C0C0C\">\n                            <div class=\"color-pick l-box\" style=\"background: #0C0C0C\">\n\n                            </div>\n                        </div>\n\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n";
+    + "</span>\n                    <ul class=\"collection\">\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.brushes : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "                    </ul>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n";
+},"useData":true});
+this["Lyloochat"]["templates"]["whiteboard_menu_color"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var alias1=container.lambda, alias2=container.escapeExpression;
+
+  return "                            <div class=\"pure-u-1-3 color-pick-cell\" value=\""
+    + alias2(alias1(depth0, depth0))
+    + "\">\n                                <div class=\"color-pick l-box\" value=\""
+    + alias2(alias1(depth0, depth0))
+    + "\" style=\"background: "
+    + alias2(alias1(depth0, depth0))
+    + "\">\n                                </div>\n                            </div>\n";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div class=\"material-context whiteboard-menu-color\">\n    <div class=\"row\">\n        <div class=\"col s12 m10 offset-m2 l8 offset-l2\">\n            <div class=\"card\">\n                <div class=\"card-content\">\n                    <span class=\"card-title menu-color-title\">"
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.title : stack1), depth0))
+    + "</span>\n                    <div class=\"pure-g\">\n\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.colors : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n";
+},"useData":true});
+this["Lyloochat"]["templates"]["whiteboard_menu_size"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "                            <li class=\"collection-item "
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.active : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\" index=\""
+    + alias4(((helper = (helper = helpers.index || (depth0 != null ? depth0.index : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"index","hash":{},"data":data}) : helper)))
+    + "\">\n                                <span index=\""
+    + alias4(((helper = (helper = helpers.index || (depth0 != null ? depth0.index : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"index","hash":{},"data":data}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"label","hash":{},"data":data}) : helper)))
+    + "</span>\n                                <div class=\"brush-size-preview\" style=\"height:"
+    + alias4(((helper = (helper = helpers.size || (depth0 != null ? depth0.size : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"size","hash":{},"data":data}) : helper)))
+    + "px; width:"
+    + alias4(((helper = (helper = helpers.size || (depth0 != null ? depth0.size : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"size","hash":{},"data":data}) : helper)))
+    + "px\" index=\""
+    + alias4(((helper = (helper = helpers.index || (depth0 != null ? depth0.index : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"index","hash":{},"data":data}) : helper)))
+    + "\"></div>\n                            </li>\n";
+},"2":function(container,depth0,helpers,partials,data) {
+    return " active ";
+},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div class=\"material-context whiteboard-menu-size\">\n    <div class=\"row\">\n        <div class=\"col s12 m10 offset-m2 l8 offset-l2\">\n            <div class=\"card\">\n                <div class=\"card-content\">\n                    <span class=\"card-title menu-size-title\">"
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.title : stack1), depth0))
+    + "</span>\n                    <ul class=\"collection\">\n"
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.sizes : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "                    </ul>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n";
 },"useData":true});
 this["Lyloochat"]["templates"]["widget_badge_button"] = Handlebars.template({"1":function(container,depth0,helpers,partials,data) {
     var helper;

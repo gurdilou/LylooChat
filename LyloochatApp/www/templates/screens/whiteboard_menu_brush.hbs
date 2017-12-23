@@ -5,22 +5,12 @@
                 <div class="card-content">
                     <span class="card-title menu-brush-title">{{loc.title}}</span>
                     <ul class="collection">
-                        <li class="collection-item pick-pencil {{#if_eq active "pencil"}} active {{/if_eq}}" value="pencil">
-                            <i class="icon ic ic-lg icon-pencil"></i>
-                            <span>{{loc.pencil}}</span>
-                        </li>
-                        <li class="collection-item pick-chalk {{#if_eq active "chalk"}} active {{/if_eq}}" value="chalk">
-                            <i class="icon ic ic-lg icon-chalk"></i>
-                            <span>{{loc.chalk}}</span>
-                        </li>
-                        <li class="collection-item pick-paintbrush {{#if_eq active "paintbrush"}} active {{/if_eq}}" value="paintbrush">
-                            <i class="icon ic ic-lg icon-paintbrush"></i>
-                            <span>{{loc.paintbrush}}</span>
-                        </li>
-                        <li class="collection-item pick-eraser {{#if_eq active "eraser"}} active {{/if_eq}}" value="eraser">
-                            <i class="icon ic ic-lg icon-paintbrush"></i>
-                            <span>{{loc.eraser}}</span>
-                        </li>
+                        {{#each brushes}}
+                            <li class="collection-item pick-{{name}} {{#if active}} active {{/if}}"
+                                value="{{name}}">
+                                <span value="{{name}}">{{label}}</span>
+                            </li>
+                        {{/each}}
                     </ul>
                 </div>
             </div>

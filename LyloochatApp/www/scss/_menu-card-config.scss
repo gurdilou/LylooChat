@@ -2,9 +2,13 @@
 
 .menu-card-config {
   overflow-y: auto;
-  
-  .card-type-select { 
-    margin-bottom: 24px; 
+
+  .row {
+    margin-bottom: 0;
+  }
+
+  .card-type-select {
+    margin-bottom: 24px;
   }
 
   .card-form.col {
@@ -17,9 +21,31 @@
     padding-left: 0px;
     padding-right: 0px;
     margin-left: 0px;
-  } 
+  }
 
   .btn-floating.btn-sound-search {
     margin-top: 20px;
-  } 
+  }
+
+  .cardConfigurator-button-ctn {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+
+    .badge-button {
+      margin: 60px 1em 1em;
+
+      &.butt-edit {
+        .icon {
+          font-size: 1.6666em;
+          line-height: 0.8em;
+          vertical-align: -18%;
+        }
+
+        .code {
+          font-size: 1.6666em;
+        }
+      }
+    }
+  }
 }

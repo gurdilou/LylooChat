@@ -25,6 +25,8 @@
 		padding: 3px;
 		background: $secondary-color-content;
 		flex-basis: 34px;
+		min-height: 34px;
+		flex-shrink: 1;
 		height: 34px;
 
 		.icon {

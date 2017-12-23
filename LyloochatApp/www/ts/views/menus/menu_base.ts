@@ -17,12 +17,13 @@ export abstract class MenuBase {
 	// Affiche le menu
 	public show(): void {
 		let content = $(".app-content").first();
-		this.onShow(content);
+		this.onShowStart(content);
 
 		let menu = $(".app-menu-expanded");
-		menu.attr("style", "height: " + document.body.offsetHeight + "px");
+		menu.attr("style", "height: " + content.height() + "px");
 		window.setTimeout(() => {
 			menu.attr("style", "height: 100%");
+            this.onShowEnd();
 		}, delay_anim);
 		this.displayed = true;
 	}
@@ -40,7 +41,8 @@ export abstract class MenuBase {
 		}, delay_anim);
 	}
 	// ========================================== ABSTRACT ===================================
-	public abstract onShow(container: JQuery): void;
+	public abstract onShowStart(container: JQuery): void;
+	public abstract onShowEnd(): void;
 	public abstract onHide(): void;
 	// ========================================== OVERRIDE===================================
 	// ========================================== PRIVILEGED ================================

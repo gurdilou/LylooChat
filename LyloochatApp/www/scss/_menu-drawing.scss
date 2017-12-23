@@ -7,6 +7,8 @@
     border: 1px solid $primary-color-dark;
     border-radius: 13px;
     background: $secondary-color-content;
+    height: 100%;
+    width: 100%;
   }
   .whiteboard-toolbar {
     display: none;
@@ -17,12 +19,23 @@
       display: inherit;
     }
 
-    .menu-brush, .menu-color {
+    .menu-brush, .menu-color, .menu-size {
       right: inherit;
       left: 30px;
+      display: flex;
     }
     .menu-brush {
+      bottom: 170px;
+
+      .icon {
+        color: $accent-color;
+      }
+    }
+    .menu-color {
       bottom: 100px;
+    }
+    .size-label {
+      margin: auto;
     }
   }
 }
@@ -38,11 +51,38 @@
   margin-left: inherit;
   margin-right: inherit;
 
+  .color-pick-cell {
+    padding: 10px;
+  }
+
   .color-pick {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    border: 2px solid $accent-color;
     margin: auto;
+
+    @include paper-shadow(50%);
+  }
+}
+
+.whiteboard-menu-size {
+  .brush-size-preview {
+    display: inline-block;
+    background: $primary-color;
+    @include paper-shadow(50%);
+    margin-left: 12px;
+  }
+}
+
+@media (min-width: $screen-medium) {
+  .whiteboard-menu-color {
+    .color-pick-cell {
+      padding: 20px;
+    }
+    .color-pick{
+      height: 80px;
+      width: 80px;
+    }
   }
 }
 

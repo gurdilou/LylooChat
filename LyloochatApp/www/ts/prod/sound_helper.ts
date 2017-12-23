@@ -133,6 +133,8 @@ export class SoundHelper {
 
     // _loadAllSoundsFromDevice : Charge la liste complète des sons
     private loadAllSoundsFromDevice(onAllSoundsLoaded: Function) {
+        // TODO tlu : Load sounds from downloads, microphones, ...?
+
         let devicePlatform = device.platform;
         let dirLooked = "";
         let dirMusicName = "";
@@ -149,6 +151,9 @@ export class SoundHelper {
                     let directoryReader = dirMusic.createReader();
                     directoryReader.readEntries(
                         (entries: FileEntry[]) => {
+                            if(entries.length === 0) {
+                                onAllSoundsLoaded()
+                            }
                             self.nbExpected = entries.length;
                             for (let i = 0; i < entries.length; i++) {
                                 (function (index) {

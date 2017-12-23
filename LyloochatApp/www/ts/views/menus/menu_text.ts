@@ -4,26 +4,32 @@ import {CardTextDisplayer} from "../cards-expanded/card_text_displayer";
 
 //Une carte avec du dessin
 export class MenuText extends MenuBase {
+	private textInput : JQuery;
+
 	constructor(appMenu: AppMenu) {
 		super(appMenu);
 	}
 
-	public onShow(container: JQuery) {
+	public onShowStart(container: JQuery) {
 		let appMenuHtml = Lyloochat.templates.menu_text();
 		container.append(appMenuHtml);
-		let self = this;
-		let textInput = container.find(".app-menu-expanded .text-input");
-		textInput.on("keypress", function(e) {
+		this.textInput = container.find(".app-menu-expanded .text-input");
+        this.textInput.on("keypress", (e) => {
 			let code = (e.keyCode ? e.keyCode : e.which);
 			if (code === 13) { //Enter keycode
 				e.preventDefault();
-				self.displayText(textInput.val());
-				textInput.blur();
+				MenuText.displayText(this.textInput.val());
+                this.textInput.blur();
 			}
 		});
 	}
 
-	public displayText(text: string): void {
+
+    public onShowEnd(): void {
+        this.textInput.focus();
+	}
+
+    public static displayText(text: string): void {
 		CardTextDisplayer.displayText(text);
 	}
 	public onHide() {

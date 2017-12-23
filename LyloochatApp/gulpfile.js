@@ -36,32 +36,37 @@ gulp.task('default', ['serve']);
 // II - Local html server during desktop developement
 gulp.task('serve', ['clean', 'handlebars', 'sass'], function () {
     prepareTypescriptCompile(false);
-    compileTypescript();
+    compileTypescript(() => {
+        gulp.watch(['www/*.html', 'www/js/**/*.js'], reload);
+        gulp.watch('www/scss/**/*.scss', ['sass']);
+        gulp.watch('www/js/lib/materialize/sass/**/*.scss', ['materialize-sass']);
+        gulp.watch('www/templates/**/*.hbs', ['handlebars']);
 
-    gulp.watch(['www/*.html', 'www/js/**/*.js'], reload);
-    gulp.watch('www/scss/**/*.scss', ['sass']);
-    gulp.watch('www/js/lib/materialize/sass/**/*.scss', ['materialize-sass']);
-    gulp.watch('www/templates/**/*.hbs', ['handlebars']);
 
-
-    return browserSync({
-        server: {
-            baseDir: 'www'
-        },
-        notify: false
+        return browserSync({
+            server: {
+                baseDir: 'www'
+            },
+            notify: false
+        });
     });
 });
 
 // III - Deploy and  cordova deploy
-gulp.task('deploy', function (callback) {
+gulp.task('deploy', ['clean'], function (callback) {
     prepareTypescriptCompile(true);
-    compileTypescript();
+    compileTypescript(() => {
+        var fs = require("fs");
+        if(fs.existsSync("www/js/bundle.js")) {
+            console.log("typescript compiled !");
+        }
 
-    runSequence(
-        'clean', ['handlebars', 'sass'],
-        'build-phonegap',
-        'run',
-        callback);
+        runSequence(
+            ['handlebars', 'sass'],
+            'build-phonegap-prod',
+            'run-prod',
+            callback);
+    });
 });
 
 
@@ -72,7 +77,7 @@ gulp.task('clean', function (callback) {
 });
 //Scss to css
 gulp.task('sass', function () {
-    gulp.src('www/scss/**/*.scss')
+    return gulp.src('www/scss/**/*.scss')
         .pipe(sass.sync({
             outputStyle: 'compressed'
         }).on('error', sass.logError))
@@ -110,15 +115,22 @@ gulp.task('handlebars', function () {
         .pipe(gulp.dest('www/js/'));
 });
 
-// Lance le déploiement du android
-gulp.task('build-phonegap', function () {
+gulp.task('build-phonegap-prod', function () {
     if(shell.exec('node_modules/.bin/cordova build android').code !== 0) {
         shell.echo('Error: Command failed');
         shell.exit(1);
     }
 });
+gulp.task('run-prod', function () {
+    if(shell.exec('node_modules/.bin/cordova run android --nobuild').code !== 0) {
+        shell.echo('Error: Command failed');
+        shell.exit(1);
+    }
+});
+
+
 // Lance le déploiement du android
-gulp.task('run', function () {
+gulp.task('buildAndRun', function () {
     if(shell.exec('node_modules/.bin/cordova run android').code !== 0) {
         shell.echo('Error: Command failed');
         shell.exit(1);
@@ -148,13 +160,17 @@ function prepareTypescriptCompile(deployOnPhone) {
         }))
             .plugin(tsify);
 
-        watchedTsify.on("update", compileTypescript);
+        watchedTsify.on("update", () => {
+            compileTypescript(() => {
+                console.log("ts compile done");
+            });
+        });
         watchedTsify.on("log", gutil.log);
         watchedTsify.on("error", gutil.log);
     }
 }
 
-function compileTypescript() {
+function compileTypescript(done) {
     return watchedTsify
         .bundle()
         .on('error', function (error) {
@@ -171,5 +187,6 @@ function compileTypescript() {
                 return file.cwd;
             }
         }))
-        .pipe(gulp.dest("www/js"));
+        .pipe(gulp.dest("www/js"))
+        .on('end', done);
 }

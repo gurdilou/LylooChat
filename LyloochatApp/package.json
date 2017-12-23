@@ -51,7 +51,9 @@
     "vinyl-paths": "^2.0.0"
   },
   "cordova": {
-    "platforms": [],
+    "platforms": [
+      "android"
+    ],
     "plugins": {
       "cordova-plugin-fullscreen": {},
       "cordova-plugin-file": {},
