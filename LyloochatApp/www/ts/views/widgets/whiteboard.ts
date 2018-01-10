@@ -16,10 +16,10 @@ export class Whiteboard {
     private lastPoint: CanvasPointEvent;
     private canvasRect: ClientRect;
 
-    constructor(containerId: string, withToolbar: boolean) {
+    constructor(private readOnly: boolean, containerId: string) {
         this.parent = $(containerId).first();
         this.canvas = <HTMLCanvasElement> this.parent.find(".whiteboard").first().get(0);
-        if (withToolbar) {
+        if (!this.readOnly) {
             this.toolbar = new WhiteboardToolbar(this, this.parent);
         }
     }
@@ -28,7 +28,7 @@ export class Whiteboard {
      * Element must have is final position and parent when this method is called.
      * => It implies that animations are complete, add dom rendered
      */
-    public show(): void {
+    public show(displayThisDrawing ?: Blob): void {
         let self = this;
         if (this.canvas) {
             let offsetTop = this.canvas.offsetTop + this.parent.offset().top;
@@ -39,6 +39,16 @@ export class Whiteboard {
             this.canvasRect = this.canvas.getBoundingClientRect();
             jCanvas.attr("width", this.parent.width() + "px");
             jCanvas.attr("height", this.parent.height() + "px");
+            if(displayThisDrawing) {
+                let img = new Image();
+                img.onload = function () {
+                    self.canvasContext.drawImage(img,
+                        0, 0, self.canvasRect.width, self.canvasRect.height);
+                    self.canvasRect = self.canvas.getBoundingClientRect();
+                };
+                img.src = URL.createObjectURL(displayThisDrawing);
+            }
+
 
             $(window).resize(function () {
                 self.canvas.toBlob((blob) => {
@@ -61,32 +71,35 @@ export class Whiteboard {
             });
             this.canvasContext = this.canvas.getContext("2d");
 
-            jCanvas.on("touchstart", (e) => {
-                let touchEvent = <TouchEvent>e.originalEvent;
-                self.onDrawStart(touchEvent.touches[0].pageX - offsetLeft, touchEvent.touches[0].pageY - offsetTop);
-            });
-            jCanvas.on("touchmove", (e) => {
-                // ctx.moveTo(canvasX, canvasY);
-                let touchEvent = <TouchEvent>e.originalEvent;
-                self.onDrawMove(touchEvent.touches[0].pageX - offsetLeft, touchEvent.touches[0].pageY - offsetTop);
-            });
-            jCanvas.on("touchend", () => {
-                self.onDrawEnd();
-            });
 
-            //WIth mouse
-            jCanvas.on("mousedown", (e) => {
-                self.onDrawStart(e.pageX - offsetLeft, e.pageY - offsetTop);
-            });
-            jCanvas.on("mousemove", (e) => {
-                self.onDrawMove(e.pageX - offsetLeft, e.pageY - offsetTop);
-            });
-            jCanvas.on("mouseup", () => {
-                self.onDrawEnd();
-            });
-            jCanvas.on("mouseout", () => {
-                self.onDrawEnd();
-            });
+            if(!this.readOnly) {
+                jCanvas.on("touchstart", (e) => {
+                    let touchEvent = <TouchEvent>e.originalEvent;
+                    self.onDrawStart(touchEvent.touches[0].pageX - offsetLeft, touchEvent.touches[0].pageY - offsetTop);
+                });
+                jCanvas.on("touchmove", (e) => {
+                    // ctx.moveTo(canvasX, canvasY);
+                    let touchEvent = <TouchEvent>e.originalEvent;
+                    self.onDrawMove(touchEvent.touches[0].pageX - offsetLeft, touchEvent.touches[0].pageY - offsetTop);
+                });
+                jCanvas.on("touchend", () => {
+                    self.onDrawEnd();
+                });
+
+                //WIth mouse
+                jCanvas.on("mousedown", (e) => {
+                    self.onDrawStart(e.pageX - offsetLeft, e.pageY - offsetTop);
+                });
+                jCanvas.on("mousemove", (e) => {
+                    self.onDrawMove(e.pageX - offsetLeft, e.pageY - offsetTop);
+                });
+                jCanvas.on("mouseup", () => {
+                    self.onDrawEnd();
+                });
+                jCanvas.on("mouseout", () => {
+                    self.onDrawEnd();
+                });
+            }
         }
 
         this.toolbar && this.toolbar.show();

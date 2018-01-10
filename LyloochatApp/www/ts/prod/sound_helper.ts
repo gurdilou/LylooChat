@@ -142,7 +142,7 @@ export class SoundHelper {
             dirLooked = window.cordova.file.externalRootDirectory;
             dirMusicName = "Music";
         }
-        //TODO autres plateformes
+        // TODO tlu : Load many directories, handle accents ! Search into microphone, mp3, ..?
 
         let self = this;
         window.resolveLocalFileSystemURL(dirLooked, (dirEntry: DirectoryEntry) => {

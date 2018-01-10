@@ -48,7 +48,7 @@ export class CardConfigurator {
                 card_drawing: 'Dessin',
                 displayed_text: 'Texte affiché',
                 played_sound: 'Son joué',
-                displayed_draw: 'Dessin',
+                displayed_draw: 'Dessiner',
             }
         };
         maskPanel.html(Lyloochat.templates.menu_card_config(menuContext));
@@ -120,8 +120,8 @@ export class CardConfigurator {
 
             let card_expanded_elem = body.children().last();
 
-            let board = new Whiteboard("#card-config-whiteboard", true);
-            board.show();
+            let board = new Whiteboard(false,"#card-config-whiteboard");
+            board.show(self.drawing);
 
             let innerButton = card_expanded_elem.find('.card-fs-butt-ok');
             innerButton.on('click', function () {
@@ -168,6 +168,7 @@ export class CardConfigurator {
         elem_sound.on("tap", function () {
             $('#card-soundpath').val(candidate.name);
             self.selectedSound = candidate;
+            Materialize.updateTextFields();
         });
     }
 

@@ -7,6 +7,7 @@ import {Dialogs} from "./commons/common";
 import {HandlebarHelpers} from "./commons/hbs_helpers";
 import {SoundList} from "./model/sound_list";
 
+// TODO tlu : Create a log, use as brand, and for app icon
 export class LyloochatApp {
 	// ========================================== VARIABLES =================================
 	public listCards: CardList;

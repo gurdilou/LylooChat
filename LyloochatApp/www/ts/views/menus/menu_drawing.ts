@@ -22,7 +22,7 @@ export class MenuDrawing extends MenuBase {
     }
 
     public onShowEnd() {
-        this.board = new Whiteboard("#menu-draw-canvas", true);
+        this.board = new Whiteboard(false, "#menu-draw-canvas");
         this.board.show();
     }
 

@@ -14,9 +14,15 @@ export class Dialogs {
     public static showPopupPanel() {
         Dialogs.inner_showPopupPanel(this);
     }
+    public static showPopinPanel() {
+        Dialogs.inner_showPopinPanel(this);
+    }
 
     public static hidePopupPanel() {
         Dialogs.inner_hidePopupPanel(this);
+    }
+    public static hidePopinPanel() {
+        Dialogs.inner_hidePopinPanel(this);
     }
 
     public static showErrorPanel(msg: string) {
@@ -68,10 +74,26 @@ export class Dialogs {
             maskPanel.addClass("visible");
         })(window, jQuery);
     }
+    // showPopinPanel : Affiche un masque pour une popin
+    private static inner_showPopinPanel(caller: any) {
+        (function (window: Window, $: JQueryStatic) {
+            let maskPanel = $(".popin");
+            maskPanel.html("");
+            maskPanel.addClass("visible");
+        })(window, jQuery);
+    }
 
     private static inner_hidePopupPanel(caller: any) {
         (function (window: Window, $: JQueryStatic) {
             let maskPanel = $(".popup");
+            maskPanel.html("");
+            maskPanel.removeClass("visible");
+        })(window, jQuery);
+    }
+
+    private static inner_hidePopinPanel(caller: any) {
+        (function (window: Window, $: JQueryStatic) {
+            let maskPanel = $(".popin");
             maskPanel.html("");
             maskPanel.removeClass("visible");
         })(window, jQuery);
