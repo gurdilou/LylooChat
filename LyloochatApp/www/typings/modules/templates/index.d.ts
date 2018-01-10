@@ -22,7 +22,11 @@ declare namespace Lyloochat {
 
         static widget_card_text(context: any): string;
 
+        static widget_card_sound(context: any): string;
+
         static screen_display_card_text(context: any): string;
+
+        static screen_display_card_drawing(): string;
 
         static widget_dialog(context: any): string;
 
@@ -33,5 +37,9 @@ declare namespace Lyloochat {
         static whiteboard_menu_color(context: any): string;
 
         static whiteboard_menu_size(context: any): string;
+
+        static widget_card_drawing(context: any): string;
+
+        static card_config_whiteboard(): string;
     }
 }

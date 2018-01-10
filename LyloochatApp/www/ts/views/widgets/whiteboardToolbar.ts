@@ -6,6 +6,8 @@ export class WhiteboardToolbar {
     private toolbar: JQuery;
     private oldBrush: string;
 
+    private static readonly POPUPS_INDEX= 104;
+
     constructor(private linkedWhiteboard: Whiteboard, container: JQuery) {
         this.toolbar = container.find(".whiteboard-toolbar").first();
     }
@@ -32,6 +34,7 @@ export class WhiteboardToolbar {
     private displayBrushes() {
         Dialogs.showPopupPanel();
         let maskPanel = $(".popup");
+        maskPanel.css("z-index", WhiteboardToolbar.POPUPS_INDEX);
         let menuContext = {
             loc: {
                 title: 'Choix du pinceau',
@@ -74,6 +77,7 @@ export class WhiteboardToolbar {
     private displayPalette() {
         Dialogs.showPopupPanel();
         let maskPanel = $(".popup");
+        maskPanel.css("z-index", WhiteboardToolbar.POPUPS_INDEX);
         let menuContext = {
             loc: {
                 title: 'Choix de la couleur'
@@ -109,6 +113,7 @@ export class WhiteboardToolbar {
     private displaySizes() {
         Dialogs.showPopupPanel();
         let maskPanel = $(".popup");
+        maskPanel.css("z-index", WhiteboardToolbar.POPUPS_INDEX);
         let menuContext = {
             loc: {
                 title: 'Choix de la taille du pinceau'

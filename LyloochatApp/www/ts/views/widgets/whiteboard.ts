@@ -16,10 +16,12 @@ export class Whiteboard {
     private lastPoint: CanvasPointEvent;
     private canvasRect: ClientRect;
 
-    constructor(containerId: string) {
+    constructor(containerId: string, withToolbar: boolean) {
         this.parent = $(containerId).first();
         this.canvas = <HTMLCanvasElement> this.parent.find(".whiteboard").first().get(0);
-        this.toolbar = new WhiteboardToolbar(this, this.parent);
+        if (withToolbar) {
+            this.toolbar = new WhiteboardToolbar(this, this.parent);
+        }
     }
 
     /**
@@ -46,13 +48,13 @@ export class Whiteboard {
                     jCanvas.attr("height", newHeight + "px");
 
                     let img = new Image();
-                    img.onload = function(){
+                    img.onload = function () {
                         self.canvasContext.drawImage(img,
                             0, 0, self.canvasRect.width, self.canvasRect.height,
                             0, 0, newWidth, newHeight);
                         self.canvasRect = self.canvas.getBoundingClientRect();
-                    }
-                    if(blob) {
+                    };
+                    if (blob) {
                         img.src = URL.createObjectURL(blob);
                     }
                 });
@@ -87,11 +89,11 @@ export class Whiteboard {
             });
         }
 
-        this.toolbar.show();
+        this.toolbar && this.toolbar.show();
     }
 
     public hide() {
-        this.toolbar.hide();
+        this.toolbar && this.toolbar.hide();
     }
 
     private onDrawStart(startX: number, startY: number) {
@@ -126,6 +128,7 @@ export class Whiteboard {
             let radgrad;
             let rgb = Whiteboard.hexToRgb(point.color);
 
+            // noinspection FallThroughInSwitchStatementJS
             switch (point.brush) {
                 case Brush.Paintbrush :
                     radgrad = this.canvasContext.createRadialGradient(x, y, 0.1 * lineWidth, x, y, 0.8 * lineWidth);
@@ -257,6 +260,12 @@ export class Whiteboard {
     setBrushSize(brushSize: BrushSize) {
         this.brushSize = brushSize;
         this.canvasContext.lineWidth = this.brushSize.size;
+    }
+
+    saveToBlob(cb: (drawingSaved: Blob) => void) {
+        this.canvas.toBlob((blob) => {
+            cb(blob);
+        });
     }
 }
 

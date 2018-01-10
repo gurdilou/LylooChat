@@ -1,5 +1,18 @@
 this["Lyloochat"] = this["Lyloochat"] || {};
 this["Lyloochat"]["templates"] = this["Lyloochat"]["templates"] || {};
+this["Lyloochat"]["templates"]["card_config_whiteboard"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div id=\"card-config-whiteboard\" class=\"card-fullscreen card-config-drawing\">\n    <canvas class=\"whiteboard\">\n        Sorry, your browser doesn't support canvas technology.\n    </canvas>\n    <div class=\"whiteboard-toolbar\">\n        <div class=\"floating-button menu-brush\" title=\""
+    + alias4(((helper = (helper = helpers.titleBrush || (depth0 != null ? depth0.titleBrush : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titleBrush","hash":{},"data":data}) : helper)))
+    + "\">\n            <i class=\"icon ic ic-lg\"></i>\n        </div>\n        <div class=\"floating-button menu-color\" title=\""
+    + alias4(((helper = (helper = helpers.titleColor || (depth0 != null ? depth0.titleColor : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titleColor","hash":{},"data":data}) : helper)))
+    + "\">\n            <i class=\"icon ic ic-lg icon-palette\"></i>\n        </div>\n        <div class=\"floating-button menu-size\" title=\""
+    + alias4(((helper = (helper = helpers.titleSize || (depth0 != null ? depth0.titleSize : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titleSize","hash":{},"data":data}) : helper)))
+    + "\">\n            <span class=\"size-label\"></span>\n        </div>\n        <div class=\"container-floating\">\n"
+    + ((stack1 = container.invokePartial(partials.widget_floating_button,depth0,{"name":"widget_floating_button","hash":{"icon":"check","title":"OK","class":"card-fs-butt-ok"},"data":data,"indent":"            ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "        </div>\n    </div>\n</div>";
+},"usePartial":true,"useData":true});
 this["Lyloochat"]["templates"]["menu_card_config"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
 
@@ -17,9 +30,9 @@ this["Lyloochat"]["templates"]["menu_card_config"] = Handlebars.template({"compi
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.displayed_text : stack1), depth0))
     + "</label>\n                    </div>\n                  </div>\n                  <div class=\"row\">\n                    <div class=\"card-input input-field col s10\">\n                      <i class=\"material-icons prefix\">audiotrack</i>\n                      <input  id=\"card-soundpath\" type=\"text\">\n                      <label for=\"card-soundpath\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.played_sound : stack1), depth0))
-    + "</label>\n                    </div>\n                    <div class=\"col s2\">\n                      <a class=\"btn-floating btn-sound-search\"><i class=\"material-icons\">search</i></a>\n                    </div>\n                  </div>\n                  <div class=\"row\">\n                    <div class=\"sound-list hidden\">\n                    </div>\n                  </div>\n                </form>\n              </div>\n            </div>\n\n            <div id=\"card_drawing\" class=\"col s12\">\n              <div class=\"row\">\n                <form class=\"card-form col s12\">\n                  <div class=\"row\">\n                    <div class=\"card-input input-field col s12\">\n                      <i class=\"material-icons prefix\">create</i>\n                      <input  id=\"card_content\" type=\"text\">\n                      <label for=\"card_content\">"
+    + "</label>\n                    </div>\n                    <div class=\"col s2\">\n                      <a class=\"btn-floating btn-sound-search\"><i class=\"material-icons\">search</i></a>\n                    </div>\n                  </div>\n                  <div class=\"row\">\n                    <div class=\"sound-list hidden\">\n                    </div>\n                  </div>\n                </form>\n              </div>\n            </div>\n\n            <div id=\"card_drawing\" class=\"col s12\">\n              <div class=\"row\">\n                <form class=\"card-form col s12\">\n                  <div class=\"row\">\n                    <div class=\"card-input input-field col s12\">\n                      <i class=\"material-icons prefix\">create</i>\n                      <input  id=\"card_drawing_content\" type=\"text\">\n                      <label for=\"card_drawing_content\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.displayed_text : stack1), depth0))
-    + "</label>\n                    </div>\n                  </div>\n                  <div class=\"row\">\n                    <div class=\"card-input input-field col s12 m6 l6\">\n                      <a class=\"waves-effect waves-light btn\"><i class=\"material-icons left\">gesture</i>"
+    + "</label>\n                    </div>\n                  </div>\n                  <div class=\"row\">\n                    <div class=\"card-input input-field col s12 m6 l6\">\n                      <a class=\"btn-draw-something waves-effect waves-light btn\"><i class=\"material-icons left\">gesture</i>"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.displayed_draw : stack1), depth0))
     + "</a>\n                    </div>\n                  </div>\n                </form>\n              </div>\n            </div>\n\n\n          </div>\n        </div>\n\n\n        <div class=\"card-action\">\n		  <a class=\"waves-effect waves-teal btn btn-validate\" href=\"#\">"
     + alias2(alias1(((stack1 = (depth0 != null ? depth0.loc : depth0)) != null ? stack1.ok : stack1), depth0))
@@ -44,6 +57,13 @@ this["Lyloochat"]["templates"]["menu_sound"] = Handlebars.template({"compiler":[
 this["Lyloochat"]["templates"]["menu_text"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div class=\"app-menu-expanded app-menu-text\">\n  <div class=\"menu-bar text-bar\">\n	<i class=\"icon ic ic-lg icon-edit\"></i>\n    <input class=\"menu-bar-input text-input\" contenteditable=\"true\" type=\"text\" autocomplete=\"on\" placeholder=\"Afficher un texte...\"></input>\n  </div>\n  <hr class=\"rule\"/>\n</div>\n";
 },"useData":true});
+this["Lyloochat"]["templates"]["screen_display_card_drawing"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "<div id=\"fullscreen-drawing\" class=\"card-fullscreen card-drawing\">\n    <canvas class=\"whiteboard\">\n        Sorry, your browser doesn't support canvas technology.\n    </canvas>\n    <div class=\"container-floating\">\n"
+    + ((stack1 = container.invokePartial(partials.widget_floating_button,depth0,{"name":"widget_floating_button","hash":{"icon":"check","title":"OK","class":"card-fs-butt-ok"},"data":data,"indent":"        ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "    </div>\n</div>";
+},"usePartial":true,"useData":true});
 this["Lyloochat"]["templates"]["screen_display_card_sound"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=container.lambda;
 
@@ -163,10 +183,32 @@ this["Lyloochat"]["templates"]["widget_badge_button"] = Handlebars.template({"1"
     + alias4(((helper = (helper = helpers.code || (depth0 != null ? depth0.code : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"code","hash":{},"data":data}) : helper)))
     + "</span>\n</a>\n";
 },"useData":true});
+this["Lyloochat"]["templates"]["widget_card_drawing"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div class=\"card card-drawing pure-u-1 pure-u-md-1-2 pure-u-sm-1-2 pure-u-lg-1-4 l-box\" cardNumber=\""
+    + alias4(((helper = (helper = helpers.cardNumber || (depth0 != null ? depth0.cardNumber : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cardNumber","hash":{},"data":data}) : helper)))
+    + "\">\n    <a class=\"container ripple\" href=\"#\" cardNumber=\""
+    + alias4(((helper = (helper = helpers.cardNumber || (depth0 != null ? depth0.cardNumber : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cardNumber","hash":{},"data":data}) : helper)))
+    + "\">\n        <i class=\"material-icons card-icon\">gesture</i>\n        <div class=\"card-title\">"
+    + ((stack1 = ((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "</div>\n    </a>\n</div>\n";
+},"useData":true});
+this["Lyloochat"]["templates"]["widget_card_sound"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
+
+  return "<div class=\"card card-sound pure-u-1 pure-u-md-1-2 pure-u-sm-1-2 pure-u-lg-1-4 l-box\" cardNumber=\""
+    + alias4(((helper = (helper = helpers.cardNumber || (depth0 != null ? depth0.cardNumber : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cardNumber","hash":{},"data":data}) : helper)))
+    + "\">\n    <a class=\"container ripple\" href=\"#\" cardNumber=\""
+    + alias4(((helper = (helper = helpers.cardNumber || (depth0 != null ? depth0.cardNumber : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cardNumber","hash":{},"data":data}) : helper)))
+    + "\">\n        <i class=\"card-icon sound-icon ic ic-lg icon-sound\"></i>\n        <div class=\"card-title\">"
+    + ((stack1 = ((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "</div>\n    </a>\n</div>\n";
+},"useData":true});
 this["Lyloochat"]["templates"]["widget_card_text"] = Handlebars.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "<div class=\"card-text pure-u-1 pure-u-md-1-2 pure-u-sm-1-2 pure-u-lg-1-4 l-box\" cardNumber=\""
+  return "<div class=\"card card-text pure-u-1 pure-u-md-1-2 pure-u-sm-1-2 pure-u-lg-1-4 l-box\" cardNumber=\""
     + alias4(((helper = (helper = helpers.cardNumber || (depth0 != null ? depth0.cardNumber : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cardNumber","hash":{},"data":data}) : helper)))
     + "\">\n  <a class=\"container ripple\" href=\"#\" cardNumber=\""
     + alias4(((helper = (helper = helpers.cardNumber || (depth0 != null ? depth0.cardNumber : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"cardNumber","hash":{},"data":data}) : helper)))

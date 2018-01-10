@@ -1,7 +1,8 @@
 import {WidgetCard} from "./widget_card";
 import {AppGrid} from "../appGrid";
 import {CardDrawing} from "../../model/card_drawing";
-import {Dialogs} from "../../commons/common";
+import {ScreenCardDrawing} from "../cards-expanded/screen_card_drawing";
+
 //Une carte avec du dessin
 export class WidgetCardDrawing extends WidgetCard {
     // ========================================== let IABLES =================================
@@ -18,11 +19,12 @@ export class WidgetCardDrawing extends WidgetCard {
 			cardNumber: this.card.id,
 			title: this.card.code
 		};
-		return Lyloochat.templates.widget_card_text(context);
+		return Lyloochat.templates.widget_card_drawing(context);
 	}
 	//Lors d'un clic simple sur la carte
 	public onCardThumbnailClick() {
-		Dialogs.showErrorPanel("Click Widget_Card_Drawing");
+        let displayed_screen_card = new ScreenCardDrawing(this);
+        displayed_screen_card.display();
 	}
     // ========================================== PRIVILEGED ================================
 }

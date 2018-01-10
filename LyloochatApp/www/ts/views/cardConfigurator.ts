@@ -8,6 +8,8 @@ import {Dialogs} from "../commons/common";
 import {CardText} from "../model/card_text";
 import {CardDrawing} from "../model/card_drawing";
 import {CardSound} from "../model/card_sound";
+import {Whiteboard} from "./widgets/whiteboard";
+import {WidgetCardDrawing} from "./cards/widget_card_drawing";
 
 export class CardConfigurator {
     // ========================================== VARIABLES =================================
@@ -16,6 +18,7 @@ export class CardConfigurator {
     private index: number;
     private sounds: SoundList;
     private selectedSound: Sound;
+    private drawing: Blob;
 
     // ========================================== CONSTRUCTOR ===============================
     constructor(private appGrid: AppGrid) {
@@ -49,6 +52,7 @@ export class CardConfigurator {
             }
         };
         maskPanel.html(Lyloochat.templates.menu_card_config(menuContext));
+        maskPanel.css("z-index", 101);
         $('ul.tabs').tabs();
 
         if (this.widget.card instanceof CardText) {
@@ -68,10 +72,10 @@ export class CardConfigurator {
                 self.onSearchSound();
             }
         });
-        $('.menu-card-config .btn-sound-search').on('click', function (e) {
+        $('.menu-card-config .btn-sound-search').on('click', function () {
             self.onSearchSound();
         });
-        $('.menu-card-config .btn-validate').on('click', function (e) {
+        $('.menu-card-config .btn-validate').on('click', function () {
             let activeTab = $('.tabs .active');
             let newWidget = null;
             if (activeTab.hasClass('menu-text')) {
@@ -90,7 +94,14 @@ export class CardConfigurator {
                 }
             }
             if (activeTab.hasClass('menu-drawing')) {
-                //TODO generate widget drawing
+                let label = $('#card_drawing_content').val();
+                if (self.drawing) {
+                    let card = new CardDrawing(self.widget.card.id, label, self.drawing);
+                    newWidget = new WidgetCardDrawing(self.appGrid, card);
+                } else {
+                    Dialogs.showErrorPanel("Veuillez dessiner quelquechose.");
+                    return;
+                }
             }
             self.selectedSound = null;
             self.appGrid.app.deviceHandler.refreshFullscreen();
@@ -99,8 +110,27 @@ export class CardConfigurator {
             }
             self.exitConfig();
         });
-        $('.menu-card-config .btn-cancel').on('click', function (e) {
+        $('.menu-card-config .btn-cancel').on('click', function () {
             self.exitConfig();
+        });
+        $('.menu-card-config .btn-draw-something').on('click', () => {
+            let body = $("body");
+            let fullscreen_elem = Lyloochat.templates.card_config_whiteboard();
+            body.append(fullscreen_elem);
+
+            let card_expanded_elem = body.children().last();
+
+            let board = new Whiteboard("#card-config-whiteboard", true);
+            board.show();
+
+            let innerButton = card_expanded_elem.find('.card-fs-butt-ok');
+            innerButton.on('click', function () {
+                board.saveToBlob((drawingSaved) => {
+                    self.drawing = drawingSaved;
+                    board.hide();
+                    $(card_expanded_elem).remove();
+                });
+            });
         });
     }
 
@@ -135,7 +165,7 @@ export class CardConfigurator {
 
         //events
         let self = this;
-        elem_sound.on("tap", function (e) {
+        elem_sound.on("tap", function () {
             $('#card-soundpath').val(candidate.name);
             self.selectedSound = candidate;
         });
@@ -162,8 +192,10 @@ export class CardConfigurator {
 
     // _fillMenuDrawing : Sélection du menu  pour une carte de dessin
     private fillMenuDrawing() {
-        //  TODO
         $('.menu-card-config ul.tabs').tabs('select_tab', 'card_drawing');
+        let input = $('#card_drawing_content');
+        let card = <CardDrawing>this.widget.card;
+        input.val(card.code);
     }
 
     // ========================================== PRIVILEGED ================================

@@ -18,7 +18,7 @@ export class WidgetCardSound extends WidgetCard {
 			cardNumber: this.card.id,
 			title: this.card.code
 		};
-		return Lyloochat.templates.widget_card_text(context);
+		return Lyloochat.templates.widget_card_sound(context);
 	}
 	//Lors d'un clic simple sur la carte
 	public onCardThumbnailClick() {
