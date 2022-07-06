@@ -13,7 +13,8 @@
 		"noUnusedLocals": true,
 		"suppressImplicitAnyIndexErrors": true,
 		"allowJs": false,
-		"noEmitOnError": true
+		"noEmitOnError": false,
+		"types": []
 	},
 	"compileOnSave": false,
 	"filesGlob": [
