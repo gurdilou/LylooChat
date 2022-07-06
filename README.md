@@ -1,13 +1,10 @@
-# LylooChat (Developement in progress)
+# LylooChat (Archived)
 Help software for Leylyloo.
 
 ### Installation
 
 cd wwww && npx bower install
 
-### Road map
-
-Version à jour sur [Trello](https://trello.com/b/eH4jIzyx/lyloochat).
 
 ### Technologies utilisées
 
